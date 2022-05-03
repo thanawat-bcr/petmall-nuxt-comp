@@ -1,39 +1,97 @@
-/*
-** TailwindCSS Configuration File
-**
-** Docs: https://tailwindcss.com/docs/configuration
-** Default: https://github.com/tailwindcss/tailwindcss/blob/master/stubs/defaultConfig.stub.js
-*/
+function withOpacityValue(variable) {
+  return ({ opacityValue }) => {
+    if (opacityValue === undefined) {
+      return `rgb(${variable})`
+    }
+    return `rgb(${variable} / ${opacityValue})`
+  }
+}
+
 module.exports = {
   theme: {
-    extend: {
-      fontFamily: {
-        sans: 'Anantason, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"',
+    screens: {
+      sm: '320px',
+      md: '600px',
+      lg: '1024px',
+    },
+    container: {
+      center: true,
+      screens: {
+        'sm': '320px',
+        'md': '600px',
+        'lg': '1136px',
       },
-      colors: {
-        primary: {
-          100: '#ecf8ff',
-          200: '#c5d1e0',
-          300: '#a2b5cd',
-          400: '#5d7ea7',
-          500: '#174681',
-          600: '#153f74',
-          700: '#113561',
-          800: '#0e2a4d',
-          900: '#0b223f',
-        },
-        secondary: {
-          100: '#fef7e8',
-          200: '#feebc6',
-          300: '#fddfa4',
-          400: '#fbc65f',
-          500: '#f9ae1b',
-          600: '#e09d18',
-          700: '#bb8314',
-          800: '#956810',
-          900: '#7a550d',
-        },
+    },
+
+    colors: {
+      black: '#000000',
+      white: '#FFFFFF',
+      'white-opacity': withOpacityValue('255 255 255'),
+      'gray-opacity': withOpacityValue('18 17 39'),
+      gray: {
+        900: '#121127',
+        800: '#201F37',
+        700: '#383751',
+        600: '#4C4B63',
+        500: '#6C6B80',
+        400: '#9D9CAF',
+        300: '#D1D1DB',
+        200: '#E5E5EB',
+        100: '#F7F7F8',
+        50: '#F9F9FB',
       },
+      green: {
+        900: '#5BA093',
+        800: '#68AFAB',
+        700: '#7AB6AB',
+        600: '#7AC7B8',
+        500: '#A0D1C8',
+        400: '#E8F9F6',
+      },
+      orange: {
+        900: '#F67E5E',
+        800: '#FB8F72',
+        700: '#FFA58D',
+        600: '#FFD0C3',
+        500: '#FFEFEB',
+      },
+      success: {
+        900: '#05523C',
+        800: '#065F46',
+        700: '#047857',
+        600: '#059669',
+        500: '#10B981',
+        400: '#34D399',
+        300: '#6EE7B7',
+        200: '#A7F3D0',
+        100: '#D1FAE5',
+        50: '#E3F4EC',
+      },
+      warn: {
+        900: '#FC7125',
+        800: '#FF8127',
+        700: '#FF9129',
+        600: '#FF9E2A',
+        500: '#FFB051',
+        400: '#FFAC3D',
+        300: '#FFBC5D',
+        200: '#FFC187',
+        100: '#FFE7C7',
+        50: '#FFF4E6',
+      },
+      alert: {
+        900: '#991B1B',
+        800: '#B91C1C',
+        700: '#DC2626',
+        600: '#EF4444',
+        500: '#F87171',
+        400: '#FF8C8C',
+        300: '#FCA5A5',
+        200: '#FECACA',
+        100: '#FEE2E2',
+        50: '#FEF2F2',
+      },
+
     },
   },
   purge: {
