@@ -1,0 +1,43 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+body { font-family: 'Noto Sans Thai', sans-serif; }
+.en { font-family: 'Nunito', sans-serif; }
+
+// HEADING
+h1, h2, h3, h4, h5, h6 { font-weight: 700; }
+h1 { font-size: 44px; line-height: 60px; }
+h2 { font-size: 40px; line-height: 55px; }
+h3 { font-size: 32px; line-height: 44px; }
+h4 { font-size: 24px; line-height: 33px; }
+h5 { font-size: 20px; line-height: 27px; }
+h6 { font-size: 16px; line-height: 22px; }
+
+// BODY
+.text-xl { font-size: 16px; line-height: 22px; }
+.text-lg { font-size: 18px; line-height: 25px; }
+.text-md { font-size: 20px; line-height: 27px; }
+.text-sm { font-size: 14px; line-height: 19px; }
+.text-xs { font-size: 12px; line-height: 16px; }
+
+// CAPTION
+.caption {
+  font-size: 12px;
+  line-height: 18px;
+  &-md { font-weight: 400; }
+  &-lg { font-weight: 500; }
+}
+
+// BUTTON
+.button-sm { font-weight: 500; font-size: 12px; line-height: 18px; }
+.button-md { font-weight: 500; font-size: 14px; line-height: 21px; }
+.button-lg { font-weight: 500; font-size: 16px; line-height: 24px; }
+.button-xl { font-weight: 700; font-size: 16px; line-height: 24px; }
+
+// OVERLINE
+.overline {
+  font-weight: 600;
+  text-transform: uppercase;
+  &-lg { font-size: 14px; line-height: 21px; }
+  &-sm { font-size: 12px; line-height: 18px; }
+}
