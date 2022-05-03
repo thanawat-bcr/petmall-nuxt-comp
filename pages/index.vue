@@ -1,11 +1,15 @@
 <template lang="pug">
-.index.bg-primary-200.w-screen.h-screen
+.index.bg-gray-200.w-screen.h-screen
+  SoButton(type="main" size="lg") Hello
+  SoButton(type="main" size="md") Hello
+  SoButton(type="main" size="sm") Hello
+  SoButton(type="main") Hello
   //- Vee Validate Tester
   //- ValidationObserver
     ValidationProvider(rules="required|email" v-slot="{ errors }")
       input.bg-green-200(v-model="user.email" type="email" name="email" placeholder="email")
       span {{ errors[0] }}
-  CommonForm(@submit="submit")
+  //- CommonForm(@submit="submit")
     .form--group
       .form--row
         CommonInput(

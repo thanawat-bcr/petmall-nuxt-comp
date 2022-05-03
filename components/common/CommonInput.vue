@@ -1,5 +1,5 @@
 <template lang="pug">
-.common-input
+//- .common-input
   ValidationProvider(:rules="rules" v-slot="{ errors }")
     .common-input__text__container
       label.subtitle2.text-primary-700: slot Input Label
@@ -66,47 +66,47 @@ export default CommonInput;
 </script>
 
 <style lang="scss">
-.common-input {
-  &__text {
-    &__container {
-      @apply flex flex-col h-24;
-    }
-    &__field {
-      @apply my-1 h-10 w-full relative;
-    }
-    &__icon {
-      @apply absolute mx-4 opacity-70;
-      top: 50%;
-      transform: translateY(-50%);
-    }
-    &__input {
-      @apply h-full w-full bg-white rounded-lg outline-none text-black;
-    }
-  }
-  &__error {
-    &__container {
-      transform-origin: center top;
-      @apply text-red-500 inline-flex items-center self-start;
-    }
-  }
-  .error {
-    &-enter-active {
-      animation: error-in .3s;
-    }
-    &-leave-active {
-      animation: error-in .3s reverse;
-    }
-  }
-  @keyframes error-in {
-    0% {
-      transform: scale(0);
-    }
-    50% {
-      transform: scale(1.1);
-    }
-    100% {
-      transform: scale(1);
-    }
-  }
-}
+// .common-input {
+//   &__text {
+//     &__container {
+//       @apply flex flex-col h-24;
+//     }
+//     &__field {
+//       @apply my-1 h-10 w-full relative;
+//     }
+//     &__icon {
+//       @apply absolute mx-4 opacity-70;
+//       top: 50%;
+//       transform: translateY(-50%);
+//     }
+//     &__input {
+//       @apply h-full w-full bg-white rounded-lg outline-none text-black;
+//     }
+//   }
+//   &__error {
+//     &__container {
+//       transform-origin: center top;
+//       @apply text-red-500 inline-flex items-center self-start;
+//     }
+//   }
+//   .error {
+//     &-enter-active {
+//       animation: error-in .3s;
+//     }
+//     &-leave-active {
+//       animation: error-in .3s reverse;
+//     }
+//   }
+//   @keyframes error-in {
+//     0% {
+//       transform: scale(0);
+//     }
+//     50% {
+//       transform: scale(1.1);
+//     }
+//     100% {
+//       transform: scale(1);
+//     }
+//   }
+// }
 </style>
