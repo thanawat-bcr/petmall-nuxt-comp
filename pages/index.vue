@@ -16,7 +16,9 @@
     SoInput(
       v-model="user.email"
       placeholder="email"
-      rules="required|email"
+      rules="required"
+      type="password"
+      disabled
     )
     SoInput(
       v-model="user.email"
