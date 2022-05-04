@@ -1,6 +1,6 @@
 <template lang="pug">
 .main
-  h1 THIS IS MAIN LAYOUTs
+  HeaderMainNav
   Nuxt
 </template>
 

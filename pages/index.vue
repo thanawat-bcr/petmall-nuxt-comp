@@ -1,11 +1,12 @@
 <template lang="pug">
-.index.bg-green-900.w-screen.h-screen
+.index.w-screen.h-screen
 </template>
 
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api';
 
 const index = defineComponent({
+  layout: 'main',
   // setup() {},
 });
 
