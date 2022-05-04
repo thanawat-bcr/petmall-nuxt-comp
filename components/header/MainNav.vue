@@ -27,7 +27,9 @@ header
           .flex.gap-x-6
             .text-xs.text-gray-400(v-for="pet in pets" :key="pet") {{ pet }}
         .flex.flex-col.items-center.col-span-1
-          i.ph-shopping-cart-simple.text-2xl.text-gray-500
+          span.relative
+            .text-xs.font-bold.absolute.text-white.bg-orange-900.px-2.rounded-lg.left-4(v-if="cartCount > 0") {{ cartCount }}
+            i.ph-shopping-cart-simple.text-2xl.text-gray-500
           .text-sm.text-gray-500 รถเข็น
         //- .flex.flex-col.items-center.col-span-1
           i.ph-ticket.text-2xl.text-gray-500
@@ -42,10 +44,13 @@ const MainNav = defineComponent({
   setup() {
     const pets = reactive(['สุนัข','แมว','ปลาและสัตว์น้ำ','นก','เป็ด','ห่าน','กระต่าย','เม่น','ม้า','เต่า','หนู','กระรอก','หมู',]);
 
+    const cartCount = ref(0);
+
     const search = ref('');
 
     return {
       pets,
+      cartCount,
       search,
     };
   },
