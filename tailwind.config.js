@@ -2,8 +2,8 @@ module.exports = {
   theme: {
     screens: {
       sm: '320px',
-      md: '600px',
-      lg: '1024px',
+      md: '601px',
+      lg: '1152px',
     },
     container: {
       center: true,
