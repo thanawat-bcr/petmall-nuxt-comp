@@ -12,26 +12,30 @@
     ValidationProvider(rules="required|email" v-slot="{ errors }")
       input.bg-green-200(v-model="user.email" type="email" name="email" placeholder="email")
       span {{ errors[0] }}
-  .flex.flex-col.gap-y-4.p-4
+  .flex.flex-col.p-4
     SoInput(
       v-model="user.email"
       placeholder="email"
+      rules="required|email"
     )
     SoInput(
       v-model="user.email"
       placeholder="email"
       leading="smiley"
+      rules="required|email"
     )
     SoInput(
       v-model="user.email"
       placeholder="email"
       trailing="arrow-right"
+      rules="required|email"
     )
     SoInput(
       v-model="user.email"
       placeholder="email"
       leading="smiley"
       trailing="arrow-right"
+      rules="required|email"
     )
   //- CommonForm(@submit="submit")
     .form--group

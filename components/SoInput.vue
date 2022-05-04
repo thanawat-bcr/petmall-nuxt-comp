@@ -1,10 +1,14 @@
 <template lang="pug">
-label.so-input.w-full(:class="`${inputSize.container} ${inputColor}`")
-  ValidationProvider.w-full.flex.items-center(:rules="rules" v-slot="{ errors }")
+ValidationProvider.w-full.flex.items-center(:rules="rules" v-slot="{ errors }")
+  label.so-input.w-full.relative(
+    :class="`${inputSize.container} ${inputColor}`"
+    :style="`${errors.length > 0 ? 'border-color: #EF4444;' : ''}`"
+  )
     i.mr-2(v-if="leading" :class="`ph-${leading}`")
     input.w-full(
       :value="value"
       :placeholder="placeholder"
+      :style="`${errors.length > 0 ? 'color: #EF4444;' : ''}`"
       @mouseover="hoverHandler(true)"
       @mouseleave="hoverHandler(false)"
       @focus="focusHandler(true)"
@@ -12,10 +16,9 @@ label.so-input.w-full(:class="`${inputSize.container} ${inputColor}`")
       @input="$emit('input', $event.target.value)"
     )
     i.ml-2(v-if="trailing" :class="`ph-${trailing}`")
-    //- transition(name="error")
-      span.so-input__error__container(v-if="errors.length > 0")
-        soIcon.mx-1.w-4.h-4(src='/icons/circle-warning.svg')
-        span.subtitle3 {{ errors[0] }}
+    .w-full.flex.items-center.absolute(v-if="errors.length > 0" style="bottom: -22px;")
+      i.mr-1.text-alert-600(:class="'ph-warning'")
+      span.text-xs.text-alert-600 {{ errors[0] }}
 </template>
 
 <script lang="ts">
@@ -54,10 +57,10 @@ const SoInput = defineComponent({
     const hoverHandler = (state: boolean) => { hoverState.value = state; };
 
     const inputColor = computed(() => {
-      let inactive = 'text-gray-600 bg-gray-100 border border-solid border-white'
+      let inactive = 'text-gray-600 bg-gray-100 border border-solid'
       let hover = 'text-gray-600 border border-solid border-gray-opacity-48'
       let focus = 'text-gray-600 border border-solid border-green-800'
-      let error = 'text-alert-600 border border-solid border-green-600'
+
       if (focusState.value) return focus;
       if (hoverState.value) return hover;
       return inactive;
@@ -105,54 +108,11 @@ textarea:focus, input:focus{
   outline: none;
 }
 .so-input {
-  @apply flex items-center justify-start rounded-lg;
+  @apply flex items-center justify-start rounded-lg mb-8;
   transition: all 50ms ease-in-out;
 
   input {
     @apply placeholder-gray-opacity-40;
   }
 }
-// .so-input {
-//   &__text {
-//     &__container {
-//       @apply flex flex-col h-24;
-//     }
-//     &__field {
-//       @apply my-1 h-10 w-full relative;
-//     }
-//     &__icon {
-//       @apply absolute mx-4 opacity-70;
-//       top: 50%;
-//       transform: translateY(-50%);
-//     }
-//     &__input {
-//       @apply h-full w-full bg-white rounded-lg outline-none text-black;
-//     }
-//   }
-//   &__error {
-//     &__container {
-//       transform-origin: center top;
-//       @apply text-red-500 inline-flex items-center self-start;
-//     }
-//   }
-//   .error {
-//     &-enter-active {
-//       animation: error-in .3s;
-//     }
-//     &-leave-active {
-//       animation: error-in .3s reverse;
-//     }
-//   }
-//   @keyframes error-in {
-//     0% {
-//       transform: scale(0);
-//     }
-//     50% {
-//       transform: scale(1.1);
-//     }
-//     100% {
-//       transform: scale(1);
-//     }
-//   }
-// }
 </style>
