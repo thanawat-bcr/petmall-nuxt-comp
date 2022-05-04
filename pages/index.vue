@@ -1,8 +1,12 @@
 <template lang="pug">
-.index.bg-gray-200.w-screen.h-screen
+.index.bg-white.w-screen.h-screen
   //- .flex.items-center.justify-center.w-8.h-8.bg-alert-900
     i.ph-smiley.text-xl.text-white
-  SoButton(type="main" size="md" trailing="smiley") Hello
+  .flex.gap-x-4
+    SoButton(type="main" size="md" leading="plus" trailing="arrow-right") Button
+    SoButton(type="soft" size="md" leading="plus" trailing="arrow-right" block) Button
+    SoButton(type="outline" size="md" leading="plus" trailing="arrow-right") Button
+    SoButton(type="text" size="md" leading="plus" trailing="arrow-right") Button
   //- Vee Validate Tester
   //- ValidationObserver
     ValidationProvider(rules="required|email" v-slot="{ errors }")
