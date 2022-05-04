@@ -1,18 +1,9 @@
-function withOpacityValue(variable) {
-  return ({ opacityValue }) => {
-    if (opacityValue === undefined) {
-      return `rgb(${variable})`
-    }
-    return `rgb(${variable} / ${opacityValue})`
-  }
-}
-
 module.exports = {
   theme: {
     screens: {
       sm: '320px',
-      md: '600px',
-      lg: '1024px',
+      md: '601px',
+      lg: '1152px',
     },
     container: {
       center: true,
@@ -26,8 +17,6 @@ module.exports = {
     colors: {
       black: '#000000',
       white: '#FFFFFF',
-      'white-opacity': withOpacityValue('255 255 255'),
-      'gray-opacity': withOpacityValue('18 17 39'),
       gray: {
         900: '#121127',
         800: '#201F37',
@@ -39,6 +28,18 @@ module.exports = {
         200: '#E5E5EB',
         100: '#F7F7F8',
         50: '#F9F9FB',
+      },
+      'gray-opacity': {
+        72: 'rgba(18, 17, 39, 0.72)',
+        56: 'rgba(18, 17, 39, 0.56)',
+        48: 'rgba(18, 17, 39, 0.48)',
+        40: 'rgba(18, 17, 39, 0.40)',
+        32: 'rgba(18, 17, 39, 0.32)',
+        24: 'rgba(18, 17, 39, 0.24)',
+        20: 'rgba(18, 17, 39, 0.20)',
+        16: 'rgba(18, 17, 39, 0.16)',
+        12: 'rgba(164, 163, 185, 0.12)',
+        8: 'rgba(81, 81, 88, 0.08)',
       },
       green: {
         900: '#5BA093',
@@ -91,9 +92,37 @@ module.exports = {
         100: '#FEE2E2',
         50: '#FEF2F2',
       },
-
     },
+
+    extend: {
+      opacity: {
+        '72': '0.72',
+        '56': '0.56',
+        '48': '0.48',
+        '40': '0.40',
+        '32': '0.32',
+        '24': '0.24',
+        '20': '0.20',
+        '16': '0.16',
+        '12': '0.12',
+        '8': '0.08',
+        '4': '0.04',
+      }
+    }
   },
+
+  variants: {
+    extend: {
+      backgroundColor: ['active', 'disabled'],
+      backgroundOpacity: ['active', 'disabled'],
+      textColor: ['active', 'disabled'],
+      textOpacity: ['active', 'disabled'],
+      borderColor: ['active', 'disabled'],
+      borderOpacity: ['active', 'disabled'],
+      opacity: ['active', 'disabled'],
+    }
+  },
+
   purge: {
     // Learn more on https://tailwindcss.com/docs/controlling-file-size/#removing-unused-css
     enabled: process.env.NODE_ENV === 'production',

@@ -1,20 +1,19 @@
 <template lang="pug">
-.index
-  section
-    img.w-full.h-auto(src="/homepage/slide-01.png")
+.main
+  HeaderMainNav
+  Nuxt
 </template>
 
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api';
 
-const index = defineComponent({
-  layout: 'main',
+const main = defineComponent({
   // setup() {},
 });
 
-export default index;
+export default main;
 </script>
 
 <style lang="scss">
-// .index {}
+// .main {}
 </style>
