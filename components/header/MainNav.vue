@@ -16,15 +16,16 @@ header
         SoButton(size="sm") ลงชื่อเข้าใช้
 
       //- Main Nav
-      .flex.gap-x-4.items-center
+      .grid-container.items-center
         img(src="/logo/logo-color.svg")
-        .flex.flex-col.flex-1.gap-y-3
+        .flex.flex-col.gap-y-3
           SoInput(
+            v-model="search"
             leading="magnifying-glass"
             placeholder="อาหารสัตว์เลี้ยง, อุปกรณ์สำหรับสัตว์เลี้ยง หรือ อื่นๆ"
           )
           .flex.gap-x-6
-            .text-xs.text-gray-400(v-for="route in routes" :key="route") {{ route }}
+            .text-xs.text-gray-400(v-for="pet in pets" :key="pet") {{ pet }}
         .flex.flex-col.items-center
           i.ph-shopping-cart-simple.text-2xl.text-gray-500
           .text-sm.text-gray-500 รถเข็น
@@ -35,14 +36,17 @@ header
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive } from '@nuxtjs/composition-api';
+import { defineComponent, reactive, ref } from '@nuxtjs/composition-api';
 
 const MainNav = defineComponent({
   setup() {
-    const routes = reactive(['สุนัข','แมว','ปลาและสัตว์น้ำ','นก','เป็ด','ห่าน','กระต่าย','เม่น','ม้า','เต่า','หนู','กระรอก','หมู',]);
+    const pets = reactive(['สุนัข','แมว','ปลาและสัตว์น้ำ','นก','เป็ด','ห่าน','กระต่าย','เม่น','ม้า','เต่า','หนู','กระรอก','หมู',]);
+
+    const search = ref('');
 
     return {
-      routes,
+      pets,
+      search,
     };
   },
 });
@@ -50,8 +54,13 @@ const MainNav = defineComponent({
 export default MainNav;
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .main-nav {
   height: 184px;
+  .grid-container {
+    @apply grid;
+    grid-template-columns: 176px 1fr 80px 80px;
+    column-gap: 1rem;
+  }
 }
 </style>

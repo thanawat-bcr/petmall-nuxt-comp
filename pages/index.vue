@@ -1,5 +1,7 @@
 <template lang="pug">
-.index.w-screen.h-screen
+.index
+  section
+    img.w-full.h-auto(src="/homepage/slide-01.png")
 </template>
 
 <script lang="ts">
