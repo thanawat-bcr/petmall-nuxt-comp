@@ -125,7 +125,7 @@ textarea:focus, input:focus{
 }
 .so-input {
   @apply flex items-center justify-start rounded-lg;
-  transition: all 50ms ease-in-out;
+  transition: all 150ms ease-in-out;
 
   input {
     @apply placeholder-gray-opacity-40;
