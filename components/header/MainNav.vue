@@ -18,7 +18,7 @@ header
       //- Main Nav
       .grid-container.items-center
         img.col-span-2(src="/logo/logo-color.svg")
-        .flex.flex-col.gap-y-3.col-span-8
+        .flex.flex-col.gap-y-3.col-span-9
           SoInput(
             v-model="search"
             leading="magnifying-glass"
@@ -29,7 +29,7 @@ header
         .flex.flex-col.items-center.col-span-1
           i.ph-shopping-cart-simple.text-2xl.text-gray-500
           .text-sm.text-gray-500 รถเข็น
-        .flex.flex-col.items-center.col-span-1
+        //- .flex.flex-col.items-center.col-span-1
           i.ph-ticket.text-2xl.text-gray-500
           .text-sm.text-gray-500 ส่วนลด
 
