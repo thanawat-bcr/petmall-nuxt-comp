@@ -1,6 +1,8 @@
 <template lang="pug">
-button.so-button.en(:class="`${buttonColor} ${buttonSize}`")
-  slot
+button.so-button.en(:class="`${buttonColor} ${buttonSize.button}`")
+  i(v-if="leading" :class="`ph-${leading} ${buttonSize.icon}`")
+  slot(:class="`${buttonSize.text}`")
+  i(v-if="trailing" :class="`ph-${trailing} ${buttonSize.icon}`")
 </template>
 
 <script lang="ts">
@@ -13,7 +15,16 @@ const SoButton = defineComponent({
       default: 'md',
     },
     type: {
+      type: String,
       default: 'main',
+    },
+    leading: {
+      type: String,
+      default: '',
+    },
+    trailing: {
+      type: String,
+      default: '',
     },
   },
   setup(props) {
@@ -24,9 +35,21 @@ const SoButton = defineComponent({
     });
 
     const buttonSize = computed(() => {
-      if (props.size === 'lg') return 'button-lg px-8 h-12';
-      if (props.size === 'md') return 'button-sm px-6 h-10';
-      return 'button-sm px-5 h-9';
+      if (props.size === 'lg') return {
+        button: 'px-8 h-12 gap-x-2',
+        text: 'button-lg',
+        icon: 'text-xl',
+      };
+      if (props.size === 'md') return {
+        button: 'px-6 h-10 gap-x-2',
+        text: 'button-sm',
+        icon: 'text-xl',
+      };
+      return {
+        button: 'px-5 h-9 gap-x-1',
+        text: 'button-sm',
+        icon: 'text-md',
+      };
     })
 
     return {
@@ -41,6 +64,6 @@ export default SoButton;
 
 <style lang="scss">
 .so-button {
-  @apply rounded-lg;
+  @apply flex items-center justify-center rounded-lg;
 }
 </style>

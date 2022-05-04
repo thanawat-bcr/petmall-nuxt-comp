@@ -2,10 +2,7 @@
 .index.bg-gray-200.w-screen.h-screen
   //- .flex.items-center.justify-center.w-8.h-8.bg-alert-900
     i.ph-smiley.text-xl.text-white
-  SoButton(type="main" size="lg") Hello
-  SoButton(type="main" size="md") Hello
-  SoButton(type="main" size="sm") Hello
-  SoButton(type="main") Hello
+  SoButton(type="main" size="md" trailing="smiley") Hello
   //- Vee Validate Tester
   //- ValidationObserver
     ValidationProvider(rules="required|email" v-slot="{ errors }")
