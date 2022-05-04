@@ -29,6 +29,18 @@ module.exports = {
         100: '#F7F7F8',
         50: '#F9F9FB',
       },
+      'gray-opacity': {
+        72: 'rgba(18, 17, 39, 0.72)',
+        56: 'rgba(18, 17, 39, 0.56)',
+        48: 'rgba(18, 17, 39, 0.48)',
+        40: 'rgba(18, 17, 39, 0.40)',
+        32: 'rgba(18, 17, 39, 0.32)',
+        24: 'rgba(18, 17, 39, 0.24)',
+        20: 'rgba(18, 17, 39, 0.20)',
+        16: 'rgba(18, 17, 39, 0.16)',
+        12: 'rgba(164, 163, 185, 0.12)',
+        8: 'rgba(81, 81, 88, 0.08)',
+      },
       green: {
         900: '#5BA093',
         800: '#68AFAB',
@@ -93,10 +105,24 @@ module.exports = {
         '20': '0.20',
         '16': '0.16',
         '12': '0.12',
-        '8': '0.8',
+        '8': '0.08',
+        '4': '0.04',
       }
     }
   },
+
+  variants: {
+    extend: {
+      backgroundColor: ['active', 'disabled'],
+      backgroundOpacity: ['active', 'disabled'],
+      textColor: ['active', 'disabled'],
+      textOpacity: ['active', 'disabled'],
+      borderColor: ['active', 'disabled'],
+      borderOpacity: ['active', 'disabled'],
+      opacity: ['active', 'disabled'],
+    }
+  },
+
   purge: {
     // Learn more on https://tailwindcss.com/docs/controlling-file-size/#removing-unused-css
     enabled: process.env.NODE_ENV === 'production',
