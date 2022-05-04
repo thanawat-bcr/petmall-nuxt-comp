@@ -1,5 +1,5 @@
 <template lang="pug">
-button.so-button.en(:class="`${buttonColor} ${buttonSize.button} ${!disabled || 'pointer-events-none'} ${!block || 'w-full'}`" :disabled="disabled")
+button.so-button.en.w-min(:class="`${buttonColor} ${buttonSize.button} ${!disabled || 'pointer-events-none'} ${!block || 'w-full'}`" :disabled="disabled")
   i(v-if="leading" :class="`ph-${leading} ${buttonSize.icon}`")
   slot(:class="`${buttonSize.text}`")
   i(v-if="trailing" :class="`ph-${trailing} ${buttonSize.icon}`")

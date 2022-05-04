@@ -1,5 +1,5 @@
 <template lang="pug">
-.common-form
+.so-form
   ValidationObserver(v-slot="{ invalid, handleSubmit }")
     form(@submit.prevent="handleSubmit(onSubmit)")
       slot
@@ -8,7 +8,7 @@
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api';
 
-const CommonForm = defineComponent({
+const SoForm = defineComponent({
   setup(props, ctx) {
     const onSubmit = () => { ctx.emit('submit'); };
 
@@ -18,16 +18,16 @@ const CommonForm = defineComponent({
   },
 });
 
-export default CommonForm;
+export default SoForm;
 </script>
 
 <style lang="scss">
-.common-form {
+.so-form {
   .form--group {
     @apply flex flex-col my-2;
     .form--row {
       @apply flex my-1;
-      .common-input {
+      .so-input {
         @apply flex-1 mx-2;
       }
     }
