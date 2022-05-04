@@ -17,8 +17,8 @@ header
 
       //- Main Nav
       .grid-container.items-center
-        img(src="/logo/logo-color.svg")
-        .flex.flex-col.gap-y-3
+        img.col-span-2(src="/logo/logo-color.svg")
+        .flex.flex-col.gap-y-3.col-span-8
           SoInput(
             v-model="search"
             leading="magnifying-glass"
@@ -26,10 +26,10 @@ header
           )
           .flex.gap-x-6
             .text-xs.text-gray-400(v-for="pet in pets" :key="pet") {{ pet }}
-        .flex.flex-col.items-center
+        .flex.flex-col.items-center.col-span-1
           i.ph-shopping-cart-simple.text-2xl.text-gray-500
           .text-sm.text-gray-500 รถเข็น
-        .flex.flex-col.items-center
+        .flex.flex-col.items-center.col-span-1
           i.ph-ticket.text-2xl.text-gray-500
           .text-sm.text-gray-500 ส่วนลด
 
@@ -57,10 +57,5 @@ export default MainNav;
 <style lang="scss" scoped>
 .main-nav {
   height: 184px;
-  .grid-container {
-    @apply grid;
-    grid-template-columns: 176px 1fr 80px 80px;
-    column-gap: 1rem;
-  }
 }
 </style>

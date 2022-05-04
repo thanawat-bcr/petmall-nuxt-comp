@@ -25,6 +25,7 @@ export default {
   css: [
     "@/assets/css/typography.scss",
     "@/assets/css/style.scss",
+    "@/assets/css/grid.scss",
   ],
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
