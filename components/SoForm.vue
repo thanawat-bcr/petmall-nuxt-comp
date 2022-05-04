@@ -24,11 +24,11 @@ export default SoForm;
 <style lang="scss">
 .so-form {
   .form--group {
-    @apply flex flex-col my-2;
+    @apply flex flex-col;
     .form--row {
-      @apply flex my-1;
+      @apply flex my-1 gap-x-2;
       .so-input {
-        @apply flex-1 mx-2;
+        @apply flex-1;
       }
     }
   }

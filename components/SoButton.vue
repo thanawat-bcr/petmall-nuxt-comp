@@ -1,5 +1,10 @@
 <template lang="pug">
-button.so-button.en.w-min(:class="`${buttonColor} ${buttonSize.button} ${!disabled || 'pointer-events-none'} ${!block || 'w-full'}`" :disabled="disabled")
+button.so-button.en(
+  @click="$emit('click')"
+  :class="`${buttonColor} ${buttonSize.button} ${!disabled || 'pointer-events-none'} ${block ? 'w-full' : 'w-min'}`"
+  :disabled="disabled"
+  :type="type"
+)
   i(v-if="leading" :class="`ph-${leading} ${buttonSize.icon}`")
   slot(:class="`${buttonSize.text}`")
   i(v-if="trailing" :class="`ph-${trailing} ${buttonSize.icon}`")
@@ -14,7 +19,7 @@ const SoButton = defineComponent({
       type: String,
       default: 'md',
     },
-    type: {
+    mode: {
       type: String,
       default: 'main',
     },
@@ -34,12 +39,16 @@ const SoButton = defineComponent({
       type: Boolean,
       default: false,
     },
+    type: {
+      type: String,
+      default: 'button',
+    },
   },
   setup(props) {
     const buttonColor = computed(() => {
-      if (props.type === 'main') return 'bg-green-800 hover:bg-green-700 active:bg-green-900 disabled:opacity-50 text-white';
-      if (props.type === 'soft') return 'bg-gray-opacity-12 text-gray-500 hover:bg-green-400 hover:text-green-800 active:bg-white border-white active:border-green-800 border border-solid disabled:bg-gray-100 disabled:text-green-800 disabled:text-opacity-50';
-      if (props.type === 'outline') return 'bg-transparent text-gray-500 border-gray-900 border-opacity-12 border border-solid hover:bg-gray-900 hover:bg-opacity-4 hover:border-opacity-12 hover:text-gray-900 active:text-gray-800 disabled:bg-white disabled:text-gray-900 disabled:text-opacity-32';
+      if (props.mode === 'main') return 'bg-green-800 hover:bg-green-700 active:bg-green-900 disabled:opacity-50 text-white';
+      if (props.mode === 'soft') return 'bg-gray-opacity-12 text-gray-500 hover:bg-green-400 hover:text-green-800 active:bg-white border-white active:border-green-800 border border-solid disabled:bg-gray-100 disabled:text-green-800 disabled:text-opacity-50';
+      if (props.mode === 'outline') return 'bg-transparent text-gray-500 border-gray-900 border-opacity-12 border border-solid hover:bg-gray-900 hover:bg-opacity-4 hover:border-opacity-12 hover:text-gray-900 active:text-gray-800 disabled:bg-white disabled:text-gray-900 disabled:text-opacity-32';
       return 'bg-transparent text-gray-500 hover:bg-gray-900 hover:bg-opacity-4 hover:text-gray-900 border-white border border-solid active:border-gray-900 active:border-opacity-12 active:text-gray-800 disabled:bg-white disabled:text-gray-900 disabled:text-opacity-32';
     });
 

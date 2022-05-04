@@ -124,7 +124,7 @@ textarea:focus, input:focus{
   outline: none;
 }
 .so-input {
-  @apply flex items-center justify-start rounded-lg mb-8;
+  @apply flex items-center justify-start rounded-lg mb-6;
   transition: all 50ms ease-in-out;
 
   input {
