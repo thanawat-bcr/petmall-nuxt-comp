@@ -8,7 +8,8 @@
 import { defineComponent } from '@nuxtjs/composition-api';
 
 const index = defineComponent({
-  layout: 'main',
+  // layout: 'primary',
+  layout: 'secondary',
   // setup() {},
 });
 
