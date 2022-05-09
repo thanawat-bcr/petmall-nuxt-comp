@@ -1,5 +1,5 @@
 <template lang="pug">
-.index.bg-gray-800
+.index
   section
     img.w-full.h-auto(src="/homepage/slide-01.png")
   section.container.my-8.flex.flex-col.gap-y-5
