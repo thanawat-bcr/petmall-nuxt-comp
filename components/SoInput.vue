@@ -69,10 +69,10 @@ const SoInput = defineComponent({
     });
 
     const inputColor = computed(() => {
-      let inactive = 'text-gray-600 bg-gray-opacity-12 border border-solid border-white'
-      let hover = 'text-gray-600 border border-solid border-gray-opacity-48'
-      let focus = 'text-gray-600 border border-solid border-green-800'
-      let disabled = 'text-gray-opacity-24 bg-gray-opacity-8'
+      let inactive = 'text-gray-600 bg-gray-100 border border-solid border-white'
+      let hover = 'text-gray-600 bg-gray-100 border border-solid border-gray-opacity-48'
+      let focus = 'text-gray-600 bg-gray-100 border border-solid border-green-800'
+      let disabled = 'text-gray-opacity-24 bg-gray-100'
 
       if (props.disabled) return disabled;
       if (focusState.value) return focus;
@@ -125,7 +125,7 @@ textarea:focus, input:focus{
 }
 .so-input {
   @apply flex items-center justify-start rounded-lg;
-  transition: all 50ms ease-in-out;
+  transition: all 150ms ease-in-out;
 
   input {
     @apply placeholder-gray-opacity-40;

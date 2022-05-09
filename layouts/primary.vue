@@ -1,19 +1,19 @@
 <template lang="pug">
-.main
-  HeaderMainNav
+.primary
+  HeaderPrimaryNav
   Nuxt
 </template>
 
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api';
 
-const main = defineComponent({
+const primary = defineComponent({
   // setup() {},
 });
 
-export default main;
+export default primary;
 </script>
 
 <style lang="scss">
-// .main {}
+// .primary {}
 </style>
