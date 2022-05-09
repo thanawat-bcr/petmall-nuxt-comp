@@ -59,8 +59,8 @@ const PrimaryNav = defineComponent({
 
     const navbarColor = computed(() => {
       const white = {
-        subtext: 'text-gray-400 hover:text-gray-600',
-        text: 'text-gray-500 hover:text-gray-600',
+        subtext: 'text-gray-400',
+        text: 'text-gray-500',
         bg: 'bg-white',
         logo: '/logo/logo-color.svg',
       }
