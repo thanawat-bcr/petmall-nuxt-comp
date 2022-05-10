@@ -20,6 +20,7 @@
       ProductItem.col-span-2(title="อาหารสุนัข Woofs ขนาด 100g สำหรับพันธุ์เล็ก" img="/product/item/01.png" :price="300" :amount="10" :rank="1" :discount="75")
       ProductItem.col-span-2(title="อาหารสุนัข Woofs ขนาด 100g สำหรับพันธุ์เล็ก" img="/product/item/09.png" :price="300" :amount="10" :rank="2" :discount="20")
       ProductItem.col-span-2(title="อาหารสุนัข Woofs ขนาด 100g สำหรับพันธุ์เล็ก" img="/product/item/10.png" :price="300" :amount="10" :rank="3")
+  AdvertisementSoPet
 </template>
 
 <script lang="ts">
