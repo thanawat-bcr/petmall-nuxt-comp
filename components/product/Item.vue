@@ -11,6 +11,7 @@
     .item-discount.absolute.right-0.bg-warn-300.flex.flex-col.items-center.justify-center.pt-2.pb-4.px-1.mr-3(v-if="discount > 0")
       .text-xs.text-gray-50 ลด
       .en.text-xs.font-bold.text-warn-900 {{ discount }}%
+    img.item-image.object-contain.p-3(:src="img")
 
   .item-detail.flex.flex-col.gap-y-2
     .text-sm.text-gray-500 {{ title }}
@@ -27,6 +28,7 @@ const Item = defineComponent({
     title: { type: String },
     price: { type: String },
     amount: { type: String },
+    img: { type: String },
     
     // Optional Decorator
     tag: { type: Boolean, default: false },
