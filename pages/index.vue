@@ -1,5 +1,5 @@
 <template lang="pug">
-.index
+.index.pb-8
   section
     img.w-full.h-auto(src="/homepage/slide-01.png")
   section.container.my-8.flex.flex-col.gap-y-5
@@ -20,7 +20,17 @@
       ProductItem.col-span-2(title="อาหารสุนัข Woofs ขนาด 100g สำหรับพันธุ์เล็ก" img="/product/item/01.png" :price="300" :amount="10" :rank="1" :discount="75")
       ProductItem.col-span-2(title="อาหารสุนัข Woofs ขนาด 100g สำหรับพันธุ์เล็ก" img="/product/item/09.png" :price="300" :amount="10" :rank="2" :discount="20")
       ProductItem.col-span-2(title="อาหารสุนัข Woofs ขนาด 100g สำหรับพันธุ์เล็ก" img="/product/item/10.png" :price="300" :amount="10" :rank="3")
-  AdvertisementSoPet
+  AdvertisementStrength
+  section.container.my-8.flex.flex-col.gap-y-5
+    ProductHeader(showAll) สินค้ายอดฮิตประจำสัปดาห์
+    .grid-container
+      ProductItem.col-span-2(title="อาหารสุนัข Woofs ขนาด 100g สำหรับพันธุ์เล็ก" img="/product/item/01.png" :price="300" :amount="10")
+      ProductItem.col-span-2(title="อาหารสุนัข Woofs ขนาด 100g สำหรับพันธุ์เล็ก" img="/product/item/09.png" :price="300" :amount="10")
+      ProductItem.col-span-2(title="อาหารสุนัข Woofs ขนาด 100g สำหรับพันธุ์เล็ก" img="/product/item/10.png" :price="300" :amount="10")
+      ProductItem.col-span-2(title="อาหารสุนัข Woofs ขนาด 100g สำหรับพันธุ์เล็ก" img="/product/item/01.png" :price="300" :amount="10")
+      ProductItem.col-span-2(title="อาหารสุนัข Woofs ขนาด 100g สำหรับพันธุ์เล็ก" img="/product/item/09.png" :price="300" :amount="10")
+      ProductItem.col-span-2(title="อาหารสุนัข Woofs ขนาด 100g สำหรับพันธุ์เล็ก" img="/product/item/10.png" :price="300" :amount="10")
+  AdvertisementBanner
 </template>
 
 <script lang="ts">

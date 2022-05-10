@@ -23,11 +23,11 @@ section.so-pet.container.py-12.bg-gray-opacity-12
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api';
 
-const SoPet = defineComponent({
+const Strength = defineComponent({
   // setup() {},
 });
 
-export default SoPet;
+export default Strength;
 </script>
 
 <style lang="scss" scoped>
