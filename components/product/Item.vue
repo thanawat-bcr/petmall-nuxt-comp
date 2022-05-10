@@ -26,8 +26,8 @@ import { defineComponent } from '@nuxtjs/composition-api';
 const Item = defineComponent({
   props: {
     title: { type: String },
-    price: { type: String },
-    amount: { type: String },
+    price: { type: Number },
+    amount: { type: Number },
     img: { type: String },
     
     // Optional Decorator
