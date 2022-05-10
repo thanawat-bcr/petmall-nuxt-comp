@@ -1,6 +1,6 @@
 <template lang="pug">
 header
-  nav.primary-nav.w-screen.flex.items-center.shadow-01(:class="navbarColor.bg")
+  nav.primary-nav.flex.items-center.shadow-01(:class="navbarColor.bg")
     .container.flex.flex-col.gap-y-4
       //- Top Nav
       .flex.gap-x-8.justify-end(:class="navbarColor.text")
