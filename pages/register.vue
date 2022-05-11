@@ -1,10 +1,46 @@
 <template lang="pug">
 .register
-  
+  .register-bg.pt-20(style="background-image: url('/registration/bg.png');")
+    .container
+      .grid-container
+        .col-span-3
+        .col-span-6.flex.flex-col.bg-white.rounded-lg.px-24.py-8
+          h4.text-gray-500 ลงชื่อเข้าใช้
+          .text-sm.text-gray-500 สร้างบัญชี Petmall ของคุณเลยตอนนี้
+          SoForm.mt-6(@submit="submit")
+            .form--group
+              .form--row: .overline-lg.text-gray-500 อีเมล
+              .form--row 
+                SoInput(
+                  v-model="user.email"
+                  type="email"
+                  rules="required|email"
+                  placeholder="username@mail.com"
+                )
+              .form--row: .overline-lg.text-gray-500 รหัสผ่าน
+              .form--row 
+                SoInput(
+                  v-model="user.password"
+                  type="password"
+                  rules="required"
+                  placeholder="******"
+                )
+              .form--row: SoButton(block size="lg" type="submit") ถัดไป
+          .flex.items-center.my-4
+            .line.flex-1.h-px.bg-gray-200
+            .text-sm.text-gray-400.px-4 หรือ
+            .line.flex-1.h-px.bg-gray-200
+          .flex
+            SoButton(mode="outline" block size="lg" leading="google") Google
+          .flex.mt-4.items-center.justify-center
+            .text-sm.text-gray-400 หากคุณมีบัญชีผู้ใช้แล้ว คุณสามารถ 
+            .text-sm.text-orange-900.ml-4 เข้าสู่ระบบ 
+
+        .col-span-3
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@vue/composition-api';
+import { defineComponent, reactive } from '@vue/composition-api';
 
 const register = defineComponent({
   layout: 'secondary',
@@ -16,13 +52,27 @@ const register = defineComponent({
       searchbar: false,
       color: false,
     });
-  }
-  // setup() {},
+  },
+  setup() {
+    const user = reactive({
+      email: '',
+      password: '',
+    });
+
+    return {
+      user,
+    }
+  },
 });
 
 export default register;
 </script>
 
 <style lang="scss">
-// .register {}
+.register {
+  &-bg {
+    height: 1000px;
+    @apply bg-contain bg-bottom;
+  }
+}
 </style>
