@@ -34,13 +34,13 @@
             SoButton(mode="outline" block size="lg" leading="google") Google
           .flex.mt-4.items-center.justify-center
             .text-sm.text-gray-400 หากคุณมีบัญชีผู้ใช้แล้ว คุณสามารถ 
-            .text-sm.text-orange-900.ml-4 เข้าสู่ระบบ 
+            NuxtLink(to="/login"): .text-sm.text-orange-900.ml-2.cursor-pointer(class="hover:underline") เข้าสู่ระบบ 
 
         .col-span-3
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive } from '@vue/composition-api';
+import { defineComponent, reactive } from '@nuxtjs/composition-api';
 
 const register = defineComponent({
   layout: 'secondary',
