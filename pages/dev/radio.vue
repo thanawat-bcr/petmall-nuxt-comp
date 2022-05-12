@@ -40,9 +40,7 @@ const radio = defineComponent({
       { value: 'Value: 4', name: 'Choice 4' },
     ]);
 
-    const selectHandler = (index: any) => { selectedIndex.value = index; };
-
-    return { selectedIndex, selectHandler, options };
+    return { selectedIndex, options };
   },
 });
 
