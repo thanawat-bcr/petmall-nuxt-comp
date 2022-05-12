@@ -10,7 +10,7 @@
 import { defineComponent } from '@nuxtjs/composition-api';
 
 const button = defineComponent({
-  layout: 'main',
+  layout: 'primary',
   // setup() {},
 });
 

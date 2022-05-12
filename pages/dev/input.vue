@@ -24,7 +24,7 @@
 import { defineComponent, reactive } from '@nuxtjs/composition-api';
 
 const input = defineComponent({
-  layout: 'main',
+  layout: 'primary',
   setup() {
     const user = reactive({
       email: '',
