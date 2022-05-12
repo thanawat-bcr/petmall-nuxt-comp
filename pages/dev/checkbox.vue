@@ -3,22 +3,22 @@
   .container
     .flex.flex-col.gap-y-2
       SoCheckbox(
-        v-for="ch in checkboxes"
-        :key="ch.value"
-        v-model="ch.selected"
-      ) {{ ch.name }}
+        v-for="op in options"
+        :key="op.value"
+        v-model="op.selected"
+      ) {{ op.name }}
 
     .my-8 
 
     .text-alert-700.my-2(
-      v-for="ch in checkboxes"
-    ) {{ ch }}
+      v-for="op in options"
+    ) {{ op }}
 
     .my-8 
 
     .text-green-700.my-2(
       v-for="sl in selected"
-    ) {{ sl.value }}
+    ) {{ sl }}
 </template>
 
 <script lang="ts">
@@ -27,12 +27,12 @@ import { computed, defineComponent, reactive } from '@nuxtjs/composition-api';
 const checkbox = defineComponent({
   layout: 'primary',
   setup() {
-    const selected = computed(() => checkboxes.filter(ch => ch.selected));
+    const selected = computed(() => options.filter(op => op.selected));
     
-    // USE VALUE -> return
-    // USE NAME -> LABEL
-    // USE SELECTED -> TOGGLE SELECT
-    const checkboxes = reactive([
+    // VALUE -> return
+    // NAME -> LABEL [OPTIONAL]
+    // SELECTED
+    const options = reactive([
       { value: 0, name: 'Choice 0', selected: false },
       { value: 1, name: 'Choice 1', selected: true },
       { value: 2, name: 'Choice 2', selected: false },
@@ -40,9 +40,7 @@ const checkbox = defineComponent({
       { value: 4, name: 'Choice 4', selected: false },
     ]);
 
-    const selectHandler = (value: any) => { console.log(value); };
-
-    return { selected, checkboxes, selectHandler };
+    return { selected, options };
   },
 });
 

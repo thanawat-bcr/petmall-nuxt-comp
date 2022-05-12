@@ -2,7 +2,6 @@
 label.so-checkbox.inline-flex.items-center.gap-x-2
   input.hidden(
     type="checkbox"
-    :checked="value"
     @input="$emit('input', !value)"
   )
   .w-5.h-5.bg-white.border-gray-200.border.border-solid.rounded-sm(v-if="!value")
@@ -16,9 +15,7 @@ import { defineComponent } from '@nuxtjs/composition-api';
 
 const SoCheckbox = defineComponent({
   props: {
-    value: {
-      type: Boolean,
-    },
+    value: { type: Boolean },
   },
 });
 
