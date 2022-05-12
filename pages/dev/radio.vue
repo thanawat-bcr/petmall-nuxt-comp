@@ -6,8 +6,8 @@
         v-for="(op, index) in options"
         :key="op.value"
         v-model="index"
-        :selected="index === selectedIndex"
-        @select="(index) => selectedIndex = index"
+        :selected="index === selected"
+        @select="(index) => selected = index"
       ) {{ op.name }}
 
     .my-8 
@@ -18,7 +18,7 @@
 
     .my-8 
 
-    .text-green-700.my-2 {{ options[selectedIndex] }}
+    .text-green-700.my-2 {{ options[selected] }}
   
 </template>
 
@@ -28,7 +28,8 @@ import { defineComponent, reactive, ref } from '@nuxtjs/composition-api';
 const radio = defineComponent({
   layout: 'primary',
   setup() {
-    const selectedIndex = ref(0);
+    // SELECTED -> INDEX
+    const selected = ref(0);
     
     // VALUE -> return
     // NAME -> LABEL [OPTIONAL]
@@ -40,7 +41,7 @@ const radio = defineComponent({
       { value: 'Value: 4', name: 'Choice 4' },
     ]);
 
-    return { selectedIndex, options };
+    return { selected, options };
   },
 });
 

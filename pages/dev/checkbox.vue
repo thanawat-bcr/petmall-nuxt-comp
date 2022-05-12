@@ -27,11 +27,12 @@ import { computed, defineComponent, reactive } from '@nuxtjs/composition-api';
 const checkbox = defineComponent({
   layout: 'primary',
   setup() {
+    // SELECTED -> FILTERED LIST
     const selected = computed(() => options.filter(op => op.selected));
     
     // VALUE -> return
     // NAME -> LABEL [OPTIONAL]
-    // SELECTED
+    // SELECTED -> TOGGLE
     const options = reactive([
       { value: 0, name: 'Choice 0', selected: false },
       { value: 1, name: 'Choice 1', selected: true },
