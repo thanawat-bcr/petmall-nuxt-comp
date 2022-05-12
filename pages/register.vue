@@ -59,9 +59,14 @@ const register = defineComponent({
       password: '',
     });
 
+    const submit = () => {
+      console.log(user);
+    };
+
     return {
       user,
-    }
+      submit,
+    };
   },
 });
 
