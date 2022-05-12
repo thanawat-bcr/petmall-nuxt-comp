@@ -26,7 +26,7 @@ export default SoForm;
   .form--group {
     @apply flex flex-col;
     .form--row {
-      @apply flex my-1 gap-x-2;
+      @apply flex gap-x-2;
       .so-input {
         @apply flex-1;
       }

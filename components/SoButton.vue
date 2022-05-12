@@ -5,7 +5,8 @@ button.so-button(
   :disabled="disabled"
   :type="type"
 )
-  i(v-if="leading" :class="`ph-${leading} ${buttonSize.icon}`")
+  img(v-if="leading === 'google'" src="/logo/google.svg")
+  i(v-if="leading !== 'google' && leading" :class="`${buttonIcon} ${buttonSize.icon}`")
   slot(:class="`${buttonSize.text}`")
   i(v-if="trailing" :class="`ph-${trailing} ${buttonSize.icon}`")
 </template>
@@ -70,9 +71,15 @@ const SoButton = defineComponent({
       };
     })
 
+    const buttonIcon = computed(() => {
+      if (props.leading === 'Google') return '';
+      return `ph-${props.leading}`
+    })
+
     return {
       buttonColor,
       buttonSize,
+      buttonIcon,
     };
   },
 });

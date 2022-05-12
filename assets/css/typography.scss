@@ -36,8 +36,6 @@ h6 { font-size: 16px; line-height: 22px; }
 
 // OVERLINE
 .overline {
-  font-weight: 600;
-  text-transform: uppercase;
-  &-lg { font-size: 14px; line-height: 21px; }
-  &-sm { font-size: 12px; line-height: 18px; }
+  &-lg { font-size: 14px; line-height: 21px; font-weight: 600; text-transform: uppercase; }
+  &-sm { font-size: 12px; line-height: 18px; font-weight: 600; text-transform: uppercase; }
 }
