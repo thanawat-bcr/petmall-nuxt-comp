@@ -1,7 +1,7 @@
 <template lang="pug">
 ValidationProvider.w-full.flex.items-center(:rules="rules" v-slot="{ errors }")
   label.so-input.w-full.relative(
-    :class="`${inputSize.container} ${inputColor} ${rules ? 'mb-6' : ''}`"
+    :class="`${inputSize.container} ${inputColor}`"
     :style="`${errors.length > 0 ? 'border-color: #EF4444;' : ''}`"
   )
     i.mr-2(v-if="leading" :class="`ph-${leading}`")
