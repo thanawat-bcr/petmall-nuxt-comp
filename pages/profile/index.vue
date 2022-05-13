@@ -14,20 +14,42 @@
           .text-xs.text-gray-800 ขนาดรูป : ไม่เกิน 1 MB, รองรับ : .JPEG, .PNG
     .grid-profile-row
       .col-span-2.text-gray-500.text-md.text-right ชื่อผู้ใช้:
-      .col-span-7.flex: SoInput(placeholder="Username" size="lg")
+      .col-span-7.flex: SoInput(placeholder="Username" v-model="user.username" size="lg")
     .grid-profile-row
       .col-span-2.text-gray-500.text-md.text-right Email:
-      .col-span-7.flex: .text-lg.text-gray-800.en username@mail.com
+      .col-span-7.flex: .text-lg.text-gray-800.en {{ user.email }}
     .grid-profile-row
       .col-span-2.text-gray-500.text-md.text-right เพศ:
       .col-span-7.flex.gap-x-4
         SoRadio(
-          v-for="(op, index) in options"
+          v-for="(op, index) in genderOptions"
           :key="op.value"
           v-model="index"
           :selected="index === selected"
           @select="(index) => selected = index"
         ) {{ op.name }}
+    .grid-profile-row
+      .col-span-2.text-gray-500.text-md.text-right วัน/เดือน/ปี เกิด:
+      .col-span-7.flex
+        SoInput(
+          type="select"
+          v-model="user.birth.date"
+          :options="birthOptions.date"
+          placeholder="วัน"
+        )
+        SoInput(
+          type="select"
+          v-model="user.birth.month"
+          :options="birthOptions.month"
+          placeholder="เดือน"
+        )
+        SoInput(
+          type="select"
+          v-model="user.birth.year"
+          :options="birthOptions.year"
+          placeholder="ปี"
+        )
+
 </template>
 
 <script lang="ts">
@@ -39,17 +61,37 @@ const index = defineComponent({
     this.$nuxt.$emit('setLayout', { color: true, profile: true, });
   },
   setup() {
+    const user = reactive({
+      profileImage: '',
+      username: '_Tutorism',
+      email: 'thanawat.bcr@gmail.com',
+      gender: '',
+      birth: {
+        date: '',
+      }
+    });
+
     const selected = ref(0);
 
-    const options = reactive([
+    const genderOptions = reactive([
       { value: 'M', name: 'ชาย' },
       { value: 'F', name: 'หญิง' },
       { value: 'O', name: 'อื่นๆ' },
     ]);
 
+
+    const birthOptions = reactive({
+      date: Array(31).fill(1).map((_, i) => { return { value: ++i } }),
+      month: ['มกราคม', 'กุมภาพันธ์', 'มีนาคม', 'เมษายน', 'พฤษภาคม', 'มิถุนายน', 'กรกฎาคม', 'สิงหาคม', 'กันยายน', 'ตุลาคม', 'พฤศจิกายน', 'ธันวาคม'].map((month, i) => { return { value: i, name: month } }),
+      year: Array(2022-1960).fill(1960).map((year, i) => { return { value: (year  + i++)} }), 
+    });
+
     return {
+      user,
+
       selected,
-      options,
+      genderOptions,
+      birthOptions,
     };
 
   },

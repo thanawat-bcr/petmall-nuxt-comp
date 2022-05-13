@@ -30,7 +30,7 @@ ValidationProvider.w-full.flex.items-center(:rules="rules" v-slot="{ errors }")
       @blur="focusHandler(false)"
     )
       option(disabled selected value) {{ placeholder }}
-      option(v-for="op in options" :value="op.value") {{ op.name }}
+      option(v-for="op in options" :value="op.value") {{ op.name || op.value }}
     i.ml-2(v-if="type === 'password'" :class="showPassword ? 'ph-eye' : 'ph-eye-slash'" @click="togglePassword")
     i.ml-2(v-if="trailing" :class="`ph-${trailing}`")
     .w-full.flex.items-center.absolute(v-if="errors.length > 0" style="bottom: -22px; left: 0;")
