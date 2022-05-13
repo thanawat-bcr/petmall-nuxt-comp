@@ -39,11 +39,8 @@ const index = defineComponent({
     this.$nuxt.$emit('setLayout', { color: true, profile: true, });
   },
   setup() {
-    // SELECTED -> INDEX
     const selected = ref(0);
-    
-    // VALUE -> return
-    // NAME -> LABEL [OPTIONAL]
+
     const options = reactive([
       { value: 'M', name: 'ชาย' },
       { value: 'F', name: 'หญิง' },
