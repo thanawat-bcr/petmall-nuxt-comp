@@ -18,17 +18,44 @@
     .grid-profile-row
       .col-span-2.text-gray-500.text-md.text-right Email:
       .col-span-7.flex: .text-lg.text-gray-800.en username@mail.com
+    .grid-profile-row
+      .col-span-2.text-gray-500.text-md.text-right เพศ:
+      .col-span-7.flex.gap-x-4
+        SoRadio(
+          v-for="(op, index) in options"
+          :key="op.value"
+          v-model="index"
+          :selected="index === selected"
+          @select="(index) => selected = index"
+        ) {{ op.name }}
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@nuxtjs/composition-api';
+import { defineComponent, reactive, ref } from '@nuxtjs/composition-api';
 
 const index = defineComponent({
   layout: 'primary',
   mounted() {
     this.$nuxt.$emit('setLayout', { color: true, profile: true, });
   },
-  // setup() {},
+  setup() {
+    // SELECTED -> INDEX
+    const selected = ref(0);
+    
+    // VALUE -> return
+    // NAME -> LABEL [OPTIONAL]
+    const options = reactive([
+      { value: 'M', name: 'ชาย' },
+      { value: 'F', name: 'หญิง' },
+      { value: 'O', name: 'อื่นๆ' },
+    ]);
+
+    return {
+      selected,
+      options,
+    };
+
+  },
 });
 
 export default index;
