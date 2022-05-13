@@ -46,7 +46,7 @@ const PrimaryNav = defineComponent({
   props: {
     color: {
       type: Boolean,
-      default: false,
+      default: true,
     },
   },
   setup(props) {

@@ -58,8 +58,10 @@ import { defineComponent } from '@nuxtjs/composition-api';
 
 const index = defineComponent({
   layout: 'primary',
-  // layout: 'secondary',
-  // setup() {},
+  mounted() {
+    this.$nuxt.$emit('setLayout', { color: false });
+  },
+  // setup() {}
 });
 
 export default index;

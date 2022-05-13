@@ -1,22 +1,36 @@
 <template lang="pug">
 ValidationProvider.w-full.flex.items-center(:rules="rules" v-slot="{ errors }")
   label.so-input.w-full.relative(
-    :class="`${inputSize.container} ${inputColor} ${rules ? 'mb-6' : ''}`"
+    :class="`${inputSize.container} ${inputColor}`"
     :style="`${errors.length > 0 ? 'border-color: #EF4444;' : ''}`"
   )
     i.mr-2(v-if="leading" :class="`ph-${leading}`")
     input.w-full(
+      v-if="inputType !== 'select'"
       :value="value"
       :type="inputType"
+      :disabled="disabled"
       :placeholder="placeholder"
       :style="`${errors.length > 0 ? 'color: #EF4444;' : ''}`"
-      :disabled="disabled"
       @mouseover="hoverHandler(true)"
       @mouseleave="hoverHandler(false)"
       @focus="focusHandler(true)"
       @blur="focusHandler(false)"
       @input="$emit('input', $event.target.value)"
     )
+    select.w-full(
+      v-else
+      :value="value"
+      :disabled="disabled"
+      :class="`${value || 'text-gray-opacity-40'}`"
+      @input="$emit('input', $event.target.value)"
+      @mouseover="hoverHandler(true)"
+      @mouseleave="hoverHandler(false)"
+      @focus="focusHandler(true)"
+      @blur="focusHandler(false)"
+    )
+      option(disabled selected value) {{ placeholder }}
+      option(v-for="op in options" :value="op.value") {{ op.name || op.value }}
     i.ml-2(v-if="type === 'password'" :class="showPassword ? 'ph-eye' : 'ph-eye-slash'" @click="togglePassword")
     i.ml-2(v-if="trailing" :class="`ph-${trailing}`")
     .w-full.flex.items-center.absolute(v-if="errors.length > 0" style="bottom: -22px; left: 0;")
@@ -43,14 +57,15 @@ const SoInput = defineComponent({
       type: String,
       default: '',
     },
-    type: {
-      type: String,
-      default: 'text',
-    },
     disabled: {
       type: Boolean,
       default: false,
     },
+    type: {
+      type: String,
+      default: 'text',
+    },
+    options: {},
     rules: {},
   },
   setup(props) {
@@ -120,7 +135,7 @@ export default SoInput;
 </script>
 
 <style lang="scss">
-textarea:focus, input:focus{
+textarea, input, select{
   outline: none;
 }
 .so-input {
