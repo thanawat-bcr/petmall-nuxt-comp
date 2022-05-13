@@ -68,8 +68,6 @@ const index = defineComponent({
       }
     });
 
-    const selected = ref(0);
-
     const genderOptions = reactive([
       { value: 'M', name: 'ชาย' },
       { value: 'F', name: 'หญิง' },
@@ -86,7 +84,6 @@ const index = defineComponent({
     return {
       user,
 
-      selected,
       genderOptions,
       birthOptions,
     };
