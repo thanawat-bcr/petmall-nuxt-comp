@@ -20,14 +20,11 @@
       .col-span-7.flex: .text-lg.text-gray-800.en {{ user.email }}
     .grid-profile-row
       .col-span-2.text-gray-500.text-md.text-right เพศ:
-      .col-span-7.flex.gap-x-4
-        SoRadio(
-          v-for="(op, index) in genderOptions"
-          :key="op.value"
-          v-model="index"
-          :selected="index === selected"
-          @select="(index) => selected = index"
-        ) {{ op.name }}
+      .col-span7
+        SoRadio.flex.gap-x-4(
+          :options="genderOptions"
+          v-model="user.gender"
+        )
     .grid-profile-row
       .col-span-2.text-gray-500.text-md.text-right วัน/เดือน/ปี เกิด:
       .col-span-7.flex
@@ -65,7 +62,7 @@ const index = defineComponent({
       profileImage: '',
       username: '_Tutorism',
       email: 'thanawat.bcr@gmail.com',
-      gender: '',
+      gender: 'M',
       birth: {
         date: '',
       }
