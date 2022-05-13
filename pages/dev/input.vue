@@ -17,6 +17,14 @@
           type="password"
         )
       .form--row
+        SoInput(
+          type="select"
+          v-model="user.sex"
+          :options="options"
+          rules="required"
+          placeholder="เพศ"
+        )
+      .form--row
         SoButton(type="submit" block) Submit
 </template>
 
@@ -29,7 +37,16 @@ const input = defineComponent({
     const user = reactive({
       email: '',
       password: '',
+      sex: '',
     });
+    
+    // VALUE -> RETURN
+    // NAME -> OPTION LABEL
+    const options = reactive([
+      { value: 'M', name: 'ชาย' },
+      { value: 'F', name: 'หญิง' },
+      { value: 'O', name: 'อื่นๆ' },
+    ]);
 
     const submit = () => {
       console.log(user);
@@ -37,6 +54,7 @@ const input = defineComponent({
 
     return {
       user,
+      options,
       submit,
     };
   },
