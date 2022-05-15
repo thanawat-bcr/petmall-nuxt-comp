@@ -6,7 +6,7 @@
   .line.w-full.h-px.bg-gray-200
 
   //- EMPTY STATE
-  //- .grid-container-favorite
+  //- .grid.grid-cols-9.gap-4
     .col-span-3
     .col-span-3.flex.flex-col.items-center.gap-y-4
       img(src="/empty/favorite.png")
@@ -16,7 +16,7 @@
       SoButton(block size="md") ช้อปเลย
     .col-span-3
 
-  .grid-container-favorite
+  .grid.grid-cols-9.gap-4
     ProductItem.col-span-2(title="อาหารสุนัข Woofs ขนาด 100g สำหรับพันธุ์เล็ก" img="/product/item/01.png" :price="300" :amount="10")
     ProductItem.col-span-2(title="อาหารสุนัข Woofs ขนาด 100g สำหรับพันธุ์เล็ก" img="/product/item/09.png" :price="300" :amount="10")
     ProductItem.col-span-2(title="อาหารสุนัข Woofs ขนาด 100g สำหรับพันธุ์เล็ก" img="/product/item/10.png" :price="300" :amount="10")
@@ -42,9 +42,5 @@ export default favorite;
 </script>
 
 <style lang="scss" scoped>
-.favorite {
-  .grid-container-favorite {
-    @apply grid grid-cols-9 gap-4;
-  }
-}
+// .favorite {}
 </style>
