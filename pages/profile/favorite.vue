@@ -14,7 +14,6 @@
         h6.text-gray-500 คุณยังไม่มีรายการที่ชอบ
         .text-sm.text-gray-500 กดปุ่มหัวใจเพื่อเพิ่มรายการสินค้าที่คุณชอบ
       SoButton(block size="md") ช้อปเลย
-    .col-span-3
 
   .grid.grid-cols-9.gap-4
     ProductItem.col-span-2(title="อาหารสุนัข Woofs ขนาด 100g สำหรับพันธุ์เล็ก" img="/product/item/01.png" :price="300" :amount="10")

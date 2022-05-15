@@ -6,7 +6,8 @@
   .line.w-full.h-px.bg-gray-200
   SoForm
     .flex.flex-col.gap-y-8
-      .grid-profile-password-row
+
+      .grid.grid-cols-9.gap-4.items-center
         .col-span-2.text-gray-500.text-md.text-right รหัสผ่านปัจจุบัน:
         .col-span-4.flex
           SoInput(
@@ -17,7 +18,8 @@
             rules="required"
           )
         .col-span-2: .button-lg.underline.text-orange-900.cursor-pointer ลืมรหัสผ่าน
-      .grid-profile-password-row
+
+      .grid.grid-cols-9.gap-4.items-center
         .col-span-2.text-gray-500.text-md.text-right รหัสผ่านใหม่:
         .col-span-4.flex
           SoInput(
@@ -27,7 +29,8 @@
             size="lg"
             rules="required"
           )
-      .grid-profile-password-row
+
+      .grid.grid-cols-9.gap-4.items-center
         .col-span-2.text-gray-500.text-md.text-right ยืนยันรหัสผ่าน:
         .col-span-4.flex
           SoInput(
@@ -37,7 +40,8 @@
             size="lg"
             rules="required"
           )
-      .grid-profile-password-row
+
+      .grid.grid-cols-9.gap-4.items-center
         .col-span-2
         .col-span-2: SoButton(type="submit" block size="lg") ตกลง
 </template>
@@ -67,10 +71,5 @@ export default password;
 </script>
 
 <style lang="scss" scoped>
-.password {
-  .grid-profile-password-row {
-    @apply grid gap-x-4 items-center;
-    grid-template-columns: repeat(9, 80px);
-  }
-}
+// .password {}
 </style>
