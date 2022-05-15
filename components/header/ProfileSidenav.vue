@@ -18,13 +18,13 @@ aside.profile-sidenav.bg-gray-100.w-full.h-full.p-6.flex.flex-col.gap-y-6
       NuxtLink(to="/profile/password").nuxt-link: .text-sm.cursor-pointer เปลี่ยนรหัสผ่าน
 
   .flex.flex-col.gap-y-4 
-    NuxtLink(to="/").nuxt-link
+    NuxtLink(to="/profile/favorite").nuxt-link
       .flex.gap-x-2.items-center.cursor-pointer
         i.ph-heart.text-2xl
         .button-sm.font-bold รายการที่ชอบ
 
   .flex.flex-col.gap-y-4
-    NuxtLink(to="/").nuxt-link
+    NuxtLink(to="/profile/purchase").nuxt-link
       .flex.gap-x-2.items-center.cursor-pointer
         i.ph-notepad.text-2xl
         .button-sm.font-bold การสั่งซื้อของฉัน
