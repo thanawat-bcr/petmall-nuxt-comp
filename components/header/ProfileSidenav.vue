@@ -8,23 +8,26 @@ aside.profile-sidenav.bg-gray-100.w-full.h-full.p-6.flex.flex-col.gap-y-6
         i.ph-pencil-simple.text-xl.text-gray-500
         .button-sm.text-gray-500 แก้ไขบัญชีของคุณ
   .flex.flex-col.gap-y-4
-    .flex.gap-x-2.items-center.cursor-pointer(@click="menuIndexHandler(0)")
-      i.ph-gear.text-2xl.text-gray-500
-      .button-sm.font-bold.text-gray-500 ตั้งค่าบัญชีของฉัน
-    .flex.flex-col.gap-y-4(v-if="menuIndex === 0")
-      .text-sm.text-gray-500.cursor-pointer ข้อมูลส่วนตัว
-      .text-sm.text-gray-500.cursor-pointer ที่อยู่
-      .text-sm.text-gray-500.cursor-pointer เปลี่ยนรหัสผ่าน
+    NuxtLink(to="/profile")
+      .flex.gap-x-2.items-center.cursor-pointer
+        i.ph-gear.text-2xl.text-gray-500
+        .button-sm.font-bold.text-gray-500 ตั้งค่าบัญชีของฉัน
+    .flex.flex-col.gap-y-4
+      NuxtLink(to="/profile").nuxt-link: .text-sm.cursor-pointer ข้อมูลส่วนตัว
+      NuxtLink(to="/profile/addresses").nuxt-link: .text-sm.cursor-pointer ที่อยู่
+      NuxtLink(to="/profile/password").nuxt-link: .text-sm.cursor-pointer เปลี่ยนรหัสผ่าน
 
   .flex.flex-col.gap-y-4 
-    .flex.gap-x-2.items-center.cursor-pointer(@click="menuIndexHandler(1)" :class="`${menuIndex === 1 ? 'text-green-800' : 'text-gray-500'}`")
-      i.ph-heart.text-2xl
-      .button-sm.font-bold รายการที่ชอบ
+    NuxtLink(to="/").nuxt-link
+      .flex.gap-x-2.items-center.cursor-pointer
+        i.ph-heart.text-2xl
+        .button-sm.font-bold รายการที่ชอบ
 
   .flex.flex-col.gap-y-4
-    .flex.gap-x-2.items-center.cursor-pointer(@click="menuIndexHandler(2)" :class="`${menuIndex === 2 ? 'text-green-800' : 'text-gray-500'}`")
-      i.ph-notepad.text-2xl
-      .button-sm.font-bold การสั่งซื้อของฉัน
+    NuxtLink(to="/").nuxt-link
+      .flex.gap-x-2.items-center.cursor-pointer
+        i.ph-notepad.text-2xl
+        .button-sm.font-bold การสั่งซื้อของฉัน
 </template>
 
 <script lang="ts">
@@ -47,5 +50,10 @@ export default ProfileSidenav;
 </script>
 
 <style lang="scss" scoped>
-// .profile-sidenav {}
+.profile-sidenav {
+  .nuxt-link {
+  @apply text-gray-500;
+    &.nuxt-link-exact-active { @apply text-green-800; }
+  }
+}
 </style>
