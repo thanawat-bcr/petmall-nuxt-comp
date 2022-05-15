@@ -7,6 +7,7 @@ ValidationProvider.relative.w-full(:rules="rules" v-slot="{ errors }")
     input.hidden(
       type="radio"
       :checked="value === op.value"
+      :value="value"
       @change="$emit('input', op.value)"
     )
     .w-5.h-5.border-gray-200.border.border-solid.rounded-full(v-if="value !== op.value" 

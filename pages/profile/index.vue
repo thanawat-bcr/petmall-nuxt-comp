@@ -24,7 +24,7 @@
           )
       .grid-profile-row
         .col-span-2.text-gray-500.text-md.text-right Email:
-        .col-span-7.flex: .text-lg.text-gray-800.en {{ user.email }}
+        .col-span-7.flex: .text-md.text-gray-800.en {{ user.email }}
       .grid-profile-row
         .col-span-2.text-gray-500.text-md.text-right เพศ:
         .col-span-7
