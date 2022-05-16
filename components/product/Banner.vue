@@ -1,5 +1,5 @@
 <template lang="pug">
-.banner.w-full.flex.flex-col.gap-y-3.p-4.bg-gray-opacity-12.rounded-lg
+.banner.w-full.flex.flex-col.gap-y-3.p-4.bg-gray-opacity-12.rounded-lg.cursor-pointer(@click="$router.push(`/profile/purchase/${'1'}`)")
   //- HEADER
   .flex.items-center.justify-between
     .flex.gap-x-3
