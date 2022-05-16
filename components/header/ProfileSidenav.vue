@@ -13,9 +13,9 @@ aside.profile-sidenav.bg-gray-100.w-full.h-full.p-6.flex.flex-col.gap-y-6
         i.ph-gear.text-2xl.text-gray-500
         .button-sm.font-bold.text-gray-500 ตั้งค่าบัญชีของฉัน
     .flex.flex-col.gap-y-4
-      NuxtLink(to="/profile").nuxt-link: .text-sm.cursor-pointer ข้อมูลส่วนตัว
-      NuxtLink(to="/profile/addresses").nuxt-link: .text-sm.cursor-pointer ที่อยู่
-      NuxtLink(to="/profile/password").nuxt-link: .text-sm.cursor-pointer เปลี่ยนรหัสผ่าน
+      NuxtLink(to="/profile" exact).nuxt-link: .text-sm.cursor-pointer ข้อมูลส่วนตัว
+      NuxtLink(to="/profile/addresses" exact).nuxt-link: .text-sm.cursor-pointer ที่อยู่
+      NuxtLink(to="/profile/password" exact).nuxt-link: .text-sm.cursor-pointer เปลี่ยนรหัสผ่าน
 
   .flex.flex-col.gap-y-4 
     NuxtLink(to="/profile/favorite").nuxt-link
@@ -53,7 +53,7 @@ export default ProfileSidenav;
 .profile-sidenav {
   .nuxt-link {
   @apply text-gray-500;
-    &.nuxt-link-exact-active { @apply text-green-800; }
+    &.nuxt-link-active { @apply text-green-800; }
   }
 }
 </style>
