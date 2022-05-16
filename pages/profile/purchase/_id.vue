@@ -12,25 +12,17 @@
   .grid.grid-cols-9.gap-x-4
     .col-span-1
 
-    .col-span-2.tracking-status.flex.items-center
-      .w-12.h-12.rounded-full.border.border-green-900.bg-white.flex.items-center.justify-center
-        .w-10.h-10.rounded-full.bg-green-900.flex.items-center.justify-center
-          i.ph-clipboard-text.text-xl.text-white
+    .col-span-2.tracking-status.flex.items-center(v-for="(tracking, index) in trackings")
+      .tracking-line(:class="`${index + 1 < tracked ? 'bg-green-900' : 'bg-gray-200'}`")
+      .w-12.h-12.rounded-full.border.bg-white.flex.items-center.justify-center(:class="`${index < tracked ? 'border-green-900' : 'border-gray-200'}`")
+        .w-10.h-10.rounded-full.flex.items-center.justify-center(:class="`${index < tracked ? 'bg-green-900' : 'bg-gray-200'}`")
+          i.text-xl.text-gray-50(:class="tracking")
 
-    .col-span-2.tracking-status.flex.items-center
-      .w-12.h-12.rounded-full.border.border-green-900.bg-white.flex.items-center.justify-center
-        .w-10.h-10.rounded-full.bg-green-900.flex.items-center.justify-center
-          i.ph-truck.text-xl.text-white
-
-    .col-span-2.tracking-status.flex.items-center
-      .w-12.h-12.rounded-full.border.border-green-900.bg-white.flex.items-center.justify-center
-        .w-10.h-10.rounded-full.bg-green-900.flex.items-center.justify-center
-          i.ph-archive-box.text-xl.text-white
-
-    .col-span-2.tracking-status.flex.items-center
-      .w-12.h-12.rounded-full.border.border-green-900.bg-white.flex.items-center.justify-center
-        .w-10.h-10.rounded-full.bg-green-900.flex.items-center.justify-center
-          i.ph-star.text-xl.text-white
+  .flex.items-center.justify-between
+    .text-xs.text-gray-400 ให้คะแนนสินค้าใน PetMall เลยตอนนี้
+    .flex.gap-x-3
+      SoButton(size="md" mode="outline") ซื้ออีกครั้ง
+      SoButton(size="md") ให้คะแนน
 
   .line.w-full.h-px.bg-gray-200
 
@@ -72,7 +64,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive } from '@nuxtjs/composition-api';
+import { computed, defineComponent, reactive, ref } from '@nuxtjs/composition-api';
 
 const _id = defineComponent({
   layout: 'primary',
@@ -87,8 +79,15 @@ const _id = defineComponent({
       { shopName: 'PetMall', name: 'อาหารสุนัข Woofs ขนาด 100g สำหรับพันธุ์เล็ก', option: 'รสตับ', amount: 1, price: 600, img: '/product/item/01.png', status: 'สำเร็จแล้ว', date: '15-05-2022' },
     ]);
 
+    const trackings = ref(['ph-clipboard-text','ph-truck','ph-archive-box','ph-star']);
+    // Number represents stage of tracking
+    const tracked = ref(4);
+
     return {
       items,
+
+      trackings,
+      tracked,
     };
   },
 });
@@ -100,9 +99,9 @@ export default _id;
 ._id {
   .tracking-status:not(:last-child) {
     @apply relative;
-    &::after {
+    .tracking-line {
       content: '';
-      @apply absolute bg-green-900;
+      @apply absolute;
       height: 3px;
       width: calc(80px + 80px + 32px - 48px);
       left: 48px;
