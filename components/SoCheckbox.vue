@@ -1,5 +1,5 @@
 <template lang="pug">
-label.so-checkbox.inline-flex.items-center.gap-x-2
+label.so-checkbox.inline-flex.items-center.gap-x-2.cursor-pointer
   input.hidden(
     type="checkbox"
     @input="$emit('input', !value)"

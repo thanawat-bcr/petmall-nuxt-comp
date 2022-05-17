@@ -3,7 +3,7 @@
   //- HEADER
   .flex.items-center.justify-between
     .flex.gap-x-3
-      .h-6.rounded.px-5.bg-orange-900.flex.items-center.justify-center: .text-xs.text-gray-50.font-bold.text-center Featured
+      SoTag
       .text-sm.font-bold.text-gray-500 {{ item.shopName }}
     .flex.gap-x-3.items-center(v-if="!noStatus")
       .h-6.w-px.bg-gray-200

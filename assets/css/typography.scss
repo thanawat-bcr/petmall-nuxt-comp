@@ -30,9 +30,9 @@ h6 { font-size: 16px; line-height: 22px; }
 }
 
 // BUTTON
-.button-sm { font-weight: 500; font-size: 14px; line-height: 19px; }
-.button-lg { font-weight: 500; font-size: 16px; line-height: 27px; }
-.button-xl { font-weight: 700; font-size: 16px; line-height: 27px; }
+.button-sm { @apply cursor-pointer; font-weight: 500; font-size: 14px; line-height: 19px; }
+.button-lg { @apply cursor-pointer; font-weight: 500; font-size: 16px; line-height: 27px; }
+.button-xl { @apply cursor-pointer; font-weight: 700; font-size: 16px; line-height: 27px; }
 
 // OVERLINE
 .overline {
