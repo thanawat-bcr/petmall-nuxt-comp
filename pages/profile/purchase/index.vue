@@ -42,9 +42,9 @@ const purchase = defineComponent({
 
     const items = reactive([
       { shopName: 'PetMall', name: 'อาหารสุนัข Woofs ขนาด 100g สำหรับพันธุ์เล็ก', option: 'รสตับ', amount: 1, price: 600, img: '/product/item/01.png', status: 'ที่ต้องจัดส่ง', date: '15-05-2022' },
+      { shopName: 'PetMall', name: 'อาหารสุนัข Woofs ขนาด 100g สำหรับพันธุ์เล็ก', option: 'รสตับ', amount: 1, price: 600, img: '/product/item/02.png', status: 'ที่ต้องได้รับ', date: '15-05-2022' },
       { shopName: 'PetMall', name: 'อาหารสุนัข Woofs ขนาด 100g สำหรับพันธุ์เล็ก', option: 'รสตับ', amount: 1, price: 600, img: '/product/item/01.png', status: 'ที่ต้องได้รับ', date: '15-05-2022' },
-      { shopName: 'PetMall', name: 'อาหารสุนัข Woofs ขนาด 100g สำหรับพันธุ์เล็ก', option: 'รสตับ', amount: 1, price: 600, img: '/product/item/01.png', status: 'ที่ต้องได้รับ', date: '15-05-2022' },
-      { shopName: 'PetMall', name: 'อาหารสุนัข Woofs ขนาด 100g สำหรับพันธุ์เล็ก', option: 'รสตับ', amount: 1, price: 600, img: '/product/item/01.png', status: 'สำเร็จแล้ว', date: '15-05-2022' },
+      { shopName: 'PetMall', name: 'อาหารสุนัข Woofs ขนาด 100g สำหรับพันธุ์เล็ก', option: 'รสตับ', amount: 1, price: 600, img: '/product/item/03.png', status: 'สำเร็จแล้ว', date: '15-05-2022' },
     ])
 
     const computedItems = computed(() => tab.value === 0 ? items : items.filter(item => item.status === tabs.value[tab.value]));
