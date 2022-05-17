@@ -13,7 +13,7 @@
 
   //- MAIN SECTION
   .flex.gap-x-4
-    img.w-20.h-20.object-contain(src="/product/item/01.png")
+    img.w-20.h-20.object-contain(:src="item.img")
     .flex.flex-col.gap-y-1.flex-1
       .text-xs.text-gray-500.flex-1 {{ item.name }}
       .flex.gap-x-1
