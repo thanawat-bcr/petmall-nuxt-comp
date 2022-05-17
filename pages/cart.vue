@@ -18,9 +18,14 @@
     .flex.flex-col.gap-y-4
       ProductCart(
         v-for="item in items"
+        :key="item.id"
         :item="item"
         @amountDecrease="amountDecrease"
         @amountIncrease="amountIncrease"
+        :optionOn="optionOn"
+        @optionHandler="optionHandler"
+        @optionChange="optionChange"
+        @delete="itemDelete"
       )
 </template>
 
@@ -42,23 +47,40 @@ const cart = defineComponent({
     const selectAll = ref(false);
 
     const items = reactive([
-      { id: 1, shopName: 'PetMall', name: 'อาหารสุนัข Woofs ขนาด 100g สำหรับพันธุ์เล็ก', option: 'รสตับ', amount: 2, price: 300, img: '/product/item/01.png', status: 'ที่ต้องจัดส่ง', date: '15-05-2022', selected: false },
-      { id: 2, shopName: 'PetMall', name: 'อาหารสุนัข Woofs ขนาด 100g สำหรับพันธุ์เล็ก', option: 'รสตับ', amount: 2, price: 600, img: '/product/item/02.png', status: 'ที่ต้องได้รับ', date: '15-05-2022', selected: false },
-      { id: 3, shopName: 'PetMall', name: 'อาหารสุนัข Woofs ขนาด 100g สำหรับพันธุ์เล็ก', option: 'รสตับ', amount: 6, price: 200, img: '/product/item/03.png', status: 'ที่ต้องได้รับ', date: '15-05-2022', selected: false },
-      { id: 4, shopName: 'PetMall', name: 'อาหารสุนัข Woofs ขนาด 100g สำหรับพันธุ์เล็ก', option: 'รสตับ', amount: 1, price: 400, img: '/product/item/01.png', status: 'สำเร็จแล้ว', date: '15-05-2022', selected: false },
+      { id: 1, shopName: 'PetMall', name: 'อาหารสุนัข Woofs ขนาด 100g สำหรับพันธุ์เล็ก', option: 'รสไก่', amount: 2, price: 300, img: '/product/item/01.png', status: 'ที่ต้องจัดส่ง', date: '15-05-2022', selected: false, options: ['รสไก่','รสเนื้อวัว','รสหมู','รสหมาล่า'] },
+      { id: 2, shopName: 'PetMall', name: 'อาหารสุนัข Woofs ขนาด 100g สำหรับพันธุ์เล็ก', option: 'รสเนื้อวัว', amount: 2, price: 600, img: '/product/item/02.png', status: 'ที่ต้องได้รับ', date: '15-05-2022', selected: false, options: ['รสไก่','รสเนื้อวัว'] },
+      { id: 3, shopName: 'PetMall', name: 'อาหารสุนัข Woofs ขนาด 100g สำหรับพันธุ์เล็ก', option: 'รสหมู', amount: 6, price: 200, img: '/product/item/03.png', status: 'ที่ต้องได้รับ', date: '15-05-2022', selected: false, options: ['รสไก่','รสเนื้อวัว','รสหมู'] },
+      { id: 4, shopName: 'PetMall', name: 'อาหารสุนัข Woofs ขนาด 100g สำหรับพันธุ์เล็ก', option: 'รสตับ', amount: 1, price: 400, img: '/product/item/01.png', status: 'สำเร็จแล้ว', date: '15-05-2022', selected: false , options: ['รสไก่','รสเนื้อวัว','รสหมู','รสหมาล่า','รสตับ','รสเนื้อวัว','รสหมู','รสหมาล่า'] },
     ])
 
     const amountDecrease = (id: any) => {
-      const index = items.findIndex(item => item.id === id)
+      const index = items.findIndex(item => item.id === id);
       if (items[index].amount === 1) return
       // TODO: Disable counter while update amount to Database
       items[index].amount--;
     }
     const amountIncrease = (id: any) => {
-      const index = items.findIndex(item => item.id === id)
+      const index = items.findIndex(item => item.id === id);
       // TODO: Check available item stock before increase more amount
       // TODO: Disable counter while update amount to Database
       items[index].amount++;
+    }
+
+    const optionOn = ref(-1);
+    const optionHandler = (id: any) => {
+      optionOn.value = id;
+    };
+    const optionChange = (payload: any) => {
+      const {id, selectedOption} = payload;
+      const index = items.findIndex(item => item.id === id);
+      items[index].option = selectedOption;
+      // TODO: Disable option while update option to Database
+      optionOn.value = -1;
+    };
+
+    const itemDelete = (id: any) => {
+      // TODO: Implement delete item
+      console.log(`item: ${id} deleted`)
     }
 
     return {
@@ -68,6 +90,12 @@ const cart = defineComponent({
 
       amountDecrease,
       amountIncrease,
+
+      optionOn,
+      optionHandler,
+      optionChange,
+
+      itemDelete,
     };
   }
 });

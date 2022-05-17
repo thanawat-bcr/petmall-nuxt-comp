@@ -37,6 +37,7 @@
   .flex.flex-col.gap-y-4
     ProductBanner(
       v-for="item in items"
+      :key="item.id"
       :item="item"
       noStatus
     )
@@ -73,10 +74,10 @@ const _id = defineComponent({
   },
   setup() {
     const items = reactive([
-      { shopName: 'PetMall', name: 'อาหารสุนัข Woofs ขนาด 100g สำหรับพันธุ์เล็ก', option: 'รสตับ', amount: 1, price: 600, img: '/product/item/01.png', status: 'ที่ต้องจัดส่ง', date: '15-05-2022' },
-      { shopName: 'PetMall', name: 'อาหารสุนัข Woofs ขนาด 100g สำหรับพันธุ์เล็ก', option: 'รสตับ', amount: 1, price: 600, img: '/product/item/01.png', status: 'ที่ต้องได้รับ', date: '15-05-2022' },
-      { shopName: 'PetMall', name: 'อาหารสุนัข Woofs ขนาด 100g สำหรับพันธุ์เล็ก', option: 'รสตับ', amount: 1, price: 600, img: '/product/item/01.png', status: 'ที่ต้องได้รับ', date: '15-05-2022' },
-      { shopName: 'PetMall', name: 'อาหารสุนัข Woofs ขนาด 100g สำหรับพันธุ์เล็ก', option: 'รสตับ', amount: 1, price: 600, img: '/product/item/01.png', status: 'สำเร็จแล้ว', date: '15-05-2022' },
+      { id: 1, shopName: 'PetMall', name: 'อาหารสุนัข Woofs ขนาด 100g สำหรับพันธุ์เล็ก', option: 'รสตับ', amount: 1, price: 600, img: '/product/item/01.png', status: 'ที่ต้องจัดส่ง', date: '15-05-2022' },
+      { id: 2, shopName: 'PetMall', name: 'อาหารสุนัข Woofs ขนาด 100g สำหรับพันธุ์เล็ก', option: 'รสตับ', amount: 1, price: 600, img: '/product/item/01.png', status: 'ที่ต้องได้รับ', date: '15-05-2022' },
+      { id: 3, shopName: 'PetMall', name: 'อาหารสุนัข Woofs ขนาด 100g สำหรับพันธุ์เล็ก', option: 'รสตับ', amount: 1, price: 600, img: '/product/item/01.png', status: 'ที่ต้องได้รับ', date: '15-05-2022' },
+      { id: 4, shopName: 'PetMall', name: 'อาหารสุนัข Woofs ขนาด 100g สำหรับพันธุ์เล็ก', option: 'รสตับ', amount: 1, price: 600, img: '/product/item/01.png', status: 'สำเร็จแล้ว', date: '15-05-2022' },
     ]);
 
     const trackings = ref(['ph-clipboard-text','ph-truck','ph-archive-box','ph-star']);
