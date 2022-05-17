@@ -2,7 +2,7 @@
 .category
   img.category-image(:src="img")
   .text-md.text-gray-500.text-center
-    p {{ title }}
+    p {{ name }}
     p {{ text }}
 </template>
 
@@ -11,7 +11,7 @@ import { defineComponent } from '@nuxtjs/composition-api';
 
 const Category = defineComponent({
   props: {
-    title: { type: String, },
+    name: { type: String, },
     text: { type: String, },
     img: { type: String, },
   },

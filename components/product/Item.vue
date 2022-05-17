@@ -11,13 +11,13 @@
     .item-discount.absolute.right-0.bg-warn-300.flex.flex-col.items-center.justify-center.pt-2.pb-4.px-1.mr-3(v-if="discount > 0")
       .text-xs.text-gray-50 ลด
       .en.text-xs.font-bold.text-warn-900 {{ discount }}%
-    img.item-image.object-contain.p-3(:src="img")
+    img.item-image.object-contain.p-3(:src="item.img")
 
   .item-detail.flex.flex-col.gap-y-2
-    .text-sm.text-gray-500 {{ title }}
+    .text-sm.text-gray-500 {{ item.name }}
     .flex.justify-between.items-center 
-      h6.text-gray-500 ฿{{ price }}
-      .text-xs.text-gray-400 ขายแล้ว {{ amount }} ชิ้น
+      h6.text-gray-500 ฿{{ item.price }}
+      .text-xs.text-gray-400 ขายแล้ว {{ item.amount }} ชิ้น
 </template>
 
 <script lang="ts">
@@ -25,11 +25,8 @@ import { defineComponent } from '@nuxtjs/composition-api';
 
 const Item = defineComponent({
   props: {
-    title: { type: String },
-    price: { type: Number },
-    amount: { type: Number },
-    img: { type: String },
-    
+    // Item Information
+    item: {},
     // Optional Decorator
     tag: { type: Boolean, default: false },
     discount: { type: Number, default: 0 },
