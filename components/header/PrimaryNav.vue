@@ -29,7 +29,7 @@ header
           )
           .flex.gap-x-6(:class="navbarColor.subtext")
             .text-xs.cursor-pointer(v-for="pet in pets" :key="pet") {{ pet }}
-        NuxtLink(to="/cart").flex.flex-col.items-center.col-span-1.cursor-pointer(:class="navbarColor.text")
+        NuxtLink(to="/cart" :class="navbarColor.text").flex.flex-col.items-center.col-span-1.cursor-pointer
           span.relative
             .text-xs.font-bold.absolute.text-white.bg-orange-900.px-2.rounded-lg.left-4(v-if="cartCount > 0") {{ cartCount }}
             i.ph-shopping-cart-simple.text-2xl
