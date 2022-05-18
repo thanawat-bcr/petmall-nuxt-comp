@@ -3,6 +3,7 @@
   HeaderPrimaryNav(
     :color="color"
   )
+  AdvertisementCarousel(v-if="carousel")
   .container.my-8(v-if="profile")
     .grid-container
       .col-span-3: HeaderProfileSidenav
@@ -21,12 +22,14 @@ const primary = defineComponent({
     setLayoutContext(payload: any) {
       this.color = payload.color;
       this.profile = payload.profile;
+      this.carousel = payload.carousel;
     },
   },
   data() {
     return {
       color: false,
       profile: false,
+      carousel: false,
     };
   },
 });
