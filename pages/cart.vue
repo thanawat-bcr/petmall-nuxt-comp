@@ -21,6 +21,7 @@
           v-for="item in items"
           :key="item.id"
           :item="item"
+          :shops="shops"
           @amountDecrease="amountDecrease"
           @amountIncrease="amountIncrease"
           :optionOn="optionOn"
@@ -67,11 +68,22 @@ const cart = defineComponent({
     const selectAll = ref(false);
     const selectHandler = (mode: boolean) => items.forEach(item => item.selected = mode);
     const items = reactive([
-      { id: 1, shopName: 'PetMall', name: 'อาหารสุนัข Woofs ขนาด 100g สำหรับพันธุ์เล็ก', option: 'รสไก่', amount: 2, price: 300, img: '/product/item/01.png', status: 'ที่ต้องจัดส่ง', date: '15-05-2022', selected: false, options: ['รสไก่','รสเนื้อวัว','รสหมู','รสหมาล่า'] },
-      { id: 2, shopName: 'PetMall', name: 'อาหารสุนัข Woofs ขนาด 100g สำหรับพันธุ์เล็ก', option: 'รสเนื้อวัว', amount: 2, price: 600, img: '/product/item/02.png', status: 'ที่ต้องได้รับ', date: '15-05-2022', selected: true, options: ['รสไก่','รสเนื้อวัว'] },
-      { id: 3, shopName: 'PetMall', name: 'อาหารสุนัข Woofs ขนาด 100g สำหรับพันธุ์เล็ก', option: 'รสหมู', amount: 6, price: 200, img: '/product/item/03.png', status: 'ที่ต้องได้รับ', date: '15-05-2022', selected: false, options: ['รสไก่','รสเนื้อวัว','รสหมู'] },
-      { id: 4, shopName: 'PetMall', name: 'อาหารสุนัข Woofs ขนาด 100g สำหรับพันธุ์เล็ก', option: 'รสตับ', amount: 1, price: 400, img: '/product/item/01.png', status: 'สำเร็จแล้ว', date: '15-05-2022', selected: true , options: ['รสไก่','รสเนื้อวัว','รสหมู','รสหมาล่า','รสตับ','รสเนื้อวัว','รสหมู','รสหมาล่า'] },
-    ])
+      { id: 1, shop: { id: 1, name: 'PetMall A' }, name: 'อาหารสุนัข Woofs ขนาด 1g สำหรับพันธุ์เล็ก', option: 'รสไก่', amount: 2, price: 300, img: '/product/item/01.png', status: 'ที่ต้องจัดส่ง', date: '15-05-2022', selected: false, options: ['รสไก่','รสเนื้อวัว','รสหมู','รสหมาล่า'] },
+      { id: 2, shop: { id: 2, name: 'PetMall B' }, name: 'อาหารสุนัข Woofs ขนาด 2g สำหรับพันธุ์เล็ก', option: 'รสเนื้อวัว', amount: 2, price: 600, img: '/product/item/02.png', status: 'ที่ต้องได้รับ', date: '15-05-2022', selected: true, options: ['รสไก่','รสเนื้อวัว'] },
+      { id: 3, shop: { id: 1, name: 'PetMall A' }, name: 'อาหารสุนัข Woofs ขนาด 3g สำหรับพันธุ์เล็ก', option: 'รสหมู', amount: 6, price: 200, img: '/product/item/03.png', status: 'ที่ต้องได้รับ', date: '15-05-2022', selected: false, options: ['รสไก่','รสเนื้อวัว','รสหมู'] },
+      { id: 4, shop: { id: 2, name: 'PetMall B' }, name: 'อาหารสุนัข Woofs ขนาด 4g สำหรับพันธุ์เล็ก', option: 'รสตับ', amount: 1, price: 400, img: '/product/item/01.png', status: 'สำเร็จแล้ว', date: '15-05-2022', selected: true , options: ['รสไก่','รสเนื้อวัว','รสหมู','รสหมาล่า','รสตับ','รสเนื้อวัว','รสหมู','รสหมาล่า'] },
+    ].sort((a, b) => a.shop.id - b.shop.id))
+    const shops = computed(() => {
+      const ids: any = [];
+      const index: any = [];
+      items.forEach((item, i) => {
+        if (!ids.includes(item.shop.id)) {
+          index.push(item.id);
+          ids.push(item.shop.id);
+        }
+      })
+      return index;
+    })
     const computedItems = computed(() => items.filter(item => item.selected));
     watch(items, () => {
       selectAll.value = items.every(item => item.selected);
@@ -112,6 +124,7 @@ const cart = defineComponent({
       selectHandler,
 
       items,
+      shops,
       computedItems,
 
       amountDecrease,
