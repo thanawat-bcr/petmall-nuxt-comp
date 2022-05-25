@@ -4,11 +4,11 @@
     :color="color"
   )
   AdvertisementCarousel(v-if="carousel")
-  .container.py-8(v-if="profile")
+  main.container.py-8(v-if="profile")
     .grid-container
       .col-span-3: HeaderProfileSidenav
       .col-span-9: Nuxt
-  .container.py-8(v-else)
+  main.container.py-8(v-else)
     Nuxt
 </template>
 

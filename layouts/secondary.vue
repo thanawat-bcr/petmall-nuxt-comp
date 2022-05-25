@@ -1,5 +1,5 @@
 <template lang="pug">
-.secondary
+main.secondary
   HeaderSecondaryNav(
     :title="title"
     :icon="icon"
