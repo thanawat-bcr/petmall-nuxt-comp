@@ -47,10 +47,7 @@ const register = defineComponent({
   mounted() {
     this.$nuxt.$emit('setLayout', {
       title: 'ลงชื่อเข้าใช้',
-      icon: '',
-      topNav: false,
-      searchbar: false,
-      color: false,
+      auth: true,
     });
   },
   setup() {

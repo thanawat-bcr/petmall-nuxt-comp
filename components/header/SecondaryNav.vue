@@ -44,15 +44,15 @@ const SecondaryNav = defineComponent({
     },
     color: {
       type: Boolean,
-      default: true,
+      default: false,
     },
     searchbar: {
       type: Boolean,
-      default: true,
+      default: false,
     },
     topNav: {
       type: Boolean,
-      default: true,
+      default: false,
     },
     icon: {
       type: String,

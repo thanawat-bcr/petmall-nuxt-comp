@@ -7,7 +7,10 @@ main.secondary
     :topNav="topNav"
     :color="color"
   )
-  Nuxt
+  main(v-if="auth")
+    Nuxt
+  main.container.py-8(v-else)
+    Nuxt
 </template>
 
 <script lang="ts">
@@ -24,6 +27,7 @@ const secondary = defineComponent({
       this.searchbar = payload.searchbar;
       this.topNav = payload.topNav;
       this.color = payload.color;
+      this.auth = payload.auth;
     },
   },
   data() {
@@ -33,6 +37,7 @@ const secondary = defineComponent({
       searchbar: false,
       topNav: false,
       color: false,
+      auth: false,
     };
   },
 });

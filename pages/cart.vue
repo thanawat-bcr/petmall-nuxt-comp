@@ -1,51 +1,49 @@
 <template lang="pug">
-.cart.my-8
+.cart.flex.flex-col.gap-y-12
 
+  //- EMPTY STATE
+  .grid-container(v-if="true")
+    .col-span-4
+    .col-span-4.flex.flex-col.items-center.gap-y-4
+      img(src="/empty/cart.png")
+      .flex.flex-col.gap-y-2.justify-center.text-center
+        h6.text-gray-500 คุณยังไม่มีสินค้าในรถเข็นตอนนี้
+      SoButton(size="md") ช้อปสินค้าเลย
 
-  .container.flex.flex-col.gap-y-12
+  .flex.flex-col.gap-y-5(v-else)
+    .grid-container
+      .col-span-4.flex.items-center.gap-x-4
+        SoCheckbox(v-model="selectAll" @input="selectHandler")
+        h6.text-gray-500 สินค้า
+      .col-span-1
+      .col-span-2.justify-end
+        h6.text-gray-500.text-right ราคาต่อชิ้น
+      .col-span-2.justify-end
+        h6.text-gray-500.text-right จำนวน
+      .col-span-2.justify-end
+        h6.text-gray-500.text-right ราคารวม
+      .col-span-1
+        h6.text-gray-500.text-center ตัวเลือก
 
-    //- EMPTY STATE
-    //- .grid.grid-cols-12.gap-4
-      .col-span-4
-      .col-span-4.flex.flex-col.items-center.gap-y-4
-        img(src="/empty/cart.png")
-        .flex.flex-col.gap-y-2.justify-center.text-center
-          h6.text-gray-500 คุณยังไม่มีสินค้าในรถเข็นตอนนี้
-        SoButton(size="md") ช้อปสินค้าเลย
+    .flex.flex-col.gap-y-4
+      ProductCart(
+        v-for="item in items"
+        :key="item.id"
+        :item="item"
+        :shops="shops"
+        @amountDecrease="amountDecrease"
+        @amountIncrease="amountIncrease"
+        :optionOn="optionOn"
+        @optionHandler="optionHandler"
+        @optionChange="optionChange"
+        @delete="itemDelete"
+      )
 
-    .flex.flex-col.gap-y-5
-      .grid-container
-        .col-span-4.flex.items-center.gap-x-4
-          SoCheckbox(v-model="selectAll" @input="selectHandler")
-          h6.text-gray-500 สินค้า
-        .col-span-1
-        .col-span-2.justify-end
-          h6.text-gray-500.text-right ราคาต่อชิ้น
-        .col-span-2.justify-end
-          h6.text-gray-500.text-right จำนวน
-        .col-span-2.justify-end
-          h6.text-gray-500.text-right ราคารวม
-        .col-span-1
-          h6.text-gray-500.text-center ตัวเลือก
-
-      .flex.flex-col.gap-y-4
-        ProductCart(
-          v-for="item in items"
-          :key="item.id"
-          :item="item"
-          :shops="shops"
-          @amountDecrease="amountDecrease"
-          @amountIncrease="amountIncrease"
-          :optionOn="optionOn"
-          @optionHandler="optionHandler"
-          @optionChange="optionChange"
-          @delete="itemDelete"
-        )
-
-    ProductSuggestion
+  ProductSuggestion
 
   .h-28
-  section.h-28.w-screen.fixed.bottom-0.bg-gray-100.flex.items-center.shadow-1
+
+  section.h-28.w-screen.fixed.bottom-0.transform-x-center.bg-gray-100.flex.items-center.shadow-1
     .container
       .grid-container
         .col-span-2.flex.items-center

@@ -49,10 +49,7 @@ const login = defineComponent({
   mounted() {
     this.$nuxt.$emit('setLayout', {
       title: 'เข้าสู่ระบบ',
-      icon: '',
-      topNav: false,
-      searchbar: false,
-      color: false,
+      auth: true,
     });
   },
   setup() {
