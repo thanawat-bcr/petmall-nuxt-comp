@@ -146,5 +146,15 @@ textarea, input, select{
     @apply placeholder-gray-opacity-40;
     background-color: transparent;
   }
+
+  // DISABLE NUMBER TYPE ARROW
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  input[type=number] {
+    -moz-appearance: textfield;
+  }
 }
 </style>
