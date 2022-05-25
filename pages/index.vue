@@ -1,6 +1,7 @@
 <template lang="pug">
-.index.pb-8
-  section.container.my-8.flex.flex-col.gap-y-5
+.index.flex.flex-col.gap-y-8
+
+  section.flex.flex-col.gap-y-5
     ProductHeader สินค้าจาก Partner
     .grid-container
       ProductCategory.col-span-2(name="ชุดตรวจสอบ" text="คุณภาพน้ำ" img="/product/category/01.png")
@@ -9,17 +10,22 @@
       ProductCategory.col-span-2(name="เสื้อผ้าและอุปกรณ์" text="แต่งตัวสัตว์เลี้ยง" img="/product/category/04.png")
       ProductCategory.col-span-2(name="อุปกรณ์" text="สำหรับสัตว์เลี้ยง" img="/product/category/05.png")
       ProductCategory.col-span-2(name="การดูแลสุขภาพ" text="สัตว์เลี้ยง" img="/product/category/06.png")
-  section.container.my-8.flex.flex-col.gap-y-5
+
+  section.flex.flex-col.gap-y-5
     ProductHeader(showAll) คุณอาจจะสนใจ
     .grid-container
       ProductItem.col-span-2(v-for="item in items" :key="item.id" :item="item")
+
   AdvertisementStrength
-  section.container.my-8.flex.flex-col.gap-y-5
+
+  section.flex.flex-col.gap-y-5
     ProductHeader(showAll) สินค้ายอดฮิตประจำสัปดาห์
     .grid-container
       ProductItem.col-span-2(v-for="item in items" :key="item.id" :item="item")
+
   AdvertisementBanner
-  section.container.my-8.flex.flex-col.gap-y-5
+
+  section.flex.flex-col.gap-y-5
     ProductHeader(showAll) สินค้าลดพิเศษ
     .grid-container
       ProductItem.col-span-2(v-for="item in items" :key="item.id" :item="item")
@@ -29,6 +35,7 @@
       .col-span-5
       .col-span-2: SoButton(mode="soft" size="lg" block) ดูเพิ่มเติม
       .col-span-5
+
 </template>
 
 <script lang="ts">
