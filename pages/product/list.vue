@@ -1,171 +1,184 @@
 <template lang="pug">
-.list.grid-container
+.list.flex.flex-col.gap-y-12
 
-  //- SIDENAV FOR FILTER
-  aside.col-span-2.flex.flex-col.gap-y-6
-    .flex.flex-col.gap-y-2
-      h6.text-gray-500 หมวดหมู่ที่เกี่ยวข้อง
-      .flex.flex-col.gap-y-1
-        .text-sm.text-gray-500.cursor-pointer(
-          v-for="op in filters.categories"
-          :key="op"
-          @click="filter.category = op"
-        ) {{ op }}
-        .flex.gap-x-1.items-center.cursor-pointer
-          .text-sm.text-gray-400 เพิ่มเติม
-          i.ph-caret-down.text-xs.text-gray-400
+  //- EMPTY STATE
+  .flex.flex-col.gap-y-12(v-if="false")
+    .grid-container
+      .col-span-4
+      .col-span-4.flex.flex-col.items-center.gap-y-4
+        img(src="/empty/product-list.png")
+        .flex.flex-col.gap-y-2.justify-center.text-center
+          h6.text-gray-500 ไม่พบผลการค้นหา
+          .text-sm.text-gray-500 ลองใช้คำอื่นที่แตกต่างหรือคำอื่นที่มีความหมายกว้างกว่านี้
+    ProductSuggestion
 
-    .flex.flex-col.gap-y-2
-      h6.text-gray-500 แบรนด์
-      .flex.flex-col.gap-y-1
-        SoCheckbox(
-          v-for="op in filters.brands"
-          :key="op.value"
-          v-model="op.selected"
-          @input="filters.brandFilterHandler"
-        ) {{ op.value }}
-        .flex.gap-x-1.items-center.cursor-pointer
-          .text-sm.text-gray-400 เพิ่มเติม
-          i.ph-caret-down.text-xs.text-gray-400
-
-    .flex.flex-col.gap-y-2
-      h6.text-gray-500 ช่วงราคา
-      .flex.flex-col.gap-y-3
-        .flex.gap-x-1.items-center
-          SoInput(size="sm" placeholder="฿ ต่ำสุด" v-model="filter.price.start" type="number")
-          i.ph-minus.text-sm.text-gray-400
-          SoInput(size="sm" placeholder="฿ สูงสุด" v-model="filter.price.end" type="number")
-        SoButton(size="sm" block) ตกลง
-
-    .flex.flex-col.gap-y-2
-      h6.text-gray-500 คะแนนรีวิว
-      .flex.flex-col.gap-y-1
-        .flex.gap-x-1.items-center.cursor-pointer(
-          v-for="score in filters.scores"
-          :key="score"
-          @click="filter.score = score"
-        )
-          i.ph-star-fill.text-warn-400.text-xl(v-for="s in score" :key="s")
-          i.ph-star.text-warn-400.text-xl(v-for="s in (5-score)" :key="s")
-          .text-sm.text-gray-500.ml-1(v-if="score < 5") ขึ้นไป
-
-    .flex.flex-col.gap-y-2
-      h6.text-gray-500 ช่วงอายุ
-      .flex.flex-col.gap-y-1
-        SoCheckbox(
-          v-for="op in filters.ages"
-          :key="op.value"
-          v-model="op.selected"
-          @input="filters.ageFilterHandler"
-        ) {{ op.value }}
-
-    .flex.flex-col.gap-y-2
-      h6.text-gray-500 ขนาดสายพันธ์
-      .flex.flex-col.gap-y-1
-        SoCheckbox(
-          v-for="op in filters.sizes"
-          :key="op.value"
-          v-model="op.selected"
-          @input="filters.sizeFilterHandler"
-        ) {{ op.value }}
-
-    .flex.flex-col.gap-y-2
-      h6.text-gray-500 ส่วนผสม
-      .flex.flex-col.gap-y-1
-        SoCheckbox(
-          v-for="op in filters.ingredients"
-          :key="op.value"
-          v-model="op.selected"
-          @input="filters.ingredientFilterHandler"
-        ) {{ op.value }}
-
-  //- MAIN SECTION
-  section.col-span-10.flex.flex-col.gap-y-4
-
-    //- BRANDS HEADER
-    .flex.justify-between.items-center
-      .flex.gap-x-1
-        .text-sm.text-gray-500 แบรนด์ที่เกี่ยวข้องกับ
-        .text-sm.text-orange-800 "{{ 'อาหารสัตว์เลี้ยง' }}"
-      .flex.gap-x-1.items-center.cursor-pointer
-        .text-sm.text-orange-900 ร้านค้าอื่นๆ
-        i.ph-caret-right.text-orange-900.text-md
-
-    //- BRANDS CARD
-    .flex.justify-between.px-8.py-4.bg-gray-opacity-8.rounded-sm
-      .flex.items-center.gap-x-6
-        .relative
-          img(src="/shop/01.png")
-          SoTag.absolute.bottom-0.transform-x-center
-        .flex.flex-col.gap-y-1.justify-center
-          h6.text-gray-500 Brand name
-          .text-sm.text-gray-500 Account name
-      .flex.items-center.gap-x-4
-        .w-px.h-full.bg-gray-200
+  .grid-container(v-else)
+    //- SIDENAV FOR FILTER
+    aside.col-span-2.flex.flex-col.gap-y-6
+      .flex.flex-col.gap-y-2
+        h6.text-gray-500 หมวดหมู่ที่เกี่ยวข้อง
         .flex.flex-col.gap-y-1
-          .flex.items-center.gap-x-1
-            i.ph-tote-simple.text-md.text-orange-800
-            .text-sm.text-orange-800 {{ '100' }}
-          .text-sm.text-gray-500 สินค้า
-        .w-px.h-full.bg-gray-200
+          .text-sm.text-gray-500.cursor-pointer(
+            v-for="op in filters.categories"
+            :key="op"
+            @click="filter.category = op"
+          ) {{ op }}
+          .flex.gap-x-1.items-center.cursor-pointer
+            .text-sm.text-gray-400 เพิ่มเติม
+            i.ph-caret-down.text-xs.text-gray-400
+
+      .flex.flex-col.gap-y-2
+        h6.text-gray-500 แบรนด์
         .flex.flex-col.gap-y-1
-          .flex.items-center.gap-x-1
-            i.ph-star.text-md.text-orange-800
-            .text-sm.text-orange-800 {{ '4.9' }}
-          .text-sm.text-gray-500 คะแนน
+          SoCheckbox(
+            v-for="op in filters.brands"
+            :key="op.value"
+            v-model="op.selected"
+            @input="filters.brandFilterHandler"
+          ) {{ op.value }}
+          .flex.gap-x-1.items-center.cursor-pointer
+            .text-sm.text-gray-400 เพิ่มเติม
+            i.ph-caret-down.text-xs.text-gray-400
 
-    //- ITEMS HEADER
-    .flex.justify-between.items-center
-      .flex.gap-x-1
-        .text-sm.text-gray-500 ค้นหา
-        .text-sm.text-orange-800 "{{ 'อาหารสัตว์เลี้ยง' }}"
+      .flex.flex-col.gap-y-2
+        h6.text-gray-500 ช่วงราคา
+        .flex.flex-col.gap-y-3
+          .flex.gap-x-1.items-center
+            SoInput(size="sm" placeholder="฿ ต่ำสุด" v-model="filter.price.start" type="number")
+            i.ph-minus.text-sm.text-gray-400
+            SoInput(size="sm" placeholder="฿ สูงสุด" v-model="filter.price.end" type="number")
+          SoButton(size="sm" block) ตกลง
 
-    //- ITEMS SOPRTING
-    .flex.justify-between.items-center
-      .flex.items-center.gap-x-4
-        h4.text-gray-500 {{ 'อาหารสัตว์เลี้ยง' }}
-        .text-sm.text-gray-400.ml-1 เรียงโดย
-        .flex.items-center.gap-x-4
-          SoInput(
-            size="sm"
-            type="select"
-            v-model="sort.date"
-            :options="sorts.dates"
-            placeholder="สินค้าล่าสุด"
+      .flex.flex-col.gap-y-2
+        h6.text-gray-500 คะแนนรีวิว
+        .flex.flex-col.gap-y-1
+          .flex.gap-x-1.items-center.cursor-pointer(
+            v-for="score in filters.scores"
+            :key="score"
+            @click="filter.score = score"
           )
-          SoInput(
-            size="sm"
-            type="select"
-            v-model="sort.price"
-            :options="sorts.prices"
-            placeholder="ราคา"
-          )
-      .flex.items-center.gap-x-2
-        .text-sm.text-gray-400 {{ pagination.current }} / {{ pagination.total }}
+            i.ph-star-fill.text-warn-400.text-xl(v-for="s in score" :key="s")
+            i.ph-star.text-warn-400.text-xl(v-for="s in (5-score)" :key="s")
+            .text-sm.text-gray-500.ml-1(v-if="score < 5") ขึ้นไป
+
+      .flex.flex-col.gap-y-2
+        h6.text-gray-500 ช่วงอายุ
+        .flex.flex-col.gap-y-1
+          SoCheckbox(
+            v-for="op in filters.ages"
+            :key="op.value"
+            v-model="op.selected"
+            @input="filters.ageFilterHandler"
+          ) {{ op.value }}
+
+      .flex.flex-col.gap-y-2
+        h6.text-gray-500 ขนาดสายพันธ์
+        .flex.flex-col.gap-y-1
+          SoCheckbox(
+            v-for="op in filters.sizes"
+            :key="op.value"
+            v-model="op.selected"
+            @input="filters.sizeFilterHandler"
+          ) {{ op.value }}
+
+      .flex.flex-col.gap-y-2
+        h6.text-gray-500 ส่วนผสม
+        .flex.flex-col.gap-y-1
+          SoCheckbox(
+            v-for="op in filters.ingredients"
+            :key="op.value"
+            v-model="op.selected"
+            @input="filters.ingredientFilterHandler"
+          ) {{ op.value }}
+
+    //- MAIN SECTION
+    section.col-span-10.flex.flex-col.gap-y-4
+
+      //- BRANDS HEADER
+      .flex.justify-between.items-center
         .flex.gap-x-1
-          SoButton(
-            leading="caret-left"
-            size="paginator"
-            mode="text"
-            :disabled="(pagination.current === 1)"
-            @click="paginate(pagination.current - 1)"
-          )
-          SoButton(
-            leading="caret-right"
-            size="paginator"
-            mode="text"
-            :disabled="(pagination.current === pagination.total)"
-            @click="paginate(pagination.current + 1)"
-          )
+          .text-sm.text-gray-500 แบรนด์ที่เกี่ยวข้องกับ
+          .text-sm.text-orange-800 "{{ 'อาหารสัตว์เลี้ยง' }}"
+        .flex.gap-x-1.items-center.cursor-pointer
+          .text-sm.text-orange-900 ร้านค้าอื่นๆ
+          i.ph-caret-right.text-orange-900.text-md
 
-    .grid.grid-cols-10.gap-4
-      ProductItem.col-span-2(v-for="item in items" :key="item.id" :item="item")
+      //- BRANDS CARD
+      .flex.justify-between.px-8.py-4.bg-gray-opacity-8.rounded-sm
+        .flex.items-center.gap-x-6
+          .relative
+            img(src="/shop/01.png")
+            SoTag.absolute.bottom-0.transform-x-center
+          .flex.flex-col.gap-y-1.justify-center
+            h6.text-gray-500 Brand name
+            .text-sm.text-gray-500 Account name
+        .flex.items-center.gap-x-4
+          .w-px.h-full.bg-gray-200
+          .flex.flex-col.gap-y-1
+            .flex.items-center.gap-x-1
+              i.ph-tote-simple.text-md.text-orange-800
+              .text-sm.text-orange-800 {{ '100' }}
+            .text-sm.text-gray-500 สินค้า
+          .w-px.h-full.bg-gray-200
+          .flex.flex-col.gap-y-1
+            .flex.items-center.gap-x-1
+              i.ph-star.text-md.text-orange-800
+              .text-sm.text-orange-800 {{ '4.9' }}
+            .text-sm.text-gray-500 คะแนน
 
-    .flex.justify-center
-      SoPaginator(
-        :pagination="pagination"
-        @paginate="paginate"
-      )
+      //- ITEMS HEADER
+      .flex.justify-between.items-center
+        .flex.gap-x-1
+          .text-sm.text-gray-500 ค้นหา
+          .text-sm.text-orange-800 "{{ 'อาหารสัตว์เลี้ยง' }}"
+
+      //- ITEMS SOPRTING
+      .flex.justify-between.items-center
+        .flex.items-center.gap-x-4
+          h4.text-gray-500 {{ 'อาหารสัตว์เลี้ยง' }}
+          .text-sm.text-gray-400.ml-1 เรียงโดย
+          .flex.items-center.gap-x-4
+            SoInput(
+              size="sm"
+              type="select"
+              v-model="sort.date"
+              :options="sorts.dates"
+              placeholder="สินค้าล่าสุด"
+            )
+            SoInput(
+              size="sm"
+              type="select"
+              v-model="sort.price"
+              :options="sorts.prices"
+              placeholder="ราคา"
+            )
+        .flex.items-center.gap-x-2
+          .text-sm.text-gray-400 {{ pagination.current }} / {{ pagination.total }}
+          .flex.gap-x-1
+            SoButton(
+              leading="caret-left"
+              size="paginator"
+              mode="text"
+              :disabled="(pagination.current === 1)"
+              @click="paginate(pagination.current - 1)"
+            )
+            SoButton(
+              leading="caret-right"
+              size="paginator"
+              mode="text"
+              :disabled="(pagination.current === pagination.total)"
+              @click="paginate(pagination.current + 1)"
+            )
+
+      .grid.grid-cols-10.gap-4
+        ProductItem.col-span-2(v-for="item in items" :key="item.id" :item="item")
+
+      .flex.justify-center
+        SoPaginator(
+          :pagination="pagination"
+          @paginate="paginate"
+        )
+
 </template>
 
 <script lang="ts">
@@ -174,7 +187,7 @@ import { defineComponent, reactive } from '@nuxtjs/composition-api';
 const list = defineComponent({
   layout: 'primary',
   mounted() {
-    this.$nuxt.$emit('setLayout', { carousel: true });
+    this.$nuxt.$emit('setLayout', { carousel: false });
   },
   setup() {
     const filter = reactive({
