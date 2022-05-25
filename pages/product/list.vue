@@ -141,12 +141,22 @@
             placeholder="ราคา"
           )
       .flex.items-center.gap-x-2
-        .text-sm.text-gray-400 {{ '1' }} / {{ '9' }}
+        .text-sm.text-gray-400 {{ pagination.current }} / {{ pagination.total }}
         .flex.gap-x-1
-          .w-10.h-10.bg-gray-opacity-8.flex.items-center.justify-center.rounded-lg
-            i.ph-caret-left.text-md.text-gray-opacity-24
-          .w-10.h-10.bg-gray-opacity-12.flex.items-center.justify-center.rounded-lg.cursor-pointer
-            i.ph-caret-right.text-md.text-gray-opacity-40
+          SoButton(
+            leading="caret-left"
+            size="paginator"
+            mode="text"
+            :disabled="(pagination.current === 1)"
+            @click="paginate(pagination.current - 1)"
+          )
+          SoButton(
+            leading="caret-right"
+            size="paginator"
+            mode="text"
+            :disabled="(pagination.current === pagination.total)"
+            @click="paginate(pagination.current + 1)"
+          )
 
     .grid.grid-cols-10.gap-4
       ProductItem.col-span-2(v-for="item in items" :key="item.id" :item="item")
