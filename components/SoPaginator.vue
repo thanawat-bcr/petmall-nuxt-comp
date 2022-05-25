@@ -7,14 +7,15 @@
     :disabled="(pagination.current === 1)"
     @click="paginate(pagination.current - 1)"
   )
-  .flex.gap-x-1
+  .flex.gap-x-1.justify-center(style="width: 236px;")
     SoButton(
-      v-for="page in pagination.total"
-      :key="page"
+      v-for="p in pages"
+      :key="p"
+      v-if="p <= pagination.total"
       size="paginator"
-      :mode="pagination.current === page ? 'main' : 'text'"
-      @click="paginate(page)"
-    ) {{ page }}
+      :mode="pagination.current === p ? 'main' : 'text'"
+      @click="paginate(p)"
+    ) {{ p }}
   SoButton(
     leading="caret-right"
     size="paginator"
@@ -25,7 +26,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@nuxtjs/composition-api';
+import { computed, defineComponent } from '@nuxtjs/composition-api';
 
 const SoPaginator = defineComponent({
   props: {
@@ -34,12 +35,16 @@ const SoPaginator = defineComponent({
     },
   },
   setup(props, ctx) {
+    const page = computed(() => Math.ceil((props.pagination?.current) / 6));
+    const pages = computed(() => [...Array(6)].map((_, i) => (page.value * 6 - 5) + i++));
     const paginate = (page: Number) => {
       if (page === 0 || page > props.pagination?.total) return;
       ctx.emit('paginate', page);
     };
 
     return {
+      page,
+      pages,
       paginate,
     };
   },

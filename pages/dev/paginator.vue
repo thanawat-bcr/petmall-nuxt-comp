@@ -15,7 +15,7 @@ const paginator = defineComponent({
   setup() {
     const pagination = reactive({
       current: 1,
-      total: 9,
+      total: 16,
     });
     const paginate = (page: number) => {
       pagination.current = page;

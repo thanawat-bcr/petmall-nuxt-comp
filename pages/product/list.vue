@@ -147,8 +147,15 @@
             i.ph-caret-left.text-md.text-gray-opacity-24
           .w-10.h-10.bg-gray-opacity-12.flex.items-center.justify-center.rounded-lg.cursor-pointer
             i.ph-caret-right.text-md.text-gray-opacity-40
+
     .grid.grid-cols-10.gap-4
       ProductItem.col-span-2(v-for="item in items" :key="item.id" :item="item")
+
+    .flex.justify-center
+      SoPaginator(
+        :pagination="pagination"
+        @paginate="paginate"
+      )
 </template>
 
 <script lang="ts">
@@ -225,7 +232,15 @@ const list = defineComponent({
       { id: 10, name:"อาหารสุนัข Woofs ขนาด 100g สำหรับพันธุ์เล็ก", img:"/product/item/01.png", price:"300", amount:"10", discount:"70", rank: 2},
       { id: 11, name:"อาหารสุนัข Woofs ขนาด 100g สำหรับพันธุ์เล็ก", img:"/product/item/09.png", price:"300", amount:"10", discount:"70", rank: 3},
       { id: 12, name:"อาหารสุนัข Woofs ขนาด 100g สำหรับพันธุ์เล็ก", img:"/product/item/10.png", price:"300", amount:"10"},
-    ])
+    ]);
+
+    const pagination = reactive({
+      current: 1,
+      total: 16,
+    });
+    const paginate = (page: number) => {
+      pagination.current = page;
+    };
 
     return {
       filter,
@@ -235,6 +250,9 @@ const list = defineComponent({
       sorts,
 
       items,
+
+      pagination,
+      paginate,
     };
   },
 });
