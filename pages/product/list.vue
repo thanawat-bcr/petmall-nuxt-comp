@@ -1,5 +1,6 @@
 <template lang="pug">
 .list.grid-container
+
   //- SIDENAV FOR FILTER
   aside.col-span-2.flex.flex-col.gap-y-6
     .flex.flex-col.gap-y-2
@@ -78,8 +79,76 @@
           @input="filters.ingredientFilterHandler"
         ) {{ op.value }}
 
-  .col-span-10
+  //- MAIN SECTION
+  section.col-span-10.flex.flex-col.gap-y-4
 
+    //- BRANDS HEADER
+    .flex.justify-between.items-center
+      .flex.gap-x-1
+        .text-sm.text-gray-500 แบรนด์ที่เกี่ยวข้องกับ
+        .text-sm.text-orange-800 "{{ 'อาหารสัตว์เลี้ยง' }}"
+      .flex.gap-x-1.items-center.cursor-pointer
+        .text-sm.text-orange-900 ร้านค้าอื่นๆ
+        i.ph-caret-right.text-orange-900.text-md
+
+    //- BRANDS CARD
+    .flex.justify-between.px-8.py-4.bg-gray-opacity-8.rounded-sm
+      .flex.items-center.gap-x-6
+        .relative
+          img(src="/shop/01.png")
+          SoTag.absolute.bottom-0.transform-x-center
+        .flex.flex-col.gap-y-1.justify-center
+          h6.text-gray-500 Brand name
+          .text-sm.text-gray-500 Account name
+      .flex.items-center.gap-x-4
+        .w-px.h-full.bg-gray-200
+        .flex.flex-col.gap-y-1
+          .flex.items-center.gap-x-1
+            i.ph-tote-simple.text-md.text-orange-800
+            .text-sm.text-orange-800 {{ '100' }}
+          .text-sm.text-gray-500 สินค้า
+        .w-px.h-full.bg-gray-200
+        .flex.flex-col.gap-y-1
+          .flex.items-center.gap-x-1
+            i.ph-star.text-md.text-orange-800
+            .text-sm.text-orange-800 {{ '4.9' }}
+          .text-sm.text-gray-500 คะแนน
+
+    //- ITEMS HEADER
+    .flex.justify-between.items-center
+      .flex.gap-x-1
+        .text-sm.text-gray-500 ค้นหา
+        .text-sm.text-orange-800 "{{ 'อาหารสัตว์เลี้ยง' }}"
+
+    //- ITEMS SOPRTING
+    .flex.justify-between.items-center
+      .flex.items-center.gap-x-4
+        h4.text-gray-500 {{ 'อาหารสัตว์เลี้ยง' }}
+        .text-sm.text-gray-400.ml-1 เรียงโดย
+        .flex.items-center.gap-x-4
+          SoInput(
+            size="sm"
+            type="select"
+            v-model="sort.date"
+            :options="sorts.dates"
+            placeholder="สินค้าล่าสุด"
+          )
+          SoInput(
+            size="sm"
+            type="select"
+            v-model="sort.price"
+            :options="sorts.prices"
+            placeholder="ราคา"
+          )
+      .flex.items-center.gap-x-2
+        .text-sm.text-gray-400 {{ '1' }} / {{ '9' }}
+        .flex.gap-x-1
+          .w-10.h-10.bg-gray-opacity-8.flex.items-center.justify-center.rounded-lg
+            i.ph-caret-left.text-md.text-gray-opacity-24
+          .w-10.h-10.bg-gray-opacity-12.flex.items-center.justify-center.rounded-lg.cursor-pointer
+            i.ph-caret-right.text-md.text-gray-opacity-40
+    .grid.grid-cols-10.gap-4
+      ProductItem.col-span-2(v-for="item in items" :key="item.id" :item="item")
 </template>
 
 <script lang="ts">
@@ -134,9 +203,38 @@ const list = defineComponent({
       ingredientFilterHandler: () => { filter.ingredient = (filters.ingredients.filter(item => item.selected).map(item => item.value) as any); },
     });
 
+    const sort = reactive({
+      date: null,
+      price: null,
+    });
+    const sorts = reactive({
+      dates: [{ value: 'มากไปน้อย' }, { value: 'น้อยไปมาก' }],
+      prices: [{ value: 'มากไปน้อย' }, { value: 'น้อยไปมาก' }],
+    });
+
+    const items = reactive([
+      { id: 1, name:"อาหารสุนัข Woofs ขนาด 100g สำหรับพันธุ์เล็ก", img:"/product/item/01.png", price:"300", amount:"10", discount:"70", tag: true},
+      { id: 2, name:"อาหารสุนัข Woofs ขนาด 100g สำหรับพันธุ์เล็ก", img:"/product/item/09.png", price:"300", amount:"10", discount:"70" },
+      { id: 3, name:"อาหารสุนัข Woofs ขนาด 100g สำหรับพันธุ์เล็ก", img:"/product/item/10.png", price:"300", amount:"10", discount:"70", rank: 1},
+      { id: 4, name:"อาหารสุนัข Woofs ขนาด 100g สำหรับพันธุ์เล็ก", img:"/product/item/01.png", price:"300", amount:"10", tag: true},
+      { id: 5, name:"อาหารสุนัข Woofs ขนาด 100g สำหรับพันธุ์เล็ก", img:"/product/item/09.png", price:"300", amount:"10"},
+      { id: 6, name:"อาหารสุนัข Woofs ขนาด 100g สำหรับพันธุ์เล็ก", img:"/product/item/10.png", price:"300", amount:"10", discount:"70"},
+      { id: 7, name:"อาหารสุนัข Woofs ขนาด 100g สำหรับพันธุ์เล็ก", img:"/product/item/01.png", price:"300", amount:"10", discount:"70", tag: true},
+      { id: 8, name:"อาหารสุนัข Woofs ขนาด 100g สำหรับพันธุ์เล็ก", img:"/product/item/09.png", price:"300", amount:"10"},
+      { id: 9, name:"อาหารสุนัข Woofs ขนาด 100g สำหรับพันธุ์เล็ก", img:"/product/item/10.png", price:"300", amount:"10", discount:"70", rank: 4},
+      { id: 10, name:"อาหารสุนัข Woofs ขนาด 100g สำหรับพันธุ์เล็ก", img:"/product/item/01.png", price:"300", amount:"10", discount:"70", rank: 2},
+      { id: 11, name:"อาหารสุนัข Woofs ขนาด 100g สำหรับพันธุ์เล็ก", img:"/product/item/09.png", price:"300", amount:"10", discount:"70", rank: 3},
+      { id: 12, name:"อาหารสุนัข Woofs ขนาด 100g สำหรับพันธุ์เล็ก", img:"/product/item/10.png", price:"300", amount:"10"},
+    ])
+
     return {
       filter,
       filters,
+
+      sort,
+      sorts,
+
+      items,
     };
   },
 });
