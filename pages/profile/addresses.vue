@@ -6,8 +6,13 @@
       SoButton(size="sm" leading="plus") เพิ่มที่อยู่
     .text-md.text-gray-500 เพิ่มที่อยู่สำหรับส่งสินค้าของคุณ
 
-  .line.w-full.h-px.bg-gray-200
+  //- EMPTY STATE
+  .flex.flex-col.items-center.justify-center
+    .line.w-full.h-px.bg-gray-200
+    .py-12: .text-md.text-gray-500 คุณยังไม่ได้เพิ่มที่อยู่ในการจัดส่ง
+
   .flex.flex-col.gap-y-8
+    .line.w-full.h-px.bg-gray-200
     .flex.gap-x-4
       .flex.flex-col.gap-y-8
         .grid-address-row
@@ -25,8 +30,8 @@
           .button-lg.underline.text-gray-500.cursor-pointer ลบ
         SoButton(block size="sm" mode="outline" disabled) ตั้งเป็นค่าเริ่มต้น
 
-  .line.w-full.h-px.bg-gray-200
   .flex.flex-col.gap-y-8
+    .line.w-full.h-px.bg-gray-200
     .flex.gap-x-4
       .flex.flex-col.gap-y-8
         .grid-address-row
