@@ -65,7 +65,7 @@ const SoButton = defineComponent({
         text: 'button-sm',
         icon: 'text-xl',
       };
-      if (props.size === 'paginator')return {
+      if (props.size === 'paginator') return {
         button: 'w-9 h-9 gap-x-1',
         text: 'button-sm',
         icon: 'text-md',
