@@ -4,6 +4,7 @@
     :color="color"
   )
   AdvertisementCarousel(v-if="carousel")
+  component(:is="bannerName")
   main.container.py-8(v-if="profile")
     .grid-container
       .col-span-3: HeaderProfileSidenav
@@ -24,6 +25,7 @@ const primary = defineComponent({
       this.color = payload.color;
       this.profile = payload.profile;
       this.carousel = payload.carousel;
+      this.banner = payload.banner;
     },
   },
   data() {
@@ -31,7 +33,13 @@ const primary = defineComponent({
       color: false,
       profile: false,
       carousel: false,
+      banner: '',
     };
+  },
+  computed: {
+    bannerName() {
+      return 'ShopsBanners' + (this.banner as String).charAt(0).toUpperCase() + (this.banner as String).toLowerCase().slice(1);
+    },
   },
 });
 
