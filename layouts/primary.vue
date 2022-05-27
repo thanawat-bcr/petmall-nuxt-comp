@@ -25,7 +25,7 @@ const primary = defineComponent({
       this.color = payload.color;
       this.profile = payload.profile;
       this.carousel = payload.carousel;
-      this.banner = payload.banner;
+      if (payload.banner) this.banner = payload.banner;
     },
   },
   data() {
@@ -38,7 +38,7 @@ const primary = defineComponent({
   },
   computed: {
     bannerName() {
-      return 'ShopsBanners' + (this.banner as String).charAt(0).toUpperCase() + (this.banner as String).toLowerCase().slice(1);
+      return this.banner ? 'ShopsBanners' + (this.banner as String).charAt(0).toUpperCase() + (this.banner as String).toLowerCase().slice(1) : '';
     },
   },
 });

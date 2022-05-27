@@ -51,7 +51,7 @@ export default Item;
     .item-discount {
       clip-path: polygon(100% 0, 100% 100%, 50% 85%, 0 100%, 0 0);
     }
-    .item-item.rank {
+    .item-rank {
       clip-path: polygon(100% 0, 100% 85%, 50% 100%, 0 85%, 0 0);
 
     }
