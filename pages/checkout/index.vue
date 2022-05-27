@@ -1,10 +1,10 @@
 <template lang="pug">
 .checkout.flex.flex-col.gap-y-8
-  
-  .flex.items-center.gap-x-1
-    .text-sm.text-gray-400.cursor-pointer(@click="$router.push('/')") หน้าแรก
-    i.ph-caret-right.text-gray-400.text-md
-    .text-sm.text-green-800.cursor-pointer การสั่งซื้อ
+
+  //- BREADCRUMB
+  SoBreadcrumb(
+    :breadcrumbs="breadcrumbs"
+  )
 
   .flex.items-center.justify-between
     .flex.items-center.gap-x-3
@@ -104,6 +104,11 @@ const checkout = defineComponent({
     });
   },
   setup() {
+    const breadcrumbs = reactive([
+      { name: 'หน้าแรก', to: '/' },
+      { name: 'การสั่งซื้อ', to: null },
+    ]);
+
     const items = reactive([
       { id: 1, shop: { id: 1, name: 'PetMall A' }, name: 'อาหารสุนัข Woofs ขนาด 1g สำหรับพันธุ์เล็ก', option: 'รสไก่', amount: 2, price: 300, img: '/product/item/01.png' },
       { id: 2, shop: { id: 2, name: 'PetMall B' }, name: 'อาหารสุนัข Woofs ขนาด 2g สำหรับพันธุ์เล็ก', option: 'รสเนื้อวัว', amount: 2, price: 600, img: '/product/item/02.png' },
@@ -145,6 +150,8 @@ const checkout = defineComponent({
     };
 
     return {
+      breadcrumbs,
+
       items,
       shops,
       computedItemsAmount,

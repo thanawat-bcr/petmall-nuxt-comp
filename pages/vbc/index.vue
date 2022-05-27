@@ -98,7 +98,6 @@ const index = defineComponent({
     const selectedTab = ref(0);
     const tabSelectHandler = (index: any) => selectedTab.value = index;
 
-
     const sales = reactive([
       { id: 1, name:"อาหารสุนัข Woofs ขนาด 100g สำหรับพันธุ์เล็ก", img:"/product/item/01.png", price:"300", amount:"10", rank: 1 },
       { id: 2, name:"อาหารสุนัข Woofs ขนาด 100g สำหรับพันธุ์เล็ก", img:"/product/item/09.png", price:"300", amount:"10", rank: 2 },
