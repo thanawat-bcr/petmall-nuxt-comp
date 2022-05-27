@@ -40,6 +40,16 @@ const secondary = defineComponent({
       auth: false,
     };
   },
+  watch: {
+    $route(from, to) {
+      this.icon = '';
+      this.title = '';
+      this.searchbar = false;
+      this.topNav = false;
+      this.color = false;
+      this.auth = false;
+    }
+  }
 });
 
 export default secondary;
