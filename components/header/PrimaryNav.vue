@@ -13,7 +13,7 @@ header
         span.flex.items-center.gap-x-2.cursor-pointer
           i.ph-globe.text-lg
           .text-xs ไทย
-        NuxtLink(to="/register" v-if="true"): SoButton(size="sm") ลงชื่อเข้าใช้
+        NuxtLink(to="/vbc" v-if="true"): SoButton(size="sm") ลงชื่อเข้าใช้
         span.flex.items-center.gap-x-2.cursor-pointer(v-else)
           i.ph-user-circle.text-xl
           .text-xs Tutorism
