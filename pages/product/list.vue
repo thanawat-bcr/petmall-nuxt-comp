@@ -3,7 +3,7 @@
 
   //- EMPTY STATE
   .flex.flex-col.gap-y-12(v-if="false")
-    .grid-container
+    .grid-container-12
       .col-span-4
       .col-span-4.flex.flex-col.items-center.gap-y-4
         img(src="/empty/product-list.png")
@@ -12,7 +12,7 @@
           .text-sm.text-gray-500 ลองใช้คำอื่นที่แตกต่างหรือคำอื่นที่มีความหมายกว้างกว่านี้
     ProductSuggestion
 
-  .grid-container(v-else)
+  .grid-container-12(v-else)
     //- SIDENAV FOR FILTER
     aside.col-span-2.flex.flex-col.gap-y-6
       .flex.flex-col.gap-y-2
@@ -170,7 +170,7 @@
               @click="paginate(pagination.current + 1)"
             )
 
-      .grid.grid-cols-10.gap-4
+      .grid-container-10
         ProductItem.col-span-2(v-for="item in items" :key="item.id" :item="item")
 
       .flex.justify-center

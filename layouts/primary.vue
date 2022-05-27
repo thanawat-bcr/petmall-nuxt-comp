@@ -6,7 +6,7 @@
   AdvertisementCarousel(v-if="carousel")
   component(:is="bannerName")
   main.container.py-8(v-if="profile")
-    .grid-container
+    .grid-container-12
       .col-span-3: HeaderProfileSidenav
       .col-span-9: Nuxt
   main.container.py-8(v-else)

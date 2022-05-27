@@ -26,7 +26,7 @@
       .text-md.text-gray-500 รายการสินค้า
 
   .flex.flex-col.gap-y-5
-    .grid-container.bg-gray-opacity-12.py-2
+    .grid-container-12.bg-gray-opacity-12.py-2
       .col-span-9.pl-2
         h6.text-gray-500 สินค้า
       .col-span-1
@@ -44,7 +44,7 @@
     )
   .flex.flex-col.gap-y-6
     .w-full.h-px.bg-gray-200
-    .grid-container.flex.items-center
+    .grid-container-12.flex.items-center
       .col-span-2: .text-sm.text-gray-500 รูปแบบการจัดส่ง:    
       .col-span-9.flex.items-center.gap-x-4
         SoButton(
@@ -56,7 +56,7 @@
         ) {{ item.name }}
       .col-span-1: .text-md.text-gray-700.text-right ฿{{computedShipmentPrice}}
     .w-full.h-px.bg-gray-200
-    .grid-container
+    .grid-container-12
       .col-span-8
       .col-span-4
         .flex.items-center.justify-between
@@ -75,7 +75,7 @@
       @click="paymentHandler(index)"
       size="md"
     ) {{ item.name }}
-  .grid-container
+  .grid-container-12
     .col-span-9
     .col-span-3
       .flex.flex-col.gap-y-4

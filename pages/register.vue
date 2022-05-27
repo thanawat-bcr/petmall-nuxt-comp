@@ -2,7 +2,7 @@
 .register
   .register-bg.pt-20(style="background-image: url('/registration/bg.png');")
     .container
-      .grid-container
+      .grid-container-12
         .col-span-3
         .col-span-6.flex.flex-col.bg-white.rounded-lg.px-24.py-8
           h4.text-gray-500 ลงชื่อเข้าใช้

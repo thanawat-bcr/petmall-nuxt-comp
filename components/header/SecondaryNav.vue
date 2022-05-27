@@ -19,7 +19,7 @@ header
           .text-xs Tutorism
 
       //- Main Nav
-      .grid-container.items-center
+      .grid-container-12.items-center
         NuxtLink(to="/").col-span-2: img.cursor-pointer(:src="navbarColor.logo")
         .flex.items-center.gap-x-4.col-span-4(:class="navbarColor.text")
           .h-10(style="width: 2px;" :class="color ? 'bg-white' : 'bg-green-900'")

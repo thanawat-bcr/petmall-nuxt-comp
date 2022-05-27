@@ -7,7 +7,7 @@
   SoForm
     .flex.flex-col.gap-y-8
 
-      .grid.grid-cols-9.gap-4.items-center
+      .grid-container-9.items-center
         .col-span-2.text-gray-500.text-md.text-right รหัสผ่านปัจจุบัน:
         .col-span-4.flex
           SoInput(
@@ -19,7 +19,7 @@
           )
         .col-span-2: .button-lg.underline.text-orange-900.cursor-pointer ลืมรหัสผ่าน
 
-      .grid.grid-cols-9.gap-4.items-center
+      .grid-container-9.items-center
         .col-span-2.text-gray-500.text-md.text-right รหัสผ่านใหม่:
         .col-span-4.flex
           SoInput(
@@ -30,7 +30,7 @@
             rules="required"
           )
 
-      .grid.grid-cols-9.gap-4.items-center
+      .grid-container-9.items-center
         .col-span-2.text-gray-500.text-md.text-right ยืนยันรหัสผ่าน:
         .col-span-4.flex
           SoInput(
@@ -41,7 +41,7 @@
             rules="required"
           )
 
-      .grid.grid-cols-9.gap-4.items-center
+      .grid-container-9.items-center
         .col-span-2
         .col-span-2: SoButton(type="submit" block size="lg") ตกลง
 </template>

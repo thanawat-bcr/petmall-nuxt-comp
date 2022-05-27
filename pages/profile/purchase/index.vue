@@ -4,7 +4,7 @@
   .flex.flex-col.gap-y-2
     h4.text-gray-500 การสั่งซื้อของฉัน
 
-  .grid.grid-cols-9.gap-x-4
+  .grid-container-9
     .tab-selector.button-sm(
       v-for="(title, index) in tabs"
       :class="{ 'tab-selected': index === tab}"
@@ -12,7 +12,7 @@
     ) {{ title }}
 
   //- EMPTY STATE
-  //- .grid.grid-cols-9.gap-x-4
+  //- .grid-container-9
     .col-span-3
     .col-span-3.flex.flex-col.items-center.gap-y-4
       img(src="/empty/purchase.png")

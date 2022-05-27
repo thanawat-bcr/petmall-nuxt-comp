@@ -2,7 +2,7 @@
 .index.flex.flex-col.gap-y-8
   
   section.flex.items-center.justify-between
-    .grid-container
+    .grid-container-12
       .col-span-1.pt-3.cursor-pointer(v-for="(tab, index) in tabs" :key="tab")
         .text-sm.text-gray-500.text-center(@click="tabSelectHandler(index)") {{ tab }}
         .w-full.bg-green-800.mt-3(style="height: 2px;" v-if="selectedTab === index")
@@ -12,19 +12,19 @@
 
   section.flex.flex-col.gap-y-5
     ProductHeader(showAll) สินค้าขายดี
-    .grid-container
+    .grid-container-12
       ProductItem.col-span-2(v-for="item in sales" :key="item.id" :item="item")
 
   img(src="/vbc/ads.png")
 
   section.flex.flex-col.gap-y-5
     ProductHeader(showAll) มาใหม่
-    .grid-container
+    .grid-container-12
       ProductItem.col-span-2(v-for="item in sales" :key="item.id" :item="item")
 
   AdvertisementStrength
 
-  .grid-container
+  .grid-container-12
     aside.col-span-2.flex.flex-col.gap-y-6
       .flex.flex-col.gap-y-2
         h6.text-gray-500 หมวดหมู่ที่เกี่ยวข้อง
@@ -75,7 +75,7 @@
               @click="paginate(pagination.current + 1)"
             )
 
-      .grid.grid-cols-10.gap-4
+      .grid-container-10
         ProductItem.col-span-2(v-for="item in items" :key="item.id" :item="item")
 
       .flex.justify-center

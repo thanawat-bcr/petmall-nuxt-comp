@@ -1,6 +1,6 @@
 <template lang="pug">
 section.so-pet.container.py-12.bg-gray-opacity-12
-  .grid-container
+  .grid-container-12
     .col-span-4.flex.flex-col.items-center.gap-y-3.px-6
       img.w-40.h-40(src="/ads/sopet/01.png")
       .flex.flex-col.items-center.gap-y-1

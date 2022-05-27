@@ -9,7 +9,7 @@
       .button-sm.text-gray-500 หมายเลขคำสั่งซื้อ {{ 'ORDER_NUMBER' }}
       .text-sm.text-green-900 {{ 'ORDER_STATUS' }}
 
-  .grid.grid-cols-9.gap-x-4
+  .grid-container-9
     .col-span-1
 
     .col-span-2.tracking-status.flex.items-center(v-for="(tracking, index) in trackings")
@@ -43,22 +43,22 @@
     )
 
   .flex.flex-col.gap-y-4
-    .grid.grid-cols-9.gap-x-4.items-center
+    .grid-container-9.items-center
       .col-span-6
       .col-span-2.text-sm.text-gray-500 ยอดรวมสินค้า :
       .col-span-1.text-md.text-gray-500 ฿1200
 
-    .grid.grid-cols-9.gap-x-4.items-center
+    .grid-container-9.items-center
       .col-span-6
       .col-span-2.text-sm.text-gray-500 รวมการจัดส่ง :
       .col-span-1.text-md.text-gray-500 ฿60
 
-    .grid.grid-cols-9.gap-x-4.items-center
+    .grid-container-9.items-center
       .col-span-6
       .col-span-2.text-sm.text-gray-500 การชำระเงินทั้งหมด :
       .col-span-1.text-md.text-gray-500 ฿1260
 
-    .grid.grid-cols-9.gap-x-4.items-center
+    .grid-container-9.items-center
       .col-span-6
       .col-span-2.text-sm.text-gray-500 ช่องทางการชำระเงิน :
       .col-span-1.text-md.text-gray-500 QR Code

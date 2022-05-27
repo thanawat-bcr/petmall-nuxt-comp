@@ -2,7 +2,7 @@
 .cart.flex.flex-col.gap-y-12
 
   //- EMPTY STATE
-  .grid-container(v-if="true")
+  //- .grid-container-12
     .col-span-4
     .col-span-4.flex.flex-col.items-center.gap-y-4
       img(src="/empty/cart.png")
@@ -10,8 +10,8 @@
         h6.text-gray-500 คุณยังไม่มีสินค้าในรถเข็นตอนนี้
       SoButton(size="md") ช้อปสินค้าเลย
 
-  .flex.flex-col.gap-y-5(v-else)
-    .grid-container
+  .flex.flex-col.gap-y-5
+    .grid-container-12
       .col-span-4.flex.items-center.gap-x-4
         SoCheckbox(v-model="selectAll" @input="selectHandler")
         h6.text-gray-500 สินค้า
@@ -45,7 +45,7 @@
 
   section.h-28.w-screen.fixed.bottom-0.transform-x-center.bg-gray-100.flex.items-center.shadow-1
     .container
-      .grid-container
+      .grid-container-12
         .col-span-2.flex.items-center
           SoCheckbox(v-model="selectAll" @input="selectHandler")
             .text-gray-500.text-md เลือกทั้งหมด ({{ items.reduce((a, item) => a + item.amount, 0) }} ชิ้น)

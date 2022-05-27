@@ -1,13 +1,13 @@
 <template lang="pug">
 section.suggestion.flex.flex-col.gap-y-5
   ProductHeader สินค้าที่คุณอาจจะชอบ
-  .grid-container
+  .grid-container-12
     ProductItem.col-span-2(
       v-for="item in items"
       :key="item.id"
       :item="item"
     )
-  .grid-container
+  .grid-container-12
     .col-span-5
     .col-span-2: SoButton(block size="lg" mode="soft") ดูเพิ่มเติม
 </template>

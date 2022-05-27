@@ -3,7 +3,7 @@
   .flex.gap-x-4.items-center(v-if="shops.includes(item.id)")
     SoTag
     .text-sm.font-bold.text-gray-500 {{ item.shop.name }}
-  .grid-container.py-4
+  .grid-container-12.py-4
     .col-span-4.flex.items-center
       SoCheckbox(v-model="item.selected")
       .flex.gap-x-4

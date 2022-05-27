@@ -5,14 +5,14 @@
     :breadcrumbs="breadcrumbs"
   )
 
-  .grid-container
+  .grid-container-12
     .col-span-4.rounded-lg.bg-opacity-8.cursor-pointer(
       v-for="manual in manuals"
       :key="manual.id"
       @click="$router.push(`/vbc/e-manual/${manual.id}`)"
     )
       .flex.items-center
-        .grid.grid-cols-4.gap-x-4
+        .grid-container-4
           .col-span-1.p-2: img(:src="manual.img")
           .col-span-3.flex.items-center.justify-between
             .flex.flex-col.gap-y-1

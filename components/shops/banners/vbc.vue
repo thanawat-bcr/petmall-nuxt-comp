@@ -2,7 +2,7 @@
 .vbc-banner
   .flex.items-center(style="background-image: url('/vbc/banner.png'); background-position: center; height: 300px;")
     .container
-      .grid-container.items-center
+      .grid-container-12.items-center
         .col-span-1
           .relative
             img(src="/shop/01.png")
@@ -12,7 +12,7 @@
             h6.text-white VBC Kit Tech
             .text-sm.text-white ชุดตรวจวัดคุณภาพน้ำสำหรับการเพาะเลี้ยงสัตว์น้ำ
         .col-span-2
-          SoButton(size="md" block leading="book" mode="outline:white") E-manual
+          SoButton(size="md" block leading="book" mode="outline:white" @click="$router.push('/vbc/e-manual')") E-manual
         .col-span-2
           .flex.items-center.justify-between
             .w-px.h-12.bg-white

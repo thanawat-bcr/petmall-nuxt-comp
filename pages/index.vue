@@ -3,7 +3,7 @@
 
   section.flex.flex-col.gap-y-5
     ProductHeader สินค้าจาก Partner
-    .grid-container
+    .grid-container-12
       ProductCategory.col-span-2(name="ชุดตรวจสอบ" text="คุณภาพน้ำ" img="/product/category/01.png")
       ProductCategory.col-span-2(name="อาหาร" text="สัตว์เลี้ยง" img="/product/category/02.png")
       ProductCategory.col-span-2(name="ของเล่น" text="สัตว์เลี้ยง" img="/product/category/03.png")
@@ -13,25 +13,25 @@
 
   section.flex.flex-col.gap-y-5
     ProductHeader(showAll) คุณอาจจะสนใจ
-    .grid-container
+    .grid-container-12
       ProductItem.col-span-2(v-for="item in items" :key="item.id" :item="item")
 
   AdvertisementStrength
 
   section.flex.flex-col.gap-y-5
     ProductHeader(showAll) สินค้ายอดฮิตประจำสัปดาห์
-    .grid-container
+    .grid-container-12
       ProductItem.col-span-2(v-for="item in items" :key="item.id" :item="item")
 
   AdvertisementBanner
 
   section.flex.flex-col.gap-y-5
     ProductHeader(showAll) สินค้าลดพิเศษ
-    .grid-container
+    .grid-container-12
       ProductItem.col-span-2(v-for="item in items" :key="item.id" :item="item")
-    .grid-container
+    .grid-container-12
       ProductItem.col-span-2(v-for="item in items" :key="item.id" :item="item")
-    .grid-container
+    .grid-container-12
       .col-span-5
       .col-span-2: SoButton(mode="soft" size="lg" block) ดูเพิ่มเติม
       .col-span-5

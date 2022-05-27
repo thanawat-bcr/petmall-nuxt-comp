@@ -3,7 +3,7 @@
   .flex.gap-x-4.items-center.mb-6(v-if="shops.includes(item.id)")
     SoTag
     .text-sm.font-bold.text-gray-500 {{ item.shop.name }}
-  .grid-container
+  .grid-container-12
     .col-span-1
       img.w-20.h-20.object-contain(:src="item.img")
     .col-span-6

@@ -2,7 +2,7 @@
 .success.flex.flex-col.gap-y-12
   
   //- SUCCESS STATE
-  .grid-container
+  .grid-container-12
     .col-span-4
     .col-span-4.flex.flex-col.items-center.gap-y-4
       img(src="/success/purchase.png")

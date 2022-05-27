@@ -6,14 +6,14 @@
   .line.w-full.h-px.bg-gray-200
   SoForm
     .flex.flex-col.gap-y-8
-      .grid-profile-row
+      .grid-container-9.items-center
         .col-span-2.text-gray-500.text-md.text-right รูปโปรไฟล์:
         .col-span-7.flex.items-center.gap-x-4
           .w-14.h-14.rounded-full.bg-gray-200.flex.items-center.justify-center: i.ph-user.text-2xl.text-gray-400
           .flex.flex-col
             .button-lg.underline.text-orange-900.cursor-pointer เลือกภาพ
             .text-xs.text-gray-800 ขนาดรูป : ไม่เกิน 1 MB, รองรับ : .JPEG, .PNG
-      .grid-profile-row
+      .grid-container-9.items-center
         .col-span-2.text-gray-500.text-md.text-right ชื่อผู้ใช้:
         .col-span-7.flex
           SoInput(
@@ -22,10 +22,10 @@
             size="lg"
             rules="required"
           )
-      .grid-profile-row
+      .grid-container-9.items-center
         .col-span-2.text-gray-500.text-md.text-right Email:
         .col-span-7.flex: .text-md.text-gray-800.en {{ user.email }}
-      .grid-profile-row
+      .grid-container-9.items-center
         .col-span-2.text-gray-500.text-md.text-right เพศ:
         .col-span-7
           SoRadio.flex.gap-x-4(
@@ -33,7 +33,7 @@
             v-model="user.gender"
             rules="required"
           )
-      .grid-profile-row
+      .grid-container-9.items-center
         .col-span-2.text-gray-500.text-md.text-right วัน/เดือน/ปี เกิด:
         .col-span-7.flex.gap-x-4
           SoInput(
@@ -57,7 +57,7 @@
             placeholder="ปี"
             rules="required"
           )
-      .grid-profile-row
+      .grid-container-9.items-center
         .col-span-2
         .col-span-2: SoButton(type="submit" block size="lg") ตกลง
 
@@ -109,10 +109,5 @@ export default index;
 </script>
 
 <style lang="scss" scoped>
-.index {
-  .grid-profile-row {
-    @apply grid gap-x-4 items-center;
-    grid-template-columns: repeat(9, 80px);
-  }
-}
+// .index {}
 </style>
