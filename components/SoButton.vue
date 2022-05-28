@@ -57,12 +57,12 @@ const SoButton = defineComponent({
 
     const buttonSize = computed(() => {
       if (props.size === 'lg') return {
-        button: 'px-8 h-12 gap-x-2',
+        button: 'px-3 h-12 gap-x-2',
         text: 'button-lg',
         icon: 'text-xl',
       };
       if (props.size === 'md') return {
-        button: 'px-6 h-10 gap-x-2',
+        button: 'px-3 h-10 gap-x-2',
         text: 'button-sm',
         icon: 'text-xl',
       };
@@ -72,7 +72,7 @@ const SoButton = defineComponent({
         icon: 'text-md',
       };
       return {
-        button: 'px-5 h-9 gap-x-1',
+        button: 'px-3 h-9 gap-x-1',
         text: 'button-sm',
         icon: 'text-md',
       };
