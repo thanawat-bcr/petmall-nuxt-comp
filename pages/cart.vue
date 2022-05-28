@@ -55,7 +55,7 @@
         .col-span-2.flex.items-center
           .text-gray-500.text-md รวมสินค้า ({{ computedItems.reduce((a, item) => a + item.amount, 0) }} ชิ้น)
         .col-span-1.flex.items-center.justify-end
-          h5.text-orange-900 ฿{{ '1200' }}
+          h5.text-orange-900 ฿{{ computedItems.reduce((a, item) => a + (item.amount * item.price), 0) }}
         .col-span-2.flex.items-center
           SoButton(block) สั่งสินค้า
 
