@@ -71,10 +71,22 @@
         SoButton.col-span-2(mode="outline" size="lg" leading="shopping-cart-simple") เพิ่มไปยังรถเข็น
         SoButton.col-span-2(size="lg") ซื้อเลย
 
+  ShopsCard(:shop="shop")
+
+  .grid-container-12
+    .col-span-9
+      div(v-html="html")
+    .col-span-1
+    .col-span-2.flex.flex-col.gap-y-4
+      .text-md.text-gray-500 สินค้าขายดีประจำร้าน
+      .grid-container-2
+        ProductItem.col-span-2(v-for="item in sales" :key="item.id" :item="item")
+
+  AdvertisementStrengthSmall
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive } from '@nuxtjs/composition-api';
+import { defineComponent, reactive, ref } from '@nuxtjs/composition-api';
 
 const _id = defineComponent({
   layout: 'primary',
@@ -89,8 +101,30 @@ const _id = defineComponent({
       { name: 'AMMONIA TEST KIT For fresh and sea water Detection range: 0.25-10.0 ppm. NH+4', to: null },
     ]);
 
+    const shop = reactive({
+      img: '/shop/01.png',
+      name: 'VBC KIT TECH',
+      account: 'Tutorism',
+      items: 100,
+      score: 4.9,
+    });
+
+    const sales = reactive([
+      { id: 1, name:"อาหารสุนัข Woofs ขนาด 100g สำหรับพันธุ์เล็ก", img:"/product/item/01.png", price:"300", amount:"10", rank: 1 },
+      { id: 2, name:"อาหารสุนัข Woofs ขนาด 100g สำหรับพันธุ์เล็ก", img:"/product/item/09.png", price:"300", amount:"10", rank: 2 },
+      { id: 3, name:"อาหารสุนัข Woofs ขนาด 100g สำหรับพันธุ์เล็ก", img:"/product/item/10.png", price:"300", amount:"10", rank: 3 },
+    ]);
+
+    const html = ref('<h6 class="text-gray-600">รายละเอียดสินค้า</h6>');
+
     return {
       breadcrumbs,
+
+      shop,
+
+      sales,
+
+      html,
     };
   },
 });
