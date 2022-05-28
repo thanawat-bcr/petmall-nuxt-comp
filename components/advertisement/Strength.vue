@@ -9,12 +9,12 @@ section.so-pet.container.py-12.bg-gray-opacity-12
     .col-span-4.flex.flex-col.items-center.gap-y-3.px-6.card-center
       img.w-40.h-40(src="/ads/sopet/02.png")
       .flex.flex-col.items-center.gap-y-1
-        h5.text-gray-900 คัดเลือกโดยสัตวแพทย์
+        h5.text-gray-900 ของแท้แน่นอน
         .text-sm.text-gray-600.text-center สินค้าในPetMallได้รับการรับรองว่าเป็นของแท้ 100%
     .col-span-4.flex.flex-col.items-center.gap-y-3.px-6
       img.w-40.h-40(src="/ads/sopet/03.png")
       .flex.flex-col.items-center.gap-y-1
-        h5.text-gray-900 คัดเลือกโดยสัตวแพทย์
+        h5.text-gray-900 PetFund
         .text-sm.text-gray-600.text-center
           | กำไรส่วนหนึ่งบริจาคช่วยเหลือค่ารักษาสัตว์เลี้ยง PetFund
           span.button-sm.text-orange-800.ml-2 ดูรายละเอียด
