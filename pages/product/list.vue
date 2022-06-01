@@ -104,27 +104,7 @@
           i.ph-caret-right.text-orange-900.text-md
 
       //- BRANDS CARD
-      .flex.justify-between.px-8.py-4.bg-gray-opacity-8.rounded-sm
-        .flex.items-center.gap-x-6
-          .relative
-            img(src="/shop/01.png")
-            SoTag.absolute.bottom-0.transform-x-center
-          .flex.flex-col.gap-y-1.justify-center
-            h6.text-gray-500 Brand name
-            .text-sm.text-gray-500 Account name
-        .flex.items-center.gap-x-4
-          .w-px.h-full.bg-gray-200
-          .flex.flex-col.gap-y-1
-            .flex.items-center.gap-x-1
-              i.ph-tote-simple.text-md.text-orange-800
-              .text-sm.text-orange-800 {{ '100' }}
-            .text-sm.text-gray-500 สินค้า
-          .w-px.h-full.bg-gray-200
-          .flex.flex-col.gap-y-1
-            .flex.items-center.gap-x-1
-              i.ph-star.text-md.text-orange-800
-              .text-sm.text-orange-800 {{ '4.9' }}
-            .text-sm.text-gray-500 คะแนน
+      ShopsCard(:shop="shop")
 
       //- ITEMS HEADER
       .flex.justify-between.items-center
@@ -242,6 +222,14 @@ const list = defineComponent({
       prices: [{ value: 'มากไปน้อย' }, { value: 'น้อยไปมาก' }],
     });
 
+    const shop = reactive({
+      img: '/shop/01.png',
+      name: 'VBC KIT TECH',
+      account: 'Tutorism',
+      items: 100,
+      score: 4.9,
+    })
+
     const items = reactive([
       { id: 1, name:"อาหารสุนัข Woofs ขนาด 100g สำหรับพันธุ์เล็ก", img:"/product/item/01.png", price:"300", amount:"10", discount:"70", tag: true},
       { id: 2, name:"อาหารสุนัข Woofs ขนาด 100g สำหรับพันธุ์เล็ก", img:"/product/item/09.png", price:"300", amount:"10", discount:"70" },
@@ -272,6 +260,7 @@ const list = defineComponent({
       sort,
       sorts,
 
+      shop,
       items,
 
       pagination,
