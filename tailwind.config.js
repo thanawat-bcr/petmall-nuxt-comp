@@ -95,6 +95,12 @@ module.exports = {
     },
 
     fontSize: {
+      'h1': '44px',
+      'h2': '40px',
+      'h3': '32px',
+      'h4': '24px',
+      'h5': '20px',
+      'h6': '16px',
       '2xl': '24px',
       'xl': '20px',
       'lg': '18px',

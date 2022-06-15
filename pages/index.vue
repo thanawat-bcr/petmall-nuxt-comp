@@ -13,30 +13,39 @@
         :img="cat.img"
       )
 
-  section.flex.flex-col.gap-y-5
+  section
     ProductHeader(showAll) คุณอาจจะสนใจ
     .so-grid
-      ProductItem.col-span-2(v-for="item in items" :key="item.id" :item="item")
+      ProductItem.col-span-2(
+        v-for="(item, index) in items.slice(0,6)"
+        :class="{'hidden lg:flex': index > 3}"
+        :key="item.id"
+        :item="item"
+      )
 
   AdvertisementStrength
 
-  section.flex.flex-col.gap-y-5
+  section
     ProductHeader(showAll) สินค้ายอดฮิตประจำสัปดาห์
     .so-grid
-      ProductItem.col-span-2(v-for="item in items" :key="item.id" :item="item")
+      ProductItem.col-span-2(
+        v-for="(item, index) in items.slice(0,6)"
+        :class="{'hidden lg:flex': index > 3}"
+        :key="item.id"
+        :item="item"
+      )
 
   AdvertisementBanner
 
-  section.flex.flex-col.gap-y-5
+  section
     ProductHeader(showAll) สินค้าลดพิเศษ
     .so-grid
-      ProductItem.col-span-2(v-for="item in items" :key="item.id" :item="item")
-    .so-grid
-      ProductItem.col-span-2(v-for="item in items" :key="item.id" :item="item")
-    .so-grid
-      .col-span-5
-      .col-span-2: SoButton(mode="soft" size="lg" block) ดูเพิ่มเติม
-      .col-span-5
+      ProductItem.col-span-2(
+        v-for="(item, index) in items.slice(0,6)"
+        :class="{'hidden lg:flex': index > 3}"
+        :key="item.id"
+        :item="item"
+      )
 
 </template>
 

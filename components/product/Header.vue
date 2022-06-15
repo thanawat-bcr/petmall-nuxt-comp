@@ -1,6 +1,6 @@
 <template lang="pug">
-.header.flex.justify-between
-  h5.text-gray-500: slot
+.header.flex.justify-between.mb-4
+  h4.text-h5.text-gray-500: slot
   .flex.items-center.cursor-pointer(v-if="showAll")
     .text-gray-400.text-md ดูทั้งหมด
     i.ph-caret-right.text-lg.text-gray-400

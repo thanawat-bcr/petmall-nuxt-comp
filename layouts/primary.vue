@@ -2,7 +2,7 @@
 .primary
   //- HeaderPrimaryNav(:color="color")
   AdvertisementCarousel(v-if="carousel")
-  component(v-if="bannerName", :is="bannerName")
+  //- component(v-if="bannerName", :is="bannerName")
   //- main.container.py-8(v-if="profile")
     .so-grid
       .col-span-3: HeaderProfileSidenav

@@ -16,7 +16,7 @@
   .item-detail.flex.flex-col.gap-y-2
     .text-sm.text-gray-500 {{ item.name }}
     .flex.justify-between.items-center 
-      h6.text-gray-500 ฿{{ item.price }}
+      h6.text-h6.text-gray-500 ฿{{ item.price }}
       .text-xs.text-gray-400 ขายแล้ว {{ item.amount }} ชิ้น
 </template>
 
@@ -42,9 +42,8 @@ export default Item;
 .item {
   @apply rounded-lg;
   &-image {
-    @apply rounded-t-lg;
-    height: 176px;
-    width: 176px;
+    @apply rounded-t-lg h-36 md:h-52;
+    width: 100%;
     .item-tag {
       clip-path: polygon(0 0, 100% 0, 90% 100%, 0% 100%);
     }
