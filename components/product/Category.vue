@@ -1,9 +1,8 @@
 <template lang="pug">
 .category
-  img.category-image(:src="img")
-  .text-md.text-gray-500.text-center
-    p {{ name }}
-    p {{ text }}
+  .category-container
+    img.category-image(:src="img")
+    .text-gray-500.text-center(class="text-xs md:text-md") {{ name }}
 </template>
 
 <script lang="ts">
@@ -22,12 +21,11 @@ export default Category;
 </script>
 
 <style lang="scss">
-.category {
-  @apply w-full px-4 py-2 flex flex-col items-center gap-y-2;
+.category-container {
+  @apply w-full md:px-4 md:py-2 flex flex-col items-center gap-y-2;
   &-image {
-    // @apply bg-gray-opacity-8;
-    width: 124px;
-    height: 200px;
+    @apply h-32 md:h-48;
+    width: 100%;
     border-radius: 100px;
   }
 }
