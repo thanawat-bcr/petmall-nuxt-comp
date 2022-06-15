@@ -1,17 +1,17 @@
 module.exports = {
   theme: {
     screens: {
-      sm: '320px',
-      md: '601px',
-      lg: '1152px',
+      sm: '336px',
+      md: '688px',
+      lg: '1136px'
     },
     container: {
       center: true,
       screens: {
-        'sm': '320px',
-        'md': '600px',
-        'lg': '1136px',
-      },
+        sm: '336px',
+        md: '688px',
+        lg: '1136px'
+      }
     },
 
     colors: {
@@ -27,7 +27,7 @@ module.exports = {
         300: '#D1D1DB',
         200: '#E5E5EB',
         100: '#F7F7F8',
-        50: '#F9F9FB',
+        50: '#F9F9FB'
       },
       'gray-opacity': {
         72: 'rgba(18, 17, 39, 0.72)',
@@ -39,7 +39,7 @@ module.exports = {
         20: 'rgba(18, 17, 39, 0.20)',
         16: 'rgba(18, 17, 39, 0.16)',
         12: 'rgba(164, 163, 185, 0.12)',
-        8: 'rgba(81, 81, 88, 0.08)',
+        8: 'rgba(81, 81, 88, 0.08)'
       },
       green: {
         900: '#5BA093',
@@ -47,14 +47,14 @@ module.exports = {
         700: '#7AB6AB',
         600: '#7AC7B8',
         500: '#A0D1C8',
-        400: '#E8F9F6',
+        400: '#E8F9F6'
       },
       orange: {
         900: '#F67E5E',
         800: '#FB8F72',
         700: '#FFA58D',
         600: '#FFD0C3',
-        500: '#FFEFEB',
+        500: '#FFEFEB'
       },
       success: {
         900: '#05523C',
@@ -66,7 +66,7 @@ module.exports = {
         300: '#6EE7B7',
         200: '#A7F3D0',
         100: '#D1FAE5',
-        50: '#E3F4EC',
+        50: '#E3F4EC'
       },
       warn: {
         900: '#FC7125',
@@ -78,7 +78,7 @@ module.exports = {
         300: '#FFBC5D',
         200: '#FFC187',
         100: '#FFE7C7',
-        50: '#FFF4E6',
+        50: '#FFF4E6'
       },
       alert: {
         900: '#991B1B',
@@ -90,23 +90,32 @@ module.exports = {
         300: '#FCA5A5',
         200: '#FECACA',
         100: '#FEE2E2',
-        50: '#FEF2F2',
-      },
+        50: '#FEF2F2'
+      }
+    },
+
+    fontSize: {
+      '2xl': '24px',
+      'xl': '20px',
+      'lg': '18px',
+      'md': '16px',
+      'sm': '14px',
+      'xs': '12px',
     },
 
     extend: {
       opacity: {
-        '72': '0.72',
-        '56': '0.56',
-        '48': '0.48',
-        '40': '0.40',
-        '32': '0.32',
-        '24': '0.24',
-        '20': '0.20',
-        '16': '0.16',
-        '12': '0.12',
-        '8': '0.08',
-        '4': '0.04',
+        72: '0.72',
+        56: '0.56',
+        48: '0.48',
+        40: '0.40',
+        32: '0.32',
+        24: '0.24',
+        20: '0.20',
+        16: '0.16',
+        12: '0.12',
+        8: '0.08',
+        4: '0.04'
       }
     }
   },
@@ -119,7 +128,7 @@ module.exports = {
       textOpacity: ['active', 'disabled'],
       borderColor: ['active', 'disabled'],
       borderOpacity: ['active', 'disabled'],
-      opacity: ['active', 'disabled'],
+      opacity: ['active', 'disabled']
     }
   },
 
