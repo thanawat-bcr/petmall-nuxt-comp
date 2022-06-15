@@ -1,15 +1,13 @@
 <template lang="pug">
 .primary
-  HeaderPrimaryNav(
-    :color="color"
-  )
+  //- HeaderPrimaryNav(:color="color")
   AdvertisementCarousel(v-if="carousel")
-  component(v-if="bannerName" :is="bannerName")
-  main.container.py-8(v-if="profile")
-    .grid-container-12
+  component(v-if="bannerName", :is="bannerName")
+  //- main.container.py-8(v-if="profile")
+    .so-grid
       .col-span-3: HeaderProfileSidenav
       .col-span-9: Nuxt
-  main.container.py-8(v-else)
+  main.container.py-8
     Nuxt
 </template>
 
