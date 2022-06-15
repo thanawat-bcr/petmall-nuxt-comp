@@ -1,31 +1,29 @@
 <template lang="pug">
-.register
-  .register-bg.pt-20(style="background-image: url('/registration/bg.png');")
-    .container
-      .grid-container-12
-        .col-span-3
-        .col-span-6.flex.flex-col.bg-white.rounded-lg.px-24.py-8
-          h4.text-gray-500 ลงชื่อเข้าใช้
+.register.min-h-screen.pt-16.relative
+  .register-bg(class="hidden md:block" style="background-image: url('/registration/bg.png');")
+  .container
+    .so-grid
+      .col-span-6.bg-white.rounded-lg(class="py-4 md:py-12 md:px-24 md:col-start-2 lg:col-start-4")
+        .flex.flex-col
+          h4.text-h4.text-gray-500 ลงชื่อเข้าใช้
           .text-sm.text-gray-500 สร้างบัญชี Petmall ของคุณเลยตอนนี้
           SoForm.mt-6(@submit="submit")
-            .form--group
-              .form--row: .overline-lg.text-gray-500 อีเมล
-              .form--row 
-                SoInput(
-                  v-model="user.email"
-                  type="email"
-                  rules="required|email"
-                  placeholder="username@mail.com"
-                )
-              .form--row: .overline-lg.text-gray-500 รหัสผ่าน
-              .form--row 
-                SoInput(
-                  v-model="user.password"
-                  type="password"
-                  rules="required"
-                  placeholder="******"
-                )
-              .form--row: SoButton(block size="lg" type="submit") ถัดไป
+            .flex.flex-col.gap-y-2
+              .overline-lg.text-gray-500 อีเมล
+              SoInput(
+                v-model="user.email"
+                type="email"
+                rules="required|email"
+                placeholder="username@mail.com"
+              )
+              .overline-lg.text-gray-500 รหัสผ่าน
+              SoInput(
+                v-model="user.password"
+                type="password"
+                rules="required"
+                placeholder="******"
+              )
+              SoButton(block size="lg" type="submit") เข้าสู่ระบบ
           .flex.items-center.my-4
             .line.flex-1.h-px.bg-gray-200
             .text-sm.text-gray-400.px-4 หรือ
@@ -35,8 +33,6 @@
           .flex.mt-4.items-center.justify-center
             .text-sm.text-gray-400 หากคุณมีบัญชีผู้ใช้แล้ว คุณสามารถ 
             NuxtLink(to="/login"): .text-sm.text-orange-900.ml-2.cursor-pointer(class="hover:underline") เข้าสู่ระบบ 
-
-        .col-span-3
 </template>
 
 <script lang="ts">
@@ -70,11 +66,11 @@ const register = defineComponent({
 export default register;
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .register {
   &-bg {
-    height: 1000px;
-    @apply bg-contain bg-bottom;
+    @apply absolute inset-0 bg-no-repeat bg-cover bg-bottom;
+    z-index: -100;
   }
 }
 </style>
