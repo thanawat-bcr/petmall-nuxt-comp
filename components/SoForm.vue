@@ -22,15 +22,15 @@ export default SoForm;
 </script>
 
 <style lang="scss">
-.so-form {
-  .form--group {
-    @apply flex flex-col;
-    .form--row {
-      @apply flex gap-x-2;
-      .so-input {
-        @apply flex-1;
-      }
-    }
-  }
-}
+// .so-form {
+//   .form--group {
+//     @apply flex flex-col;
+//     .form--row {
+//       @apply flex gap-x-2;
+//       .so-input {
+//         @apply flex-1;
+//       }
+//     }
+//   }
+// }
 </style>

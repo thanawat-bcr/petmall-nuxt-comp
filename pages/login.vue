@@ -1,11 +1,44 @@
 <template lang="pug">
 .login
-  .login-bg.pt-20(style="background-image: url('/registration/bg.png');")
+  //- .login-bg.pt-20(style="background-image: url('/registration/bg.png');")
+  .mt-20
     .container
+      .flex.flex-col
+        h4.text-h4.text-gray-500 เข้าสู่ระบบ
+        .text-sm.text-gray-500 เข้าสู่ระบบของคุณเลยตอนนี้
+        SoForm.mt-6(@submit="submit")
+          .flex.flex-col.gap-y-2
+            .overline-lg.text-gray-500 อีเมล
+            SoInput(
+              v-model="user.email"
+              type="email"
+              rules="required|email"
+              placeholder="username@mail.com"
+            )
+            .overline-lg.text-gray-500 รหัสผ่าน
+            SoInput(
+              v-model="user.password"
+              type="password"
+              rules="required"
+              placeholder="******"
+            )
+            SoButton(block size="lg" type="submit") เข้าสู่ระบบ
+            .text-sm.text-gray-500.text-right.cursor-pointer.mt-2(class="hover:underline") ลืมรหัสผ่าน?
+        .flex.items-center.my-4
+          .line.flex-1.h-px.bg-gray-200
+          .text-sm.text-gray-400.px-4 หรือ
+          .line.flex-1.h-px.bg-gray-200
+        .flex
+          SoButton(mode="outline" block size="lg" leading="google") Google
+        .flex.mt-4.items-center.justify-center
+          .text-sm.text-gray-400 เพิ่งเคยเข้ามาใน Petmall ใช่หรือไม่  
+          NuxtLink(to="/register"): .text-sm.text-orange-900.ml-2.cursor-pointer(class="hover:underline") ลงชื่อเข้าใช้ 
+
+    //- .container
       .grid-container-12
         .col-span-3
         .col-span-6.flex.flex-col.bg-white.rounded-lg.px-24.py-8
-          h4.text-gray-500 เข้าสู่ระบบ
+          h4.text-h4.text-gray-500 เข้าสู่ระบบ
           .text-sm.text-gray-500 เข้าสู่ระบบของคุณเลยตอนนี้
           SoForm.mt-6(@submit="submit")
             .form--group

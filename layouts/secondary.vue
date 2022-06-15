@@ -1,12 +1,12 @@
 <template lang="pug">
 main.secondary
-  HeaderSecondaryNav(
-    :title="title"
-    :icon="icon"
-    :searchbar="searchbar"
-    :topNav="topNav"
-    :color="color"
-  )
+  //- HeaderSecondaryNav(
+  //-   :title="title"
+  //-   :icon="icon"
+  //-   :searchbar="searchbar"
+  //-   :topNav="topNav"
+  //-   :color="color"
+  //- )
   main(v-if="auth")
     Nuxt
   main.container.py-8(v-else)
