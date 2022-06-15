@@ -1,5 +1,5 @@
 <template lang="pug">
-header
+header.fixed.top-0.left-0.right-0.z-50
   nav.primary-nav.flex.items-center.shadow-01(:class="navbarColor.bg")
     .container.flex.flex-col.gap-y-4
       //- Top Nav

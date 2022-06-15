@@ -1,6 +1,7 @@
 <template lang="pug">
 .primary
-  //- HeaderPrimaryNav(:color="color")
+  HeaderPrimaryNav(:color="color")
+  .mb-40
   AdvertisementCarousel(v-if="carousel")
   //- component(v-if="bannerName", :is="bannerName")
   //- main.container.py-8(v-if="profile")
