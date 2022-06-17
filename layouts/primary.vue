@@ -1,7 +1,7 @@
 <template lang="pug">
 .primary
   HeaderPrimaryNav(:color="color")
-  .mb-40
+  section(class="h-12 md:h-32 lg:h-44")
   AdvertisementCarousel(v-if="carousel")
   //- component(v-if="bannerName", :is="bannerName")
   //- main.container.py-8(v-if="profile")
@@ -47,7 +47,7 @@ const primary = defineComponent({
       this.carousel = false;
       this.banner = '';
     }
-  }
+  },
 });
 
 export default primary;

@@ -47,7 +47,7 @@ const SoInput = defineComponent({
     placeholder: {},
     size: {
       type: String,
-      default: 'lg',
+      default: 'md',
     },
     leading: {
       type: String,

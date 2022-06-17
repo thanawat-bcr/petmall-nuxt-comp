@@ -1,9 +1,11 @@
 <template lang="pug">
 header.fixed.top-0.left-0.right-0.z-50
-  nav.primary-nav.flex.items-center.shadow-01(:class="navbarColor.bg")
-    .container.flex.flex-col.gap-y-4
+
+  nav.primary-nav.flex.items-center.shadow-01(:class="navbarColor.bg" class="h-12 md:h-32 lg:h-44")
+    .container.flex.flex-col(class="gap-y-2 lg:gap-y-4")
+
       //- Top Nav
-      .flex.gap-x-8.justify-end(:class="navbarColor.text")
+      .flex.justify-end(:class="navbarColor.text" class="gap-x-4 lg:gap-x-6")
         span.flex.items-center.gap-x-2.cursor-pointer
           i.ph-bell.text-lg
           .text-xs การแจ้งเตือน
@@ -13,30 +15,31 @@ header.fixed.top-0.left-0.right-0.z-50
         span.flex.items-center.gap-x-2.cursor-pointer
           i.ph-globe.text-lg
           .text-xs ไทย
-        NuxtLink(to="/register" v-if="true"): SoButton(size="sm") ลงชื่อเข้าใช้
+
+        NuxtLink(to="/register" v-if="!auth"): SoButton(size="sm" @click="$emit('click')") ลงชื่อเข้าใช้
         span.flex.items-center.gap-x-2.cursor-pointer(v-else)
-          i.ph-user-circle.text-xl
+          i.ph-user-circle.text-2xl
           .text-xs Tutorism
 
       //- Main Nav
-      .grid-container-12.items-center
-        NuxtLink(to="/").col-span-2: img.cursor-pointer(:src="navbarColor.logo")
-        .flex.flex-col.gap-y-3.col-span-9
+      .so-grid.items-center
+        NuxtLink(to="/" class="col-span-1 lg:col-span-2"): img.cursor-pointer(:src="navbarColor.logo")
+
+        .flex.flex-col.gap-y-2(class="col-span-6 lg:col-span-9")
           SoInput(
             v-model="search"
             leading="magnifying-glass"
             placeholder="อาหารสัตว์เลี้ยง, อุปกรณ์สำหรับสัตว์เลี้ยง หรือ อื่นๆ"
+            size="md"
           )
-          .flex.gap-x-6(:class="navbarColor.subtext")
+          .flex(:class="navbarColor.subtext" class="gap-x-4 lg:gap-x-6")
             .text-xs.cursor-pointer(v-for="pet in pets" :key="pet") {{ pet }}
+
         NuxtLink(to="/cart" :class="navbarColor.text").flex.flex-col.items-center.col-span-1.cursor-pointer
           span.relative
             .text-xs.font-bold.absolute.text-white.bg-orange-900.px-2.rounded-lg.left-4(v-if="cartCount > 0") {{ cartCount }}
             i.ph-shopping-cart-simple.text-2xl
-          .text-sm รถเข็น
-        //- .flex.flex-col.items-center.col-span-1
-          i.ph-ticket.text-2xl.text-gray-500
-          .text-sm.text-gray-500 ส่วนลด
+          .text-xs รถเข็น
 </template>
 
 <script lang="ts">
@@ -44,9 +47,17 @@ import { defineComponent, reactive, ref, computed } from '@nuxtjs/composition-ap
 
 const PrimaryNav = defineComponent({
   props: {
-    color: {
+    auth: {
       type: Boolean,
       default: false,
+    },
+    title: {
+      type: String,
+      default: null,
+    },
+    color: {
+      type: Boolean,
+      default: !false,
     },
   },
   setup(props) {
@@ -90,6 +101,6 @@ export default PrimaryNav;
 
 <style lang="scss" scoped>
 .primary-nav {
-  height: 184px;
+
 }
 </style>
