@@ -12,6 +12,7 @@ ValidationProvider.w-full.flex.items-center(:rules="rules" v-slot="{ errors }" :
       :disabled="disabled"
       :placeholder="placeholder"
       :style="`${errors.length > 0 ? 'color: #EF4444;' : ''}`"
+      :class="inputSize.text"
       @mouseover="hoverHandler(true)"
       @mouseleave="hoverHandler(false)"
       @focus="focusHandler(true)"
@@ -22,7 +23,7 @@ ValidationProvider.w-full.flex.items-center(:rules="rules" v-slot="{ errors }" :
       v-else
       :value="value"
       :disabled="disabled"
-      :class="`${value || 'text-gray-opacity-40'}`"
+      :class="`${value || 'text-gray-opacity-40'} ${inputSize.text}`"
       @input="$emit('input', $event.target.value)"
       @mouseover="hoverHandler(true)"
       @mouseleave="hoverHandler(false)"
@@ -98,17 +99,17 @@ const SoInput = defineComponent({
     const inputSize = computed(() => {
       if (props.size === 'lg') return {
         container: 'px-4 h-12',
-        text: 'text-sm',
+        text: 'text-md',
         icon: 'text-xl',
       };
       if (props.size === 'md') return {
         container: 'px-4 h-10',
-        text: 'text-sm',
+        text: 'text-md',
         icon: 'text-md',
       };
       return {
         container: 'px-3 h-8',
-        text: 'text-xs',
+        text: 'text-sm',
         icon: 'text-md',
       };
     })

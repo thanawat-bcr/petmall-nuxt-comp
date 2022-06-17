@@ -1,13 +1,13 @@
 <template lang="pug">
 button.so-button(
   @click="$emit('click')"
-  :class="`${buttonColor} ${buttonSize.button} ${!disabled || 'pointer-events-none'} ${!block || 'w-full'}`"
+  :class="`${buttonColor} ${buttonSize.button} ${buttonSize.text} ${!disabled || 'pointer-events-none'} ${!block || 'w-full'}`"
   :disabled="disabled"
   :type="type"
 )
   img(v-if="leading === 'google'" src="/logo/google.svg")
   i(v-if="leading !== 'google' && leading" :class="`${buttonIcon} ${buttonSize.icon}`")
-  slot(:class="`${buttonSize.text}`")
+  slot
   i(v-if="trailing" :class="`ph-${trailing} ${buttonSize.icon}`")
 </template>
 
@@ -69,6 +69,11 @@ const SoButton = defineComponent({
       if (props.size === 'paginator') return {
         button: 'w-9 h-9 gap-x-1',
         text: 'button-sm',
+        icon: 'text-md',
+      };
+      if (props.size === 'xs') return {
+        button: 'px-3 h-8 gap-x-1',
+        text: 'button-xs',
         icon: 'text-md',
       };
       return {

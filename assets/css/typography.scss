@@ -30,6 +30,7 @@ h1, h2, h3, h4, h5, h6 { font-weight: 700; }
 }
 
 // BUTTON
+.button-xs { @apply cursor-pointer; font-weight: 500; font-size: 12px; line-height: 19px; }
 .button-sm { @apply cursor-pointer; font-weight: 500; font-size: 14px; line-height: 19px; }
 .button-lg { @apply cursor-pointer; font-weight: 500; font-size: 16px; line-height: 27px; }
 .button-xl { @apply cursor-pointer; font-weight: 700; font-size: 16px; line-height: 27px; }
