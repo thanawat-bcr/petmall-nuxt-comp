@@ -1,38 +1,42 @@
 <template lang="pug">
 .primary
-  HeaderPrimaryNav(:color="color")
+  HeaderPrimaryNav(
+    :color="nav.color"
+    :title="nav.title"
+  )
   section(class="h-32 lg:h-44")
-  AdvertisementCarousel(v-if="carousel")
+  AdvertisementCarousel(v-if="nav.carousel")
   //- component(v-if="bannerName", :is="bannerName")
   //- main.container.py-8(v-if="profile")
     .so-grid
       .col-span-3: HeaderProfileSidenav
       .col-span-9: Nuxt
-  main.container.py-8
+  main(:class="{'container py-8': nav.title !== 'เข้าสู่ระบบ' && nav.title !== 'ลงชื่อเข้าใช้'}")
     Nuxt
+  //- main.container.py-8
 </template>
 
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api';
+const NAV_OPTIONS = {
+  color: false,
+  carousel: false,
 
+  title: '',
+  banner: '',
+}
 const primary = defineComponent({
   created() {
     this.$nuxt.$on('setLayout', (payload: any) => { this.setLayoutContext(payload) })
   },
   methods: {
     setLayoutContext(payload: any) {
-      this.color = payload.color;
-      this.profile = payload.profile;
-      this.carousel = payload.carousel;
-      if (payload.banner) this.banner = payload.banner;
+      this.nav = payload;
     },
   },
   data() {
     return {
-      color: false,
-      profile: false,
-      carousel: false,
-      banner: '',
+      nav: NAV_OPTIONS,
     };
   },
   computed: {
@@ -42,10 +46,7 @@ const primary = defineComponent({
   },
   watch: {
     $route(from, to) {
-      this.color = false;
-      this.profile = false;
-      this.carousel = false;
-      this.banner = '';
+      this.nav = NAV_OPTIONS;
     }
   },
 });

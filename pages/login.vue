@@ -1,5 +1,5 @@
 <template lang="pug">
-.login.min-h-screen.pt-16.relative
+.login.min-h-screen.relative(class="pt-4 md:pt-8 lg:pt-12")
   .login-bg(class="hidden md:block" style="background-image: url('/registration/bg.png');")
   .container
     .so-grid
@@ -40,11 +40,10 @@
 import { defineComponent, reactive } from '@nuxtjs/composition-api';
 
 const login = defineComponent({
-  layout: 'secondary',
+  layout: 'primary',
   mounted() {
     this.$nuxt.$emit('setLayout', {
       title: 'เข้าสู่ระบบ',
-      auth: true,
     });
   },
   setup() {

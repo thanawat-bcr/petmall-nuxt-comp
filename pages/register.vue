@@ -1,5 +1,5 @@
 <template lang="pug">
-.register.min-h-screen.pt-16.relative
+.register.min-h-screen.relative(class="pt-4 md:pt-8 lg:pt-12")
   .register-bg(class="hidden md:block" style="background-image: url('/registration/bg.png');")
   .container
     .so-grid
@@ -39,11 +39,10 @@
 import { defineComponent, reactive } from '@nuxtjs/composition-api';
 
 const register = defineComponent({
-  layout: 'secondary',
+  layout: 'primary',
   mounted() {
     this.$nuxt.$emit('setLayout', {
       title: 'ลงชื่อเข้าใช้',
-      auth: true,
     });
   },
   setup() {
