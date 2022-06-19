@@ -3,7 +3,7 @@
 //   grid-template-columns: repeat(12, 80px);
 //   gap: 1rem;
 // }
-
+.grid-container { @apply grid gap-4; }
 .grid-container-12 { @apply grid grid-cols-12 gap-4; }
 .grid-container-11 { @apply grid grid-cols-11 gap-4; }
 .grid-container-10 { @apply grid grid-cols-10 gap-4; }
