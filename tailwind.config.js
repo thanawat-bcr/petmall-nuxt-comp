@@ -107,6 +107,7 @@ module.exports = {
       'md': '16px',
       'sm': '14px',
       'xs': '12px',
+      'xxs': '10px',
     },
 
     extend: {
