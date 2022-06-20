@@ -12,8 +12,12 @@
     .so-grid
       .col-span-3: HeaderProfileSidenav
       .col-span-9: Nuxt
-  main(:class="{'container py-8': title !== 'เข้าสู่ระบบ' && title !== 'ลงชื่อเข้าใช้'}")
+  //- main(:class="{'container py-8': title !== 'เข้าสู่ระบบ' && title !== 'ลงชื่อเข้าใช้'}")
     //- Nuxt
+  main(
+    class="py-4 md:py-8"
+    :class="{'container': title !== 'เข้าสู่ระบบ' && title !== 'ลงชื่อเข้าใช้'}"
+  )
     slot
   //- main.container.py-8
 </template>
@@ -34,15 +38,7 @@ const primary = defineComponent({
       type: String,
       default: '',
     },
-    options: {
-      type: Object,
-      default: {
-        share: false,
-        cart: false,
-        filter: false,
-        profile: false,
-      },
-    },
+    options: {},
   },
 });
 

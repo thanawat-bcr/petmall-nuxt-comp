@@ -11,8 +11,9 @@
     .so-grid
       .col-span-3: HeaderProfileSidenav
       .col-span-9: Nuxt
-  main(:class="{'container py-8': nav.title !== 'เข้าสู่ระบบ' && nav.title !== 'ลงชื่อเข้าใช้'}")
+  //- main(:class="{'container py-8': nav.title !== 'เข้าสู่ระบบ' && nav.title !== 'ลงชื่อเข้าใช้'}")
     //- Nuxt
+  main
     slot
   //- main.container.py-8
 </template>
