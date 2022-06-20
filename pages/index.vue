@@ -1,51 +1,55 @@
 <template lang="pug">
-.index.flex.flex-col.gap-y-8
+LayoutPrimary.index(
+  :carousel="true"
+  :options="options"
+)
+  .flex.flex-col.gap-y-8
 
-  section
-    ProductHeader สินค้าจาก Partner
-    .so-grid
-      ProductCategory(
-        v-for="(cat, index) in categories"
-        class="col-span-1 md:col-span-2"
-        :class="{'hidden lg:flex': index > 3}"
-        :key="cat.id"
-        :name="cat.name"
-        :img="cat.img"
-      )
+    section
+      ProductHeader สินค้าจาก Partner
+      .so-grid
+        ProductCategory(
+          v-for="(cat, index) in categories"
+          class="col-span-1 md:col-span-2"
+          :class="{'hidden lg:flex': index > 3}"
+          :key="cat.id"
+          :name="cat.name"
+          :img="cat.img"
+        )
 
-  section
-    ProductHeader(showAll) คุณอาจจะสนใจ
-    .so-grid
-      ProductItem.col-span-2(
-        v-for="(item, index) in items.slice(0,6)"
-        :class="{'hidden lg:flex': index > 3}"
-        :key="item.id"
-        :item="item"
-      )
+    section
+      ProductHeader(showAll) คุณอาจจะสนใจ
+      .so-grid
+        ProductItem.col-span-2(
+          v-for="(item, index) in items.slice(0,6)"
+          :class="{'hidden lg:flex': index > 3}"
+          :key="item.id"
+          :item="item"
+        )
 
-  AdvertisementStrength
+    AdvertisementStrength
 
-  section
-    ProductHeader(showAll) สินค้ายอดฮิตประจำสัปดาห์
-    .so-grid
-      ProductItem.col-span-2(
-        v-for="(item, index) in items.slice(0,6)"
-        :class="{'hidden lg:flex': index > 3}"
-        :key="item.id"
-        :item="item"
-      )
+    section
+      ProductHeader(showAll) สินค้ายอดฮิตประจำสัปดาห์
+      .so-grid
+        ProductItem.col-span-2(
+          v-for="(item, index) in items.slice(0,6)"
+          :class="{'hidden lg:flex': index > 3}"
+          :key="item.id"
+          :item="item"
+        )
 
-  AdvertisementBanner
+    AdvertisementBanner
 
-  section
-    ProductHeader(showAll) สินค้าลดพิเศษ
-    .so-grid
-      ProductItem.col-span-2(
-        v-for="(item, index) in items.slice(0,6)"
-        :class="{'hidden lg:flex': index > 3}"
-        :key="item.id"
-        :item="item"
-      )
+    section
+      ProductHeader(showAll) สินค้าลดพิเศษ
+      .so-grid
+        ProductItem.col-span-2(
+          v-for="(item, index) in items.slice(0,6)"
+          :class="{'hidden lg:flex': index > 3}"
+          :key="item.id"
+          :item="item"
+        )
 
 </template>
 
@@ -53,10 +57,6 @@
 import { defineComponent, reactive } from '@nuxtjs/composition-api';
 
 const index = defineComponent({
-  layout: 'primary',
-  mounted() {
-    this.$nuxt.$emit('setLayout', { carousel: true });
-  },
   setup() {
     const categories = reactive([
       { id: 1, name:"ชุดตรวจสอบคุณภาพน้ำ", img:"/product/category/01.png" },
@@ -79,11 +79,19 @@ const index = defineComponent({
       { id: 10, name:"อาหารสุนัข Woofs ขนาด 100g สำหรับพันธุ์เล็ก", img:"/product/item/01.png", price:"300", amount:"10", discount:"70", rank: 2},
       { id: 11, name:"อาหารสุนัข Woofs ขนาด 100g สำหรับพันธุ์เล็ก", img:"/product/item/09.png", price:"300", amount:"10", discount:"70", rank: 3},
       { id: 12, name:"อาหารสุนัข Woofs ขนาด 100g สำหรับพันธุ์เล็ก", img:"/product/item/10.png", price:"300", amount:"10"},
-    ])
+    ]);
+
+    const options = reactive({
+      cart: true,
+      profile: true,
+      back: false,
+    });
 
     return {
       categories,
       items,
+
+      options,
     }
   }
 });

@@ -58,7 +58,10 @@ header.fixed.top-0.left-0.right-0.z-50
     .container.flex.flex-col.items-center.justify-center
       NuxtLink(to="/"): img.cursor-pointer.h-16(src="/logo/logo-color.svg")
       .flex.items-center.gap-x-2.self-stretch
-        i.ph-caret-left.text-xl.text-gray-400
+        i.ph-caret-left.text-xl.text-gray-400(
+          @click="$router.go(-1)"
+          v-if="computedOptions.back"
+        )
         h4.font-normal.text-sm.text-gray-500(v-if="title") {{ title }}
         SoInput(
           v-else
@@ -67,14 +70,22 @@ header.fixed.top-0.left-0.right-0.z-50
           placeholder="อาหารสัตว์เลี้ยง, อุปกรณ์..."
           size="sm"
         )
-        i.ph-share.text-xl.text-gray-400
-        i.ph-shopping-cart-simple.text-xl.text-gray-400
-        i.ph-funnel.text-xl.text-gray-400
-        i.ph-user-circle.text-xl.text-gray-400
+        i(v-if="computedOptions.share").ph-share.text-xl.text-gray-400
+        i(v-if="computedOptions.cart").ph-shopping-cart-simple.text-xl.text-gray-400
+        i(v-if="computedOptions.filter").ph-funnel.text-xl.text-gray-400
+        i(v-if="computedOptions.profile").ph-user-circle.text-xl.text-gray-400
 </template>
 
 <script lang="ts">
 import { defineComponent, reactive, ref, computed } from '@nuxtjs/composition-api';
+
+const DEFAULT_OPTIONS = {
+  share: false,
+  cart: false,
+  filter: false,
+  profile: false,
+  back: true,
+}
 
 const PrimaryNav = defineComponent({
   props: {
@@ -90,6 +101,16 @@ const PrimaryNav = defineComponent({
       type: Boolean,
       default: false,
     },
+    options: {
+      type: Object,
+      default: {
+        share: false,
+        cart: false,
+        filter: false,
+        profile: false,
+        back: true,
+      },
+    },
   },
   setup(props) {
     const pets = reactive(['สุนัข','แมว','ปลาและสัตว์น้ำ','นก','เป็ด','ห่าน','กระต่าย','เม่น','ม้า','เต่า','หนู','กระรอก','หมู',]);
@@ -97,6 +118,13 @@ const PrimaryNav = defineComponent({
     const cartCount = ref(2);
 
     const search = ref('');
+
+    const computedOptions = computed(() => {
+      return {
+        ...DEFAULT_OPTIONS,
+        ...props.options,
+      }
+    })
 
 
     const navbarColor = computed(() => {
@@ -123,6 +151,8 @@ const PrimaryNav = defineComponent({
       search,
 
       navbarColor,
+
+      computedOptions,
     };
   },
 });
