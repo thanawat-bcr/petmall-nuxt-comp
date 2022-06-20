@@ -1,6 +1,6 @@
 <template lang="pug">
 button.so-button(
-  @click="$emit('click')"
+  @click.stop="$emit('click')"
   :class="`${buttonColor} ${buttonSize.button} ${buttonSize.text} ${!disabled || 'pointer-events-none'} ${!block || 'w-full'}`"
   :disabled="disabled"
   :type="type"
