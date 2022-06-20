@@ -93,16 +93,9 @@ header.fixed.top-0.left-0.right-0.z-40
 <script lang="ts">
 import { defineComponent, reactive, ref, computed } from '@nuxtjs/composition-api';
 
-const DEFAULT_OPTIONS = {
-  share: false,
-  cart: false,
-  filter: false,
-  profile: false,
-  back: true,
-}
-
 const PrimaryNav = defineComponent({
   props: {
+    auth: { default: false },
     title: { type: String, default: '' },
     color: { type: Boolean, default: false },
     share: { type: Boolean, default: false },
