@@ -1,6 +1,6 @@
 <template lang="pug">
 LayoutPrimary.index(
-  title="ข้อมูลส่วนตัว" color
+  title="ข้อมูลส่วนตัว" color profile
 )
   .flex.flex-col.gap-y-8
 

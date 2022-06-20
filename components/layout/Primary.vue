@@ -3,7 +3,11 @@
   HeaderPrimaryNav(
     :color="color"
     :title="title"
-    :options="options"
+    :share="share"
+    :cart="cart"
+    :filter="filter"
+    :profile="profile"
+    :back="back"
   )
   section(class="h-32 lg:h-44")
   AdvertisementCarousel(v-if="carousel")
@@ -26,19 +30,14 @@
 import { defineComponent } from '@nuxtjs/composition-api';
 const primary = defineComponent({
   props: {
-    color: {
-      type: Boolean,
-      default: false,
-    },
-    carousel: {
-      type: Boolean,
-      default: false,
-    },
-    title: {
-      type: String,
-      default: '',
-    },
-    options: {},
+    title: { type: String, default: '' },
+    color: { type: Boolean, default: false },
+    carousel: { type: Boolean, default: false },
+    share: { type: Boolean, default: false },
+    cart: { type: Boolean, default: false },
+    filter: { type: Boolean, default: false },
+    profile: { type: Boolean, default: false },
+    back: { type: Boolean, default: true },
   },
 });
 

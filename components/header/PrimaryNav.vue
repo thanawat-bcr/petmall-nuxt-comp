@@ -60,9 +60,9 @@ header.fixed.top-0.left-0.right-0.z-40
       .flex.items-center.gap-x-2.self-stretch
         i.ph-caret-left.text-xl.text-gray-400(
           @click="$router.go(-1)"
-          v-if="computedOptions.back"
+          v-if="back"
         )
-        h4.font-normal.text-sm.text-gray-500(v-if="title") {{ title }}
+        h4.font-normal.text-sm.text-gray-500.flex-1(v-if="title") {{ title }}
         SoInput(
           v-else
           v-model="search"
@@ -71,12 +71,12 @@ header.fixed.top-0.left-0.right-0.z-40
           size="sm"
         )
         
-        i(v-if="computedOptions.share").ph-share.text-xl.text-gray-400
-        span.relative.pt-1(v-if="computedOptions.cart" @click="$router.push('/cart')")
+        i(v-if="share").ph-share.text-xl.text-gray-400
+        span.relative.pt-1(v-if="cart" @click="$router.push('/cart')")
           .text-xxs.absolute.text-white.bg-orange-900.px-2.rounded-lg(v-if="cartCount > 0" style="top: -4px; right: -12px;") {{ cartCount }}
           i.ph-shopping-cart-simple.text-xl.text-gray-400
-        i(v-if="computedOptions.filter").ph-funnel.text-xl.text-gray-400
-        i(v-if="computedOptions.profile" @click="showProfileMenu = true").ph-user-circle.text-xl.text-gray-400
+        i(v-if="filter").ph-funnel.text-xl.text-gray-400
+        i(v-if="profile" @click="showProfileMenu = true").ph-user-circle.text-xl.text-gray-400
 
   //- MOBILE MENU - PROFILE
   nav.fixed.inset-0.bg-white.z-50(v-if="showProfileMenu")
@@ -103,19 +103,13 @@ const DEFAULT_OPTIONS = {
 
 const PrimaryNav = defineComponent({
   props: {
-    auth: {
-      type: Boolean,
-      default: false,
-    },
-    title: {
-      type: String,
-      default: "",
-    },
-    color: {
-      type: Boolean,
-      default: false,
-    },
-    options: {},
+    title: { type: String, default: '' },
+    color: { type: Boolean, default: false },
+    share: { type: Boolean, default: false },
+    cart: { type: Boolean, default: false },
+    filter: { type: Boolean, default: false },
+    profile: { type: Boolean, default: false },
+    back: { type: Boolean, default: true },
   },
   setup(props: any) {
     const pets = reactive(['สุนัข','แมว','ปลาและสัตว์น้ำ','นก','เป็ด','ห่าน','กระต่าย','เม่น','ม้า','เต่า','หนู','กระรอก','หมู',]);
@@ -123,13 +117,6 @@ const PrimaryNav = defineComponent({
     const cartCount = ref(2);
 
     const search = ref('');
-
-    const computedOptions = computed(() => {
-      return {
-        ...DEFAULT_OPTIONS,
-        ...props.options,
-      }
-    })
 
     const navbarColor = computed(() => {
       const white = {
@@ -157,8 +144,6 @@ const PrimaryNav = defineComponent({
       search,
 
       navbarColor,
-
-      computedOptions,
 
       showProfileMenu,
     };

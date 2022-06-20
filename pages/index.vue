@@ -1,8 +1,5 @@
 <template lang="pug">
-LayoutPrimary.index(
-  :carousel="true"
-  :options="options"
-)
+LayoutPrimary.index(carousel cart profile :back="false")
   .flex.flex-col.gap-y-8
 
     section
