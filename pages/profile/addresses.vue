@@ -1,65 +1,91 @@
 <template lang="pug">
-.addresses.flex.flex-col.gap-y-8
-  .flex.flex-col.gap-y-2
-    .flex.justify-between
-      h4.text-gray-500 ที่อยู่ของฉัน
-      SoButton(size="sm" leading="plus") เพิ่มที่อยู่
-    .text-md.text-gray-500 เพิ่มที่อยู่สำหรับส่งสินค้าของคุณ
-
-  //- EMPTY STATE
-  //- .flex.flex-col.items-center.justify-center
-    .line.w-full.h-px.bg-gray-200
-    .py-12: .text-md.text-gray-500 คุณยังไม่ได้เพิ่มที่อยู่ในการจัดส่ง
-
+LayoutPrimary.addresses(
+  title="ที่อยู่" color profile
+)
   .flex.flex-col.gap-y-8
-    .line.w-full.h-px.bg-gray-200
-    .grid-container-9
-      .col-span-7.flex.flex-col.gap-y-8
-        .grid-container-7.items-start
-          .col-span-2.text-gray-500.text-md.text-right ชื่อ-นามสกุล
-          .col-span-5.flex: .text-md.text-gray-800 นางสาว สัตว์น้อย น่ารัก
-        .grid-container-7.items-start
-          .col-span-2.text-gray-500.text-md.text-right เบอร์โทรศัพท์
-          .col-span-5.flex: .text-md.text-gray-800 (+66)81 000 0000
-        .grid-container-7.items-start
-          .col-span-2.text-gray-500.text-md.text-right ที่อยู่
-          .col-span-5.flex: .text-md.text-gray-800 อาคาร สัตว์เลี้ยง ซอย สัตว์น้อย 11 ถนน สัตว์เลื่อยคลาน แขวง สัตว์ปีก เขต ปทุมวัน กรุงเทพฯ 10330
-      .col-span-2.flex.flex-col.gap-y-2
-        .flex.gap-x-4.justify-end
-          .button-lg.underline.text-gray-500.cursor-pointer แก้ไข
-          //- .button-lg.underline.text-gray-500.cursor-pointer ลบ
-        SoButton(block size="sm" mode="outline" disabled) ตั้งเป็นค่าเริ่มต้น
 
-  .flex.flex-col.gap-y-8
-    .line.w-full.h-px.bg-gray-200
-    .grid-container-9
-      .col-span-7.flex.flex-col.gap-y-8
-        .grid-container-7.items-start
-          .col-span-2.text-gray-500.text-md.text-right ชื่อ-นามสกุล
-          .col-span-5.flex: .text-md.text-gray-800 นางสาว สัตว์น้อย น่ารัก
-        .grid-container-7.items-start
-          .col-span-2.text-gray-500.text-md.text-right เบอร์โทรศัพท์
-          .col-span-5.flex: .text-md.text-gray-800 (+66)81 000 0000
-        .grid-container-7.items-start
-          .col-span-2.text-gray-500.text-md.text-right ที่อยู่
-          .col-span-5.flex: .text-md.text-gray-800 อาคาร สัตว์เลี้ยง ซอย สัตว์น้อย 11 ถนน สัตว์เลื่อยคลาน แขวง สัตว์ปีก เขต ปทุมวัน กรุงเทพฯ 10330
-      .col-span-2.flex.flex-col.gap-y-2
-        .flex.gap-x-4.justify-end
-          .button-lg.underline.text-gray-500.cursor-pointer แก้ไข
-          .button-lg.underline.text-gray-500.cursor-pointer ลบ
-        SoButton(block size="sm" mode="outline") ตั้งเป็นค่าเริ่มต้น
+    .so-grid
+
+      section(class="hidden md:block col-span-4 md:col-span-2 lg:col-span-3")
+        HeaderProfileSidenav
+
+      section.flex.flex-col.gap-y-8(class="col-span-4 md:col-span-6 lg:col-span-9")
+        //- HEADER
+        .flex.justify-between
+          .flex.flex-col.gap-y-2
+            h4.text-gray-500(class="text-h5 lg:text-h4") ที่อยู่ของฉัน
+            .text-gray-500(class="text-sm lg:text-md") เพิ่มที่อยู่สำหรับส่งสินค้าของคุณ
+          SoButton(size="sm" leading="plus") เพิ่มที่อยู่
+        .line.w-full.h-px.bg-gray-200
+
+        //- EMPTY STATE
+        section.flex.flex-col.gap-y-4(v-if="false")
+          .bg-gray-100.flex.items-center.justify-center.py-12.rounded-lg
+            .text-md.text-gray-500 คุณยังไม่ได้เพิ่มที่อยู่ในการจัดส่ง
+
+        //- BODY
+        section.flex.flex-col.gap-y-4(v-else)
+          ProfileAddressCard(
+            v-for="address in addresses"
+            :key="address.id"
+            :address="address"
+            @updateDefault="updateDefault"
+            @select="selectAddress"
+            @edit="editAddress"
+            @delete="deleteAddress"
+          )
 
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@nuxtjs/composition-api';
+import { defineComponent, reactive } from '@nuxtjs/composition-api';
 
 const addresses = defineComponent({
-  layout: 'primary',
-  mounted() {
-    this.$nuxt.$emit('setLayout', { color: true, profile: true, });
+  setup() {
+    const addresses = reactive([
+      {
+        id: 0,
+        name: 'นางสาว สัตว์น้อย น่ารัก',
+        phone: '(+66)81 000 0000',
+        address: 'อาคาร สัตว์เลี้ยง ซอย สัตว์น้อย 11 ถนน สัตว์เลื่อยคลาน แขวง สัตว์ปีก เขต ปทุมวัน กรุงเทพฯ 10330',
+        default: false,
+      },
+      {
+        id: 1,
+        name: 'นางสาว สัตว์น้อย น่ารัก',
+        phone: '(+66)81 000 0000',
+        address: 'อาคาร สัตว์เลี้ยง ซอย สัตว์น้อย 11 ถนน สัตว์เลื่อยคลาน แขวง สัตว์ปีก เขต ปทุมวัน กรุงเทพฯ 10330',
+        default: true,
+      },
+      {
+        id: 2,
+        name: 'นางสาว สัตว์น้อย น่ารัก',
+        phone: '(+66)81 000 0000',
+        address: 'อาคาร สัตว์เลี้ยง ซอย สัตว์น้อย 11 ถนน สัตว์เลื่อยคลาน แขวง สัตว์ปีก เขต ปทุมวัน กรุงเทพฯ 10330',
+        default: false,
+      },
+    ]);
+
+    const updateDefault = (id: any) => {
+      addresses.forEach((item) => {
+        if(item.id === id) item.default = true;
+        else item.default = false;
+      });
+    };
+
+    const selectAddress = (id: any) => { console.log("selectAddress"); }
+    const editAddress = (id: any) => { console.log("editAddress"); }
+    const deleteAddress = (id: any) => { console.log("deleteAddress"); }
+
+    return {
+      addresses,
+
+      updateDefault,
+      selectAddress,
+      editAddress,
+      deleteAddress,
+    }
   },
-  // setup() {},
 });
 
 export default addresses;
