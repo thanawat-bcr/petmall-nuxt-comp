@@ -70,8 +70,11 @@ header.fixed.top-0.left-0.right-0.z-50
           placeholder="อาหารสัตว์เลี้ยง, อุปกรณ์..."
           size="sm"
         )
+        
         i(v-if="computedOptions.share").ph-share.text-xl.text-gray-400
-        i(v-if="computedOptions.cart").ph-shopping-cart-simple.text-xl.text-gray-400
+        span.relative.pt-1(v-if="computedOptions.cart" @click="$router.push('/cart')")
+          .text-xxs.absolute.text-white.bg-orange-900.px-2.rounded-lg(v-if="cartCount > 0" style="top: -4px; right: -12px;") {{ cartCount }}
+          i.ph-shopping-cart-simple.text-xl.text-gray-400
         i(v-if="computedOptions.filter").ph-funnel.text-xl.text-gray-400
         i(v-if="computedOptions.profile").ph-user-circle.text-xl.text-gray-400
 </template>
