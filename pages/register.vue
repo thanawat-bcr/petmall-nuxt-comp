@@ -24,7 +24,7 @@ LayoutPrimary(title="ลงชื่อเข้าใช้")
                   rules="required"
                   placeholder="******"
                 )
-                SoButton(block size="lg" type="submit") เข้าสู่ระบบ
+                SoButton(block size="lg" type="submit") ถัดไป
             .flex.items-center.my-4
               .line.flex-1.h-px.bg-gray-200
               .text-sm.text-gray-400.px-4 หรือ
