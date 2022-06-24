@@ -1,5 +1,5 @@
 <template lang="pug">
-.flex.flex-col.rounded-lg.gap-y-2(@click="$emit('select', address.id)")
+.flex.flex-col.px-4.rounded-lg.gap-y-2(@click="$emit('select', address.id)")
   .flex.justify-between
     .flex.flex-col.gap-y-2
       .flex.items-center.gap-x-3
