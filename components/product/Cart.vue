@@ -1,13 +1,13 @@
 <template lang="pug">
 .cart
 
-  .flex.py-2
+  .flex.py-2.gap-x-4
     img.w-20.h-20.object-contain(:src="item.img")
     .flex.flex-col.flex-1.gap-y-1
 
       //- NAMES
-      .flex.gap-x-4.justify-between
-        .text-sm.text-gray-500.truncate {{ item.name }}
+      .flex.justify-between.w-full
+        .text-sm.text-gray-500.truncate(class="w-5/6") {{ item.name }}
         .text-sm.button-text.text-gray-500(@click="deleteHandler") ลบ
 
       //- OPTIONS
@@ -53,7 +53,6 @@ import { defineComponent, ref } from '@nuxtjs/composition-api';
 const Cart = defineComponent({
   props: {
     item: {},
-    shops: {},
   },
   setup(props: any) {
     const { id, amount, option } = props.item;

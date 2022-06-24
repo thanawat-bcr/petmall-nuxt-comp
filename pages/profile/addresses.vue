@@ -20,14 +20,10 @@ LayoutPrimary.addresses(
 
         //- BODY
         section.flex.flex-col.gap-y-8(v-if="true")
-          ProfileAddressCard(
+          AddressProfile(
             v-for="address in addresses"
             :key="address.id"
             :address="address"
-            @updateDefault="updateDefault"
-            @select="selectAddress"
-            @edit="editAddress"
-            @delete="deleteAddress"
           )
         //- EMPTY STATE
         section.flex.flex-col.gap-y-4(v-else)
@@ -65,24 +61,8 @@ const addresses = defineComponent({
       },
     ]);
 
-    const updateDefault = (id: any) => {
-      addresses.forEach((item) => {
-        if(item.id === id) item.default = true;
-        else item.default = false;
-      });
-    };
-
-    const selectAddress = (id: any) => { console.log("selectAddress"); }
-    const editAddress = (id: any) => { console.log("editAddress"); }
-    const deleteAddress = (id: any) => { console.log("deleteAddress"); }
-
     return {
       addresses,
-
-      updateDefault,
-      selectAddress,
-      editAddress,
-      deleteAddress,
     }
   },
 });
