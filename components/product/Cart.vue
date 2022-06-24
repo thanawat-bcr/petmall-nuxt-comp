@@ -1,13 +1,9 @@
 <template lang="pug">
 .cart
 
-  .w-full.flex.gap-x-4.items-center(v-if="shops.includes(item.id)")
-    SoTag
-    .text-sm.font-bold.text-gray-500 {{ item.shop.name }}
-
-  .so-grid.py-4
-    .col-span-1: img.w-20.h-20.object-contain(:src="item.img")
-    .flex.flex-col.gap-y-1(class="col-span-3 md:col-span-7 lg:col-span-11")
+  .flex.py-2
+    img.w-20.h-20.object-contain(:src="item.img")
+    .flex.flex-col.flex-1.gap-y-1
 
       //- NAMES
       .flex.gap-x-4.justify-between
