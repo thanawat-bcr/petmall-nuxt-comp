@@ -1,5 +1,5 @@
 <template lang="pug">
-.flex.flex-col.p-4.rounded-lg.gap-y-2(@click="$emit('select', address.id)")
+.flex.flex-col.rounded-lg.gap-y-2(@click="$emit('select', address.id)")
   .flex.justify-between
     .flex.flex-col.gap-y-2
       .flex.items-center.gap-x-3
@@ -22,7 +22,7 @@
           :disabled="address.default"
           @click="$emit('updateDefault', address.id)"
         ) ตั้งเป็นค่าเริ่มต้น
-  .text-sm.text-gray-500(class="w-full md:w-3/4") {{ address.address }}
+  .text-sm.text-gray-500.truncate(class="w-full md:w-3/4") {{ address.address }}
 </template>
 
 <script lang="ts">

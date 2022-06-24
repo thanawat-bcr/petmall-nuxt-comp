@@ -18,13 +18,8 @@ LayoutPrimary.addresses(
           SoButton(size="sm" leading="plus") เพิ่มที่อยู่
         .line.w-full.h-px.bg-gray-200
 
-        //- EMPTY STATE
-        section.flex.flex-col.gap-y-4(v-if="false")
-          .bg-gray-100.flex.items-center.justify-center.py-12.rounded-lg
-            .text-md.text-gray-500 คุณยังไม่ได้เพิ่มที่อยู่ในการจัดส่ง
-
         //- BODY
-        section.flex.flex-col.gap-y-4(v-else)
+        section.flex.flex-col.gap-y-8(v-if="true")
           ProfileAddressCard(
             v-for="address in addresses"
             :key="address.id"
@@ -34,6 +29,10 @@ LayoutPrimary.addresses(
             @edit="editAddress"
             @delete="deleteAddress"
           )
+        //- EMPTY STATE
+        section.flex.flex-col.gap-y-4(v-else)
+          .bg-gray-100.flex.items-center.justify-center.py-12.rounded-lg
+            .text-md.text-gray-500 คุณยังไม่ได้เพิ่มที่อยู่ในการจัดส่ง
 
 </template>
 
@@ -46,21 +45,21 @@ const addresses = defineComponent({
       {
         id: 0,
         name: 'นางสาว สัตว์น้อย น่ารัก',
-        phone: '(+66)81 000 0000',
+        phone: '(+66) 81 000 0000',
         address: 'อาคาร สัตว์เลี้ยง ซอย สัตว์น้อย 11 ถนน สัตว์เลื่อยคลาน แขวง สัตว์ปีก เขต ปทุมวัน กรุงเทพฯ 10330',
         default: false,
       },
       {
         id: 1,
         name: 'นางสาว สัตว์น้อย น่ารัก',
-        phone: '(+66)81 000 0000',
+        phone: '(+66) 81 000 0000',
         address: 'อาคาร สัตว์เลี้ยง ซอย สัตว์น้อย 11 ถนน สัตว์เลื่อยคลาน แขวง สัตว์ปีก เขต ปทุมวัน กรุงเทพฯ 10330',
         default: true,
       },
       {
         id: 2,
         name: 'นางสาว สัตว์น้อย น่ารัก',
-        phone: '(+66)81 000 0000',
+        phone: '(+66) 81 000 0000',
         address: 'อาคาร สัตว์เลี้ยง ซอย สัตว์น้อย 11 ถนน สัตว์เลื่อยคลาน แขวง สัตว์ปีก เขต ปทุมวัน กรุงเทพฯ 10330',
         default: false,
       },
