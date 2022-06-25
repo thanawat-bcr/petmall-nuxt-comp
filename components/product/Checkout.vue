@@ -1,7 +1,7 @@
 <template lang="pug">
 .checkout
 
-  .flex.p-2.gap-x-4
+  .flex.px-2.py-4.gap-x-4
     img.w-20.h-20.object-contain(:src="item.img")
     .flex.flex-col.flex-1.gap-y-1
 

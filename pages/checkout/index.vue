@@ -48,9 +48,10 @@ LayoutPrimary.checkout(title="ทำการสั่งซื้อ" color pro
             .text-sm.font-bold.text-gray-500 {{ checkout.shop.name }}
           .flex.flex-col.gap-y-2(class="col-span-full lg:col-span-8 lg:col-start-3")
             ProductCheckout(
-              v-for="item in checkout.items"
+              v-for="(item, index) in checkout.items"
               :key="item.id"
               :item="item"
+              :class="{'border-b border-gray-200': index === checkout.items.length - 1}"
             )
 
     section.flex.flex-col.gap-y-4
