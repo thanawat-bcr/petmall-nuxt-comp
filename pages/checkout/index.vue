@@ -2,35 +2,42 @@
 LayoutPrimary.checkout(title="ทำการสั่งซื้อ" color profile)
   .flex.flex-col.gap-y-8
 
-    section
-      .so-grid
-        .flex.items-center.justify-between(class="col-span-full lg:col-span-8 lg:col-start-3")
-          .flex.items-center.gap-x-3
-            i.ph-map-pin.text-xl.text-green-800
-            .text-md.text-gray-500 ที่อยู่ในการจัดส่ง
-          .button-text.text-md.text-orange-900.underline(v-if="!showAddresses" @click="showAddresses = true") เปลี่ยน
-          SoButton(v-else mode="outline" @click="$router.push('/profile/addresses')") จัดการที่อยู่
-    
     //- ADDRESSES 
-    section(v-if="true")
-      .so-grid
-        .flex.flex-col.items-center.justify-between.gap-y-4(class="col-span-full lg:col-span-8 lg:col-start-3" v-if="!showAddresses")
-          AddressCheckout(:address="addresses.find(item => item.id === selectedAddress)")
-        .flex.flex-col.items-center.justify-between.gap-y-4(class="col-span-full lg:col-span-8 lg:col-start-3" v-if="showAddresses")
-          AddressCheckout(
-            v-for="address in addresses"
-            :key="address.id"
-            :address="address"
-            :selectedAddress="selectedAddress"
-            @selectAddressHandler="(id) => selectedAddress = id"
-          )
-          .flex.gap-x-4(class="w-full md:w-1/3")
-            SoButton(mode="main" block @click="showAddresses = false") ยืนยัน
-    section(v-else)
-      .so-grid
-        .flex.items-center.justify-between(class="col-span-full lg:col-span-8 lg:col-start-3")
-          .flex.items-center.justify-center.py-8.bg-gray-100.rounded.w-full
-            .text-sm.text-gray-500 คุณยังไม่ได้เพิ่มที่อยู่ในการจัดส่ง
+    section
+      //- AUTH - ADDRESS HANDLER
+      section.flex.flex-col.gap-y-4(v-if="true")
+        .so-grid
+          .flex.items-center.justify-between(class="col-span-full lg:col-span-8 lg:col-start-3")
+            .flex.items-center.gap-x-3
+              i.ph-map-pin.text-xl.text-green-800
+              .text-md.text-gray-500 ที่อยู่ในการจัดส่ง
+            .button-text.text-md.text-orange-900.underline(v-if="!showAddresses" @click="showAddresses = true") เปลี่ยน
+            .button-text.text-md.text-orange-900.underline(v-else @click="$router.push('/profile/addresses')") จัดการที่อยู่
+        .so-grid
+          .flex.flex-col.items-center.justify-between.gap-y-4(class="col-span-full lg:col-span-8 lg:col-start-3" v-if="!showAddresses")
+            AddressCheckout(:address="addresses.find(item => item.id === selectedAddress)")
+          .flex.flex-col.items-center.justify-between.gap-y-4(class="col-span-full lg:col-span-8 lg:col-start-3" v-if="showAddresses")
+            AddressCheckout(
+              v-for="address in addresses"
+              :key="address.id"
+              :address="address"
+              :selectedAddress="selectedAddress"
+              @selectAddressHandler="(id) => selectedAddress = id"
+            )
+            .flex.gap-x-4(class="w-full md:w-1/3")
+              SoButton(mode="main" block @click="showAddresses = false") ยืนยัน
+      //- EMPTY -> Wait for New Address Form
+      section.flex.flex-col.gap-y-4(v-else)
+        .so-grid
+          .flex.items-center.justify-between(class="col-span-full lg:col-span-8 lg:col-start-3")
+            .flex.items-center.gap-x-3
+              i.ph-map-pin.text-xl.text-green-800
+              .text-md.text-gray-500 ที่อยู่ในการจัดส่ง
+            .button-text.text-md.text-orange-900.underline(@click="$router.push('/profile/addresses')") เพิ่ม
+        .so-grid
+          .flex.items-center.justify-between(class="col-span-full lg:col-span-8 lg:col-start-3")
+            .flex.items-center.justify-center.py-8.bg-gray-100.rounded.w-full
+              .text-sm.text-gray-500 คุณยังไม่ได้เพิ่มที่อยู่ในการจัดส่ง
 
     //- ITEMS
     section
@@ -99,7 +106,7 @@ LayoutPrimary.checkout(title="ทำการสั่งซื้อ" color pro
             .text-sm.text-gray-500 การชำระเงินทั้งหมด :
             h6.text-h6.text-orange-900.text-right ฿{{ computedItems.price + shipments.find(item => item.id === selectedShipment).price }}
           .flex.items-center.justify-between(class="w-full md:w-56")
-            SoButton(block) สั่งสินค้า
+            SoButton(block @click="$router.push('/checkout/success')") สั่งสินค้า
 </template>
 
 <script lang="ts">
