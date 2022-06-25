@@ -52,53 +52,53 @@ LayoutPrimary.checkout(title="ทำการสั่งซื้อ" color pro
               :key="item.id"
               :item="item"
             )
-    //- .flex.flex-col.gap-y-6
-      .w-full.h-px.bg-gray-200
-      .grid-container-12.flex.items-center
-        .col-span-2: .text-sm.text-gray-500 รูปแบบการจัดส่ง:    
-        .col-span-9.flex.items-center.gap-x-4
-          SoButton(
-            v-for="(item, index) in shipments"
-            :key="item.id"
-            :mode="item.selected ? 'soft:active' : 'soft'"
-            @click="shipmentHandler(index)"
-            size="md"
-          ) {{ item.name }}
-        .col-span-1: .text-md.text-gray-700.text-right ฿{{computedShipmentPrice}}
-      .w-full.h-px.bg-gray-200
-      .grid-container-12
-        .col-span-8
-        .col-span-4
-          .flex.items-center.justify-between
-            .text-sm.text-gray-500 ยอดสั่งซื้อทั้งหมด ({{computedItemsAmount}} ชิ้น):
-            .text-md.text-orange-900.font-bold.text-right ฿{{computedItemsPrice + computedShipmentPrice}}
-      .w-full.h-px.bg-gray-200
-    //- .flex.items-center.justify-between
-      .flex.items-center.gap-x-3
-        i.ph-wallet.text-xl.text-green-800
-        .text-md.text-gray-500 วิธีชำระเงิน
-    //- .flex.items-center.gap-x-4
-      SoButton(
-        v-for="(item, index) in payments"
-        :key="item.id"
-        :mode="item.selected ? 'soft:active' : 'soft'"
-        @click="paymentHandler(index)"
-        size="md"
-      ) {{ item.name }}
-    //- .grid-container-12
-      .col-span-9
-      .col-span-3
-        .flex.flex-col.gap-y-4
-          .flex.items-center.justify-between
+
+    section.flex.flex-col.gap-y-4
+      //- SHIPMENTS
+      .so-grid
+        .flex.gap-4(class="col-span-full lg:col-span-8 lg:col-start-3 flex-col md:flex-row md:justify-between")
+          .flex.items-center.gap-x-2
+            i.ph-truck.text-xl.text-green-800
+            .text-sm.text-gray-500 รูปแบบการจัดส่ง:
+            .text-sm.text-gray-700 ฿{{shipments.find(item => item.id === selectedShipment).price}}
+          .flex.items-center.gap-2(class="flex-col md:flex-row")
+            SoButton(
+              class="w-full md:w-48"
+              v-for="(item, index) in shipments"
+              :key="item.id"
+              :mode="item.id === selectedShipment ? 'soft:active' : 'soft'"
+              @click="selectedShipment = item.id"
+            ) {{ item.name }}
+
+      //- PAYMENTS
+      .so-grid
+        .flex.gap-4(class="col-span-full lg:col-span-8 lg:col-start-3 flex-col md:flex-row md:justify-between")
+          .flex.items-center.gap-x-2
+            i.ph-wallet.text-xl.text-green-800
+            .text-sm.text-gray-500 วิธีชำระเงิน
+          .flex.items-center.gap-2(class="flex-col md:flex-row")
+            SoButton(
+              class="w-full md:w-48"
+              v-for="(item, index) in payments"
+              :key="item.id"
+              :mode="item.id === selectedPayment ? 'soft:active' : 'soft'"
+              @click="selectedPayment = item.id"
+            ) {{ item.name }}
+
+    section.flex.flex-col.gap-y-4
+      .so-grid
+        .flex.flex-col.gap-4.items-end(class="col-span-full lg:col-span-8 lg:col-start-3")
+          .flex.items-center.justify-between(class="w-full md:w-56")
             .text-sm.text-gray-500 ยอดรวมสินค้า :
-            .text-md.text-gray-500.text-right ฿{{computedItemsPrice}}
-          .flex.items-center.justify-between
+            .text-md.text-gray-500.text-right ฿{{ computedItems.price }}
+          .flex.items-center.justify-between(class="w-full md:w-56")
             .text-sm.text-gray-500 รวมการจัดส่ง :
-            .text-md.text-gray-500.text-right ฿{{computedShipmentPrice}}
-          .flex.items-center.justify-between
+            .text-md.text-gray-500.text-right ฿{{ shipments.find(item => item.id === selectedShipment).price }}
+          .flex.items-center.justify-between(class="w-full md:w-56")
             .text-sm.text-gray-500 การชำระเงินทั้งหมด :
-            h5.text-orange-900.text-right ฿{{computedItemsPrice + computedShipmentPrice}}
-          SoButton(block).mt-4 สั่งสินค้า
+            h6.text-h6.text-orange-900.text-right ฿{{ computedItems.price + shipments.find(item => item.id === selectedShipment).price }}
+          .flex.items-center.justify-between(class="w-full md:w-56")
+            SoButton(block) สั่งสินค้า
 </template>
 
 <script lang="ts">
@@ -149,27 +149,32 @@ const checkout = defineComponent({
       },
     ]);
     const showAddresses = ref(false);
-    // const computedItemsAmount = computed(() => (items.reduce((total, item) => total + (item.amount), 0)));
-    // const computedItemsPrice = computed(() => (items.reduce((total, item) => total + (item.price*item.amount), 0)));
-    
-    // const shipments = reactive([
-    //   { id: 1, name: 'EMS - ภายในประเทศ', price: 60, selected: true },
-    //   { id: 2, name: 'Standard - ภายในประเทศ', price: 30, selected: false },
-    // ]);
-    // const shipmentHandler = (index: any) => {
-    //   shipments.forEach(item => item.selected = false);
-    //   shipments[index].selected = true;
-    // };
-    // const computedShipmentPrice = computed(() => (shipments.filter(item => item.selected)[0] as any).price);
 
-    // const payments = reactive([
-    //   { id: 1, name: 'โอน/ชำระผ่านบัญชีธนาคาร', selected: true },
-    //   { id: 2, name: 'โอน/ชำระผ่าน QR code', selected: false },
-    // ]);
-    // const paymentHandler = (index: any) => {
-    //   payments.forEach(item => item.selected = false);
-    //   payments[index].selected = true;
-    // };
+    const computedItems = computed(() => {
+      let amount: any = 0;
+      let price: any = 0;
+      checkouts.forEach((checkout) => {
+        amount += checkout.items.reduce((a, item) => a + (item.amount), 0);
+        price += checkout.items.reduce((a, item) => a + (item.amount * item.price), 0);
+      });
+      return {
+        amount, price
+      }
+    })
+
+    // SHIPMENTS
+    const selectedShipment = ref(1);
+    const shipments = reactive([
+      { id: 1, name: 'EMS - ภายในประเทศ', price: 60},
+      { id: 2, name: 'Standard - ภายในประเทศ', price: 30},
+    ]);
+
+    // PAYMENTS
+    const selectedPayment = ref(1);
+    const payments = reactive([
+      { id: 1, name: 'โอน/ชำระผ่านบัญชีธนาคาร' },
+      { id: 2, name: 'โอน/ชำระผ่าน QR code' },
+    ]);
 
     return {
       checkouts,
@@ -177,17 +182,14 @@ const checkout = defineComponent({
       selectedAddress,
       addresses,
       showAddresses,
-      // items,
-      // shops,
-      // computedItemsAmount,
-      // computedItemsPrice,
 
-      // shipments,
-      // computedShipmentPrice,
-      // shipmentHandler,
+      computedItems,
 
-      // payments,
-      // paymentHandler,
+      shipments,
+      selectedShipment,
+
+      payments,
+      selectedPayment,
     };
   },
 });
