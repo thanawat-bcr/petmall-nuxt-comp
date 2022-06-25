@@ -16,14 +16,12 @@ LayoutPrimary.cart(title="รถเข็น" color profile)
               :item="item"
             )
     //- EMPTY STATE
-    section(v-else)
-      .so-grid
-        .col-span-4.flex.flex-col.items-center.gap-y-4(class="md:col-start-3 lg:col-start-5")
-          img(src="/empty/cart.png")
-          .flex.flex-col.gap-y-2.justify-center.text-center
-            h6.text-gray-500 คุณยังไม่มีสินค้าในรถเข็นตอนนี้
-          SoButton(size="md") ช้อปสินค้าเลย
-      
+    SoState(
+      v-else
+      img="/empty/cart.png"
+      title="คุณยังไม่มีสินค้าในรถเข็นตอนนี้!"
+      primary="ช้อปสินค้าเลย"
+    )
 
     //- PRODUCT SUGGESTION
     ProductSuggestion
@@ -38,7 +36,7 @@ LayoutPrimary.cart(title="รถเข็น" color profile)
           .col-span-2.flex.gap-x-2.justify-end(class="col-span-2 md:col-span-3 lg:col-span-5")
             .text-md.font-bold.text-orange-900 ฿{{ computedItems.price }}
           span(class="col-span-4 md:col-span-2")
-            SoButton(block) สั่งสินค้า
+            SoButton(block @click="$router.push('/checkout')") สั่งสินค้า
 
 </template>
 
