@@ -12,10 +12,10 @@ LayoutPrimary.addresses(
       section.flex.flex-col.gap-y-8(class="col-span-4 md:col-span-6 lg:col-span-9")
         //- HEADER
         .flex.justify-between
-          .flex.flex-col.gap-y-2
+          .flex.flex-col.gap-y-1
             h4.text-gray-500(class="text-h5 lg:text-h4") ที่อยู่ของฉัน
             .text-gray-500(class="text-sm lg:text-md") เพิ่มที่อยู่สำหรับส่งสินค้าของคุณ
-          SoButton(size="sm" leading="plus") เพิ่มที่อยู่
+          SoButton(size="sm" leading="plus" @click="$router.push('/profile/address/new')") เพิ่มที่อยู่
         .line.w-full.h-px.bg-gray-200
 
         //- BODY

@@ -15,25 +15,25 @@ aside.profile-sidenav.bg-gray-100.w-full.h-auto.flex.flex-col.gap-y-6
     .flex.flex-col.gap-y-4
       .flex.items-center.justify-between(@click="$router.push('/profile')")
         .cursor-pointer.text-gray-500(class="text-sm md:text-xs lg:text-sm") ข้อมูลส่วนตัว
-        i.ph-caret-right.text-lg.text-gray-500
-      .flex.items-center.justify-between(@click="$router.push('/profile/addresses')")
+        i.ph-caret-right.text-lg.text-gray-500(class="block md:hidden")
+      .flex.items-center.justify-between(@click="$router.push('/profile/address')")
         .cursor-pointer.text-gray-500(class="text-sm md:text-xs lg:text-sm") ที่อยู่
-        i.ph-caret-right.text-lg.text-gray-500
+        i.ph-caret-right.text-lg.text-gray-500(class="block md:hidden")
       .flex.items-center.justify-between(@click="$router.push('/profile/password')")
         .cursor-pointer.text-gray-500(class="text-sm md:text-xs lg:text-sm") เปลี่ยนรหัสผ่าน
-        i.ph-caret-right.text-lg.text-gray-500
+        i.ph-caret-right.text-lg.text-gray-500(class="block md:hidden")
 
   .flex.flex-col.gap-y-4 
     .flex.items-center.justify-between
       .flex.gap-x-2.items-center.cursor-pointer(@click="$router.push('/favorite')")
         i.ph-heart.text-2xl.text-gray-500
         .font-semibold.text-gray-500(class="text-sm md:text-xs lg:text-sm") รายการที่ชอบ
-      i.ph-caret-right.text-lg.text-gray-500
+      i.ph-caret-right.text-lg.text-gray-500(class="block md:hidden")
     .flex.items-center.justify-between
       .flex.gap-x-2.items-center.cursor-pointer(@click="$router.push('/purchase')")
         i.ph-notepad.text-2xl.text-gray-500
         .font-semibold.text-gray-500(class="text-sm md:text-xs lg:text-sm") การสั่งซื้อของฉัน
-      i.ph-caret-right.text-lg.text-gray-500
+      i.ph-caret-right.text-lg.text-gray-500(class="block md:hidden")
 
 </template>
 
