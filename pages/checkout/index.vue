@@ -8,18 +8,31 @@ LayoutPrimary.checkout(title="ทำการสั่งซื้อ" color pro
           .flex.items-center.gap-x-3
             i.ph-map-pin.text-xl.text-green-800
             .text-md.text-gray-500 ที่อยู่ในการจัดส่ง
-          .button-text.text-md.text-orange-900.underline เปลี่ยน
-
+          .button-text.text-md.text-orange-900.underline(v-if="!showAddresses" @click="showAddresses = true") เปลี่ยน
+          SoButton(v-else mode="outline" @click="$router.push('/profile/addresses')") จัดการที่อยู่
+    
+    //- ADDRESSES 
     section(v-if="true")
       .so-grid
-        .flex.items-center.justify-between(class="col-span-full lg:col-span-8 lg:col-start-3")
-          AddressCheckout(:address="address")
+        .flex.flex-col.items-center.justify-between.gap-y-4(class="col-span-full lg:col-span-8 lg:col-start-3" v-if="!showAddresses")
+          AddressCheckout(:address="addresses.find(item => item.id === selectedAddress)")
+        .flex.flex-col.items-center.justify-between.gap-y-4(class="col-span-full lg:col-span-8 lg:col-start-3" v-if="showAddresses")
+          AddressCheckout(
+            v-for="address in addresses"
+            :key="address.id"
+            :address="address"
+            :selectedAddress="selectedAddress"
+            @selectAddressHandler="(id) => selectedAddress = id"
+          )
+          .flex.gap-x-4(class="w-full md:w-1/3")
+            SoButton(mode="main" block @click="showAddresses = false") ยืนยัน
     section(v-else)
       .so-grid
         .flex.items-center.justify-between(class="col-span-full lg:col-span-8 lg:col-start-3")
           .flex.items-center.justify-center.py-8.bg-gray-100.rounded.w-full
             .text-sm.text-gray-500 คุณยังไม่ได้เพิ่มที่อยู่ในการจัดส่ง
 
+    //- ITEMS
     section
       .so-grid
         .flex.items-center.justify-between(class="col-span-full lg:col-span-8 lg:col-start-3")
@@ -89,7 +102,7 @@ LayoutPrimary.checkout(title="ทำการสั่งซื้อ" color pro
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, reactive } from '@nuxtjs/composition-api';
+import { computed, defineComponent, onMounted, reactive, Ref, ref } from '@nuxtjs/composition-api';
 
 const checkout = defineComponent({
   setup() {
@@ -109,31 +122,33 @@ const checkout = defineComponent({
         ],
       },
     ]);
-    const address = reactive({
-      id: 0,
-      name: 'นางสาว สัตว์น้อย น่ารัก',
-      phone: '(+66) 81 000 0000',
-      address: 'อาคาร สัตว์เลี้ยง ซอย สัตว์น้อย 11 ถนน สัตว์เลื่อยคลาน แขวง สัตว์ปีก เขต ปทุมวัน กรุงเทพฯ 10330',
-      default: false,
-    });
-    // const items = reactive([
-    //   { id: 1, shop: { id: 1, name: 'PetMall A' }, name: 'อาหารสุนัข Woofs ขนาด 1g สำหรับพันธุ์เล็ก', option: 'รสไก่', amount: 2, price: 300, img: '/product/item/01.png' },
-    //   { id: 2, shop: { id: 2, name: 'PetMall B' }, name: 'อาหารสุนัข Woofs ขนาด 2g สำหรับพันธุ์เล็ก', option: 'รสเนื้อวัว', amount: 2, price: 600, img: '/product/item/02.png' },
-    //   { id: 3, shop: { id: 1, name: 'PetMall A' }, name: 'อาหารสุนัข Woofs ขนาด 3g สำหรับพันธุ์เล็ก', option: 'รสหมู', amount: 6, price: 200, img: '/product/item/03.png' },
-    //   { id: 4, shop: { id: 2, name: 'PetMall B' }, name: 'อาหารสุนัข Woofs ขนาด 4g สำหรับพันธุ์เล็ก', option: 'รสตับ', amount: 1, price: 400, img: '/product/item/01.png' },
-    // ].sort((a, b) => a.shop.id - b.shop.id));
 
-    // const shops = computed(() => {
-    //   const ids: any = [];
-    //   const index: any = [];
-    //   items.forEach((item, i) => {
-    //     if (!ids.includes(item.shop.id)) {
-    //       index.push(item.id);
-    //       ids.push(item.shop.id);
-    //     }
-    //   })
-    //   return index;
-    // });
+    // ADDRESS
+    const selectedAddress: any = ref(2);
+    const addresses = reactive([
+      {
+        id: 0,
+        name: 'นางสาว สัตว์น้อย น่ารัก',
+        phone: '(+66) 81 000 0000',
+        address: 'อาคาร 1 สัตว์เลี้ยง ซอย สัตว์น้อย 11 ถนน สัตว์เลื่อยคลาน แขวง สัตว์ปีก เขต ปทุมวัน กรุงเทพฯ 10330',
+        default: false,
+      },
+      {
+        id: 1,
+        name: 'นางสาว สัตว์น้อย น่ารัก',
+        phone: '(+66) 81 000 0000',
+        address: 'อาคาร 2 สัตว์เลี้ยง ซอย สัตว์น้อย 11 ถนน สัตว์เลื่อยคลาน แขวง สัตว์ปีก เขต ปทุมวัน กรุงเทพฯ 10330',
+        default: true,
+      },
+      {
+        id: 2,
+        name: 'นางสาว สัตว์น้อย น่ารัก',
+        phone: '(+66) 81 000 0000',
+        address: 'อาคาร 3 สัตว์เลี้ยง ซอย สัตว์น้อย 11 ถนน สัตว์เลื่อยคลาน แขวง สัตว์ปีก เขต ปทุมวัน กรุงเทพฯ 10330',
+        default: false,
+      },
+    ]);
+    const showAddresses = ref(false);
     // const computedItemsAmount = computed(() => (items.reduce((total, item) => total + (item.amount), 0)));
     // const computedItemsPrice = computed(() => (items.reduce((total, item) => total + (item.price*item.amount), 0)));
     
@@ -158,7 +173,10 @@ const checkout = defineComponent({
 
     return {
       checkouts,
-      address,
+
+      selectedAddress,
+      addresses,
+      showAddresses,
       // items,
       // shops,
       // computedItemsAmount,

@@ -1,5 +1,8 @@
 <template lang="pug">
-.checkout.w-full.flex.px-6.py-4.rounded-lg.gap-x-4.bg-gray-100
+.checkout.w-full.flex.px-6.py-4.rounded-lg.gap-x-4.bg-gray-100.border(
+  :class="{ 'border-green-900' : address.id === selectedAddress }"
+  @click="$emit('selectAddressHandler', address.id)"
+)
   .flex.flex-col.gap-y-2
     .text-md.text-gray-500.font-bold {{ address.name }}
     .text-md.text-gray-500 {{ address.phone }}
@@ -12,6 +15,7 @@ import { defineComponent } from '@nuxtjs/composition-api';
 const Checkout = defineComponent({
   props: {
     address: {},
+    selectedAddress: {},
   },
   // setup() {},
 });
