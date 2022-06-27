@@ -39,16 +39,34 @@ LayoutPrimary(title="เข้าสู่ระบบ")
 
 <script lang="ts">
 import { defineComponent, reactive } from '@nuxtjs/composition-api';
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
 
 const login = defineComponent({
   setup() {
     const user = reactive({
-      email: '',
-      password: '',
+      email: 'tutor34676@gmail.com',
+      password: 'tutor1234',
     });
 
+    // SIGNIN
     const submit = () => {
-      console.log(user);
+      const auth = getAuth();
+      signInWithEmailAndPassword(auth, user.email, user.password)
+        .then(async (userCredential) => {
+          // Signed in 
+          const user = userCredential.user;
+          const token = await user.getIdToken();
+          localStorage.setItem('token', token);
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          console.log(errorCode , errorMessage);
+          alert(errorMessage)
+        });
     };
 
     return {
