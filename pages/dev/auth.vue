@@ -1,10 +1,14 @@
 <template lang="pug">
 .login.container.py-12
+  SoModal(ref="modal" title="Hello" subtitle="World")
   p {{ USER }}
   .flex.gap-y-4.flex-col.w-32
     SoButton(@click="signup") SIGNUP
     SoButton(@click="login") LOGIN
     SoButton(@click="google") GOOGLE
+    .flex.gap-x-4
+      SoButton(@click="open") Open
+      SoButton(@click="close") Close
 </template>
 
 <script lang="ts">
@@ -84,9 +88,15 @@ const login = defineComponent({
         });
     }
 
+    // MODAL
+    const modal = ref('');
+    const open = () => (modal.value as any).open();
+    const close = () => (modal.value as any).close();
+
     return {
       USER,
-      login, signup, google
+      login, signup, google,
+      modal, open, close
     }
   },
 });

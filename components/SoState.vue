@@ -17,7 +17,7 @@ import { computed, defineComponent } from '@nuxtjs/composition-api';
 
 const SoEmpty = defineComponent({
   props: {
-    img: { default: 'purchase' },
+    img: { default: '/empty/favorite.png' },
     title: { default: 'Empty State Title' },
     subtitle: {},
     primary: {},
