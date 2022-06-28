@@ -42,11 +42,17 @@ LayoutPrimary.password(
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive } from '@nuxtjs/composition-api';
+import { defineComponent, onMounted, reactive, Ref, ref, useRouter } from '@nuxtjs/composition-api';
 import { getAuth, updatePassword, reauthenticateWithCredential, EmailAuthProvider } from "firebase/auth";
 
 const password = defineComponent({
   setup() {
+    const router = useRouter();
+    const TOKEN: Ref<String> = ref('');
+    onMounted(() => {
+      TOKEN.value = localStorage.getItem('token') || '';
+      if (!TOKEN.value) router.push('/login');
+    });
     const password = reactive({
       old: 'tutor1234',
       new: 'tutor123456',

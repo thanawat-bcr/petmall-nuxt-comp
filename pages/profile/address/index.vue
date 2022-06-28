@@ -33,10 +33,16 @@ LayoutPrimary.addresses(
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive } from '@nuxtjs/composition-api';
+import { defineComponent, onMounted, reactive, ref, Ref, useRouter } from '@nuxtjs/composition-api';
 
 const addresses = defineComponent({
   setup() {
+    const router = useRouter();
+    const TOKEN: Ref<String> = ref('');
+    onMounted(() => {
+      TOKEN.value = localStorage.getItem('token') || '';
+      if (!TOKEN.value) router.push('/login');
+    });
     const addresses = reactive([
       {
         id: 0,

@@ -43,19 +43,12 @@ import { defineComponent, onMounted, Ref, ref } from '@nuxtjs/composition-api';
 
 const ProfileSidenav = defineComponent({
   setup() {
-    const menuIndex: Ref<Number> = ref(0);
-
-    const menuIndexHandler = (index: Number) => { menuIndex.value = index; };
-
     const TOKEN: Ref<String> = ref('');
     onMounted(() => {
       TOKEN.value = localStorage.getItem('token') || '';
     });
 
     return {
-      menuIndex,
-      menuIndexHandler,
-
       TOKEN,
     }
   },

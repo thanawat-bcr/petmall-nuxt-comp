@@ -69,10 +69,17 @@ LayoutPrimary.index(
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, ref } from '@nuxtjs/composition-api';
+import { defineComponent, onMounted, reactive, Ref, ref, useRouter } from '@nuxtjs/composition-api';
 
 const index = defineComponent({
   setup() {
+    const router = useRouter();
+    const TOKEN: Ref<String> = ref('');
+    onMounted(() => {
+      TOKEN.value = localStorage.getItem('token') || '';
+      if (!TOKEN.value) router.push('/login');
+    });
+
     const user = reactive({
       profileImage: null,
       username: '',
