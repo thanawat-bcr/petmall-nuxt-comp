@@ -23,7 +23,7 @@ import { defineComponent, reactive, ref } from '@nuxtjs/composition-api';
 
 const SoModal = defineComponent({
   setup(props, ctx) {
-    const active = ref(!false);
+    const active = ref(false);
     const context = ref({});
 
     const open = (_ctx: any) => {
