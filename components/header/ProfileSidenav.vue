@@ -3,10 +3,11 @@ aside.profile-sidenav.bg-gray-100.w-full.h-auto.flex.flex-col.gap-y-6
   .flex.gap-2(class="items-center md:flex-col md:items-start lg:flex-row lg:items-center")
     .w-14.h-14.rounded-full.bg-gray-200.flex.items-center.justify-center: i.ph-user.text-2xl.text-gray-400
     .flex.flex-col.gap-y-1
-      .font-bold.text-gray-500.en Tutorism
+      .font-bold.text-gray-500.en(v-if="TOKEN") {{ 'Tutorism' }}
+      .font-bold.text-gray-500.en(v-else) {{ 'Anonymous' }}
       .flex.items-end.gap-x-1.cursor-pointer
         i.ph-pencil-simple.text-xl.text-gray-500
-        .text-gray-500(class="text-sm md:text-xs lg:text-sm") แก้ไขบัญชีของคุณ
+        .text-gray-500(class="text-sm md:text-xs lg:text-sm" @click="$router.push('/profile')") แก้ไขบัญชีของคุณ
   .flex.flex-col.gap-y-4
     NuxtLink(to="/profile")
       .flex.gap-x-2.items-center.cursor-pointer
@@ -38,7 +39,7 @@ aside.profile-sidenav.bg-gray-100.w-full.h-auto.flex.flex-col.gap-y-6
 </template>
 
 <script lang="ts">
-import { defineComponent, Ref, ref } from '@nuxtjs/composition-api';
+import { defineComponent, onMounted, Ref, ref } from '@nuxtjs/composition-api';
 
 const ProfileSidenav = defineComponent({
   setup() {
@@ -46,9 +47,16 @@ const ProfileSidenav = defineComponent({
 
     const menuIndexHandler = (index: Number) => { menuIndex.value = index; };
 
+    const TOKEN: Ref<String> = ref('');
+    onMounted(() => {
+      TOKEN.value = localStorage.getItem('token') || '';
+    });
+
     return {
       menuIndex,
       menuIndexHandler,
+
+      TOKEN,
     }
   },
 });
