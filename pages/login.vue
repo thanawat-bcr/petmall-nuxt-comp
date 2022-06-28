@@ -38,7 +38,7 @@ LayoutPrimary(title="เข้าสู่ระบบ")
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive } from '@nuxtjs/composition-api';
+import { defineComponent, reactive, useRouter } from '@nuxtjs/composition-api';
 import {
   getAuth,
   signInWithEmailAndPassword,
@@ -46,6 +46,8 @@ import {
 
 const login = defineComponent({
   setup() {
+    const router = useRouter();
+
     const user = reactive({
       email: 'tutor34676@gmail.com',
       password: 'tutor1234',
@@ -60,6 +62,7 @@ const login = defineComponent({
           const user = userCredential.user;
           const token = await user.getIdToken();
           localStorage.setItem('token', token);
+          router.push('/');
         })
         .catch((error) => {
           const errorCode = error.code;

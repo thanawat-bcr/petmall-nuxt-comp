@@ -17,10 +17,12 @@ header.fixed.top-0.left-0.right-0.z-40
           i.ph-globe.text-lg
           .text-xs ไทย
 
-        NuxtLink(to="/register" v-if="!auth"): SoButton(size="xs" @click="$emit('click')") ลงชื่อเข้าใช้
-        span.flex.items-center.gap-x-2.cursor-pointer(v-else)
-          i.ph-user-circle.text-2xl
-          .text-xs Tutorism
+        NuxtLink(to="/register" v-if="!TOKEN"): SoButton(size="xs" @click="$emit('click')") ลงชื่อเข้าใช้
+        .flex.items-center.gap-x-4(v-else)
+          span.flex.items-center.gap-x-2.cursor-pointer(@click="$router.push('/profile')")
+            i.ph-user-circle.text-2xl
+            .text-xs Tutorism
+          SoButton(size="sm" @click="signout") ลงชื่อออก
 
       //- Main Nav
       .so-grid.items-center
@@ -84,14 +86,16 @@ header.fixed.top-0.left-0.right-0.z-40
       .bg-white.w-full.flex.items-center.justify-end
         i.ph-x.text-xl.text-gray-500.p-2(@click="showProfileMenu = false")
       HeaderProfileSidenav.flex-1
-      .flex.flex-col.gap-y-2
+      .flex.flex-col.gap-y-2(v-if="!TOKEN")
         SoButton(block @click="$router.push('/login')" ) เข้าสู่ระบบ
         SoButton(block @click="$router.push('/register')" mode="outline") ลงชื่อเข้าใช้
-        //- SoButton(block mode="outline") ลงชื่อออก
+      .flex.flex-col.gap-y-2(v-else)
+        SoButton(block mode="outline" @click="signout") ลงชื่อออก
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, ref, computed } from '@nuxtjs/composition-api';
+import { defineComponent, reactive, ref, computed, onMounted, Ref, useRouter } from '@nuxtjs/composition-api';
+import { getAuth, signOut } from '@firebase/auth';
 
 const PrimaryNav = defineComponent({
   props: {
@@ -131,6 +135,24 @@ const PrimaryNav = defineComponent({
 
     const showProfileMenu = ref(false);
 
+    const TOKEN: Ref<String> = ref('');
+    onMounted(() => {
+      TOKEN.value = localStorage.getItem('token') || '';
+    });
+
+    const router = useRouter();
+    const signout = () => {
+      const auth = getAuth();
+      signOut(auth).then(() => {
+        router.push('/');
+        window.location.reload();
+        localStorage.removeItem('token');
+      }).catch((error) => {
+        // An error happened.
+        alert(error);
+      });
+    }
+
     return {
       pets,
       cartCount,
@@ -139,6 +161,9 @@ const PrimaryNav = defineComponent({
       navbarColor,
 
       showProfileMenu,
+
+      TOKEN,
+      signout
     };
   },
 });

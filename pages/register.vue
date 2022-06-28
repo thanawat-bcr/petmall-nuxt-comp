@@ -37,17 +37,37 @@ LayoutPrimary(title="ลงชื่อเข้าใช้")
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive } from '@nuxtjs/composition-api';
+import { defineComponent, reactive, useRouter } from '@nuxtjs/composition-api';
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+} from "firebase/auth";
 
 const register = defineComponent({
   setup() {
+    const router = useRouter();
     const user = reactive({
-      email: '',
-      password: '',
+      email: 'tutor34676@gmail.com',
+      password: 'tutor1234',
     });
-
+    // SIGNUP
     const submit = () => {
-      console.log(user);
+      const auth = getAuth();
+      createUserWithEmailAndPassword(auth, user.email, user.password)
+        .then(async (userCredential) => {
+          // Signed in 
+          const user = userCredential.user;
+          const token = await user.getIdToken();
+          localStorage.setItem('token', token);
+          router.push('/');
+
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          console.log(errorCode , errorMessage);
+          alert(errorMessage)
+        });
     };
 
     return {
