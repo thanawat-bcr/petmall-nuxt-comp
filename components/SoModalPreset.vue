@@ -22,12 +22,12 @@
             .flex.flex-col.justify-center.text-center
               h4.text-h4.text-gray-500 {{ title }}
               .text-sm.text-gray-500 {{ detail }}
-            SoButton(@click="confirmAction" class="w-full md:w-64 lg:w-72").mt-4 ยืนยัน
+            SoButton(@click="close" class="w-full md:w-64 lg:w-72").mt-4 ยืนยัน
 
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, reactive, ref } from '@nuxtjs/composition-api';
+import { computed, defineComponent, ref } from '@nuxtjs/composition-api';
 
 const SoModal = defineComponent({
   setup(props, ctx) {
@@ -50,10 +50,7 @@ const SoModal = defineComponent({
       ctx.emit('close');
       active.value = false;
     };
-    const confirmAction = () => {
-      ctx.emit('confirm');
-      active.value = false;
-    };
+
     return {
       active,
       title,
@@ -62,8 +59,6 @@ const SoModal = defineComponent({
 
       open,
       close,
-
-      confirmAction,
     };
   },
   props: {

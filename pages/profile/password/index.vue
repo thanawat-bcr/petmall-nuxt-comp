@@ -2,7 +2,7 @@
 LayoutPrimary.password(
   title="เปลี่ยนรหัสผ่าน" color profile
 )
-  SoModalPreset(ref="successModal" type="success")
+  SoModalPreset(ref="successModal" type="success" @close="window.location.reload()")
   SoModalPreset(ref="errorModal" type="error")
   .flex.flex-col.gap-y-8
 
