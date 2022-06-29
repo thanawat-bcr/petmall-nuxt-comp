@@ -67,7 +67,7 @@ const login = defineComponent({
           router.push('/');
         })
         .catch((error) => {
-          // An error ocurred
+          // An error ocurred.
           (errorModal.value as any).open(error.message);
         });
     };
