@@ -1,5 +1,6 @@
 <template lang="pug">
 LayoutPrimary(title="เข้าสู่ระบบ")
+  SoModalPreset(ref="errorModal" type="error")
   .login.min-h-screen.relative(class="md:pt-8 lg:pt-12")
     .login-bg(class="hidden md:block" style="background-image: url('/registration/bg.png');")
     .container
@@ -38,7 +39,7 @@ LayoutPrimary(title="เข้าสู่ระบบ")
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, useRouter } from '@nuxtjs/composition-api';
+import { defineComponent, reactive, ref, useRouter } from '@nuxtjs/composition-api';
 import {
   getAuth,
   signInWithEmailAndPassword,
@@ -52,6 +53,7 @@ const login = defineComponent({
       email: 'tutor34676@gmail.com',
       password: 'tutor1234',
     });
+    const errorModal = ref('');
 
     // SIGNIN
     const submit = () => {
@@ -65,15 +67,14 @@ const login = defineComponent({
           router.push('/');
         })
         .catch((error) => {
-          const errorCode = error.code;
-          const errorMessage = error.message;
-          console.log(errorCode , errorMessage);
-          alert(errorMessage)
+          // An error ocurred
+          (errorModal.value as any).open(error.message);
         });
     };
 
     return {
       user,
+      errorModal,
       submit,
     };
   },
