@@ -39,7 +39,11 @@ const SoModal = defineComponent({
 
     const open = (_ctx: string) => {
       ctx.emit('open');
-      detail.value = _ctx;
+      if (_ctx === 'Firebase: Error (auth/wrong-password).') {
+        detail.value = 'รหัสผ่านปัจจุบันไม่ถูกต้อง';
+      } else {
+        detail.value = _ctx;
+      }
       active.value = true;
     };
     const close = () => {

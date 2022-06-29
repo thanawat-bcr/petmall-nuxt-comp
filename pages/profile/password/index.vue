@@ -70,9 +70,9 @@ const password = defineComponent({
     const errorModal = ref('');
 
     const password = reactive({
-      old: 'tutor1234',
-      new: 'tutor123456',
-      confirm: 'tutor12345678',
+      old: '',
+      new: '',
+      confirm: '',
     });
     // CHANGE PASSWORD
     const submit = () => {
@@ -93,14 +93,10 @@ const password = defineComponent({
             // User re-authenticated.
             updatePassword(user, password.new).then(() => {
               // Update successful.
-              (successModal.value as any).open('คุณได้เปลี่ยนรหัสผ่านแล้ว')
+              (successModal.value as any).open('คุณได้เปลี่ยนรหัสผ่านเรียบร้อยแล้ว')
             }).catch((error) => {
               // An error ocurred
-              switch(error.message) {
-                case 'Firebase: Error (auth/wrong-password).':
-                  (errorModal.value as any).open('รหัสผ่านไม่ถูกต้อง'); break;
-                default: (errorModal.value as any).open(error.message); break;
-              }
+              (errorModal.value as any).open(error.message);
             });
         }).catch((error) => {
           (errorModal.value as any).open(error.message)
