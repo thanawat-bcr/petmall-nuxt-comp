@@ -73,14 +73,14 @@ const password = defineComponent({
           reauthenticateWithCredential(user, credential).then(() => {
             // User re-authenticated.
             console.log('re-authenticated')
-            // updatePassword(user, newPassword).then(() => {
-            //   // Update successful.
-            //   console.log('password-updated')
-            // }).catch((error) => {
-            //   alert(error)
-            //   // An error ocurred
-            //   // ...
-            // });
+            updatePassword(user, newPassword).then(() => {
+              // Update successful.
+              console.log('password-updated to', newPassword)
+            }).catch((error) => {
+              alert(error)
+              // An error ocurred
+              // ...
+            });
         }).catch((error) => {
           alert(error)
         });
