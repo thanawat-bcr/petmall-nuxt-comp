@@ -1,6 +1,6 @@
 <template lang="pug">
 .login.container.py-12
-  SoModal(ref="modal" title="Hello" subtitle="World")
+  SoModalPreset(ref="modal" type="error")
   p {{ USER }}
   .flex.gap-y-4.flex-col.w-32
     SoButton(@click="signup") SIGNUP
