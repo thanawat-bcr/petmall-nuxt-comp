@@ -1,6 +1,6 @@
 <template lang="pug">
 .login.container.py-12
-  SoModalPreset(ref="modal" type="error")
+  SoModalPreset(ref="modal" type="error"  @close="closeModalHandler")
   p {{ USER }}
   .flex.gap-y-4.flex-col.w-32
     SoButton(@click="signup") SIGNUP
@@ -93,10 +93,13 @@ const login = defineComponent({
     const open = () => (modal.value as any).open();
     const close = () => (modal.value as any).close();
 
+    const closeModalHandler = () => window.location.reload();
+
     return {
       USER,
       login, signup, google,
-      modal, open, close
+      modal, open, close,
+      closeModalHandler
     }
   },
 });

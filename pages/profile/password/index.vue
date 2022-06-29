@@ -2,7 +2,7 @@
 LayoutPrimary.password(
   title="เปลี่ยนรหัสผ่าน" color profile
 )
-  SoModalPreset(ref="successModal" type="success" @close="window.location.reload()")
+  SoModalPreset(ref="successModal" type="success" @close="closeModalHandler")
   SoModalPreset(ref="errorModal" type="error")
   .flex.flex-col.gap-y-8
 
@@ -68,6 +68,7 @@ const password = defineComponent({
 
     const successModal = ref('');
     const errorModal = ref('');
+    const closeModalHandler = () => window.location.reload();
 
     const password = reactive({
       old: '',
@@ -111,6 +112,7 @@ const password = defineComponent({
 
       successModal,
       errorModal,
+      closeModalHandler,
     };
   },
 });
