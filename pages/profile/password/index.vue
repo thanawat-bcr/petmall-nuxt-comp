@@ -2,7 +2,8 @@
 LayoutPrimary.password(
   title="เปลี่ยนรหัสผ่าน" color profile
 )
-
+  //- SoModalPreset(ref="successModal" type="success")
+  SoModalPreset(ref="errorModal" type="error")
   .flex.flex-col.gap-y-8
 
     .so-grid
@@ -19,26 +20,37 @@ LayoutPrimary.password(
         .line.w-full.h-px.bg-gray-200
 
         SoForm(@submit="submit")
-          .flex.flex-col.gap-y-2
-            .text-md.text-gray-500.font-semibold รหัสผ่านปัจจุบัน:
-            .flex.gap-x-4
+          .flex.flex-col.gap-y-4
+            .grid-container(class="grid-cols-4 md:grid-cols-6 lg:grid-cols-9")
+              .text-md.text-gray-500.font-semibold(class="col-span-4 md:col-span-2") รหัสผ่านปัจจุบัน:
               SoInput(
                 v-model="password.old"
                 placeholder="รหัสผ่านปัจจุบัน"
                 type="password"
                 rules="required"
+                class="col-span-4 md:col-span-3 lg:col-span-4"
               )
-            .text-md.text-gray-500.font-semibold รหัสผ่านใหม่:
-            .flex.gap-x-4
+              .button-text.text-sm.text-orange-800.text-right ลืมรหัสผ่าน?
+            .grid-container(class="grid-cols-4 md:grid-cols-6 lg:grid-cols-9")
+              .text-md.text-gray-500.font-semibold(class="col-span-4 md:col-span-2") รหัสผ่านใหม่:
               SoInput(
                 v-model="password.new"
                 placeholder="รหัสผ่านใหม่"
                 type="password"
                 rules="required"
+                class="col-span-4 md:col-span-3 lg:col-span-4"
               )
-            .flex.flex-col.gap-y-1.ml-auto(class="w-full md:w-48")
-              SoButton(type="submit").px-8 ตกลง
-              .button-text.text-sm.text-orange-800.text-right ลืมรหัสผ่าน?
+            .grid-container(class="grid-cols-4 md:grid-cols-6 lg:grid-cols-9")
+              .text-md.text-gray-500.font-semibold(class="col-span-4 md:col-span-2") ยืนยันรหัสผ่าน:
+              SoInput(
+                v-model="password.confirm"
+                placeholder="ยืนยันรหัสผ่าน"
+                type="password"
+                rules="required"
+                class="col-span-4 md:col-span-3 lg:col-span-4"
+              )
+            .grid-container(class="grid-cols-4 md:grid-cols-6 lg:grid-cols-9")
+              SoButton(type="submit" class="col-span-4 md:col-span-2 md:col-start-3") ตกลง
 </template>
 
 <script lang="ts">
@@ -53,18 +65,25 @@ const password = defineComponent({
       TOKEN.value = localStorage.getItem('token') || '';
       if (!TOKEN.value) router.push('/login');
     });
+
+    const successModal = ref('');
+    const errorModal = ref('');
+
     const password = reactive({
       old: 'tutor1234',
       new: 'tutor123456',
+      confirm: 'tutor12345678',
     });
     // CHANGE PASSWORD
     const submit = () => {
       const auth = getAuth();
-
       const user: any = auth.currentUser;
-      const newPassword = password.new;
 
-      // const credential = 'tutor1234';
+      if (password.new != password.confirm) {
+        (errorModal.value as any).open('รหัสผ่านไม่ตรงกัน');
+        return;
+      }
+
       if (user) {
         const credential = EmailAuthProvider.credential(
             user.email,
@@ -73,16 +92,15 @@ const password = defineComponent({
           reauthenticateWithCredential(user, credential).then(() => {
             // User re-authenticated.
             console.log('re-authenticated')
-            updatePassword(user, newPassword).then(() => {
+            updatePassword(user, password.new).then(() => {
               // Update successful.
-              console.log('password-updated to', newPassword)
+              (successModal.value as any).open('คุณได้เปลี่ยนรหัสผ่านแล้ว')
             }).catch((error) => {
-              alert(error)
               // An error ocurred
-              // ...
+              (errorModal.value as any).open(error.message)
             });
         }).catch((error) => {
-          alert(error)
+          (errorModal.value as any).open(error.message)
         });
       }
 
@@ -91,6 +109,9 @@ const password = defineComponent({
     return {
       password,
       submit,
+
+      successModal,
+      errorModal,
     };
   },
 });
