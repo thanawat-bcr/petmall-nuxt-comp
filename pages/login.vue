@@ -50,8 +50,8 @@ const login = defineComponent({
     const router = useRouter();
 
     const user = reactive({
-      email: 'tutor34676@gmail.com',
-      password: 'tutor1234',
+      email: '',
+      password: '',
     });
     const errorModal = ref('');
 
