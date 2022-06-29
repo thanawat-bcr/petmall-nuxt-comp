@@ -2,7 +2,7 @@
 LayoutPrimary.password(
   title="เปลี่ยนรหัสผ่าน" color profile
 )
-  //- SoModalPreset(ref="successModal" type="success")
+  SoModalPreset(ref="successModal" type="success")
   SoModalPreset(ref="errorModal" type="error")
   .flex.flex-col.gap-y-8
 
@@ -91,13 +91,16 @@ const password = defineComponent({
         )
           reauthenticateWithCredential(user, credential).then(() => {
             // User re-authenticated.
-            console.log('re-authenticated')
             updatePassword(user, password.new).then(() => {
               // Update successful.
               (successModal.value as any).open('คุณได้เปลี่ยนรหัสผ่านแล้ว')
             }).catch((error) => {
               // An error ocurred
-              (errorModal.value as any).open(error.message)
+              switch(error.message) {
+                case 'Firebase: Error (auth/wrong-password).':
+                  (errorModal.value as any).open('รหัสผ่านไม่ถูกต้อง'); break;
+                default: (errorModal.value as any).open(error.message); break;
+              }
             });
         }).catch((error) => {
           (errorModal.value as any).open(error.message)
