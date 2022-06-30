@@ -59,7 +59,7 @@ const Request = defineComponent({
       const auth = getAuth();
       const user = auth.currentUser;
 
-      console.log(user)
+      console.log(auth, auth.currentUser, user);
 
       if (user !== null) {
         user.providerData.forEach((profile) => {
