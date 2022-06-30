@@ -1,5 +1,6 @@
 <template lang="pug">
 LayoutPrimary(title="ลงชื่อเข้าใช้")
+  SoModalPreset(ref="errorModal" type="error")
   .register.min-h-screen.relative(class="md:pt-8 lg:pt-12")
     .register-bg(class="hidden md:block" style="background-image: url('/registration/bg.png');")
     .container
@@ -37,7 +38,7 @@ LayoutPrimary(title="ลงชื่อเข้าใช้")
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, useRouter } from '@nuxtjs/composition-api';
+import { defineComponent, reactive, ref, useRouter } from '@nuxtjs/composition-api';
 import {
   getAuth,
   createUserWithEmailAndPassword,
@@ -45,17 +46,20 @@ import {
 
 const register = defineComponent({
   setup() {
+
     const router = useRouter();
     const user = reactive({
-      email: 'tutor34676@gmail.com',
-      password: 'tutor1234',
+      email: '',
+      password: '',
     });
+    const errorModal = ref('');
+
     // SIGNUP
     const submit = () => {
       const auth = getAuth();
       createUserWithEmailAndPassword(auth, user.email, user.password)
         .then(async (userCredential) => {
-          // Signed in 
+          // Registered
           const user = userCredential.user;
           const token = await user.getIdToken();
           localStorage.setItem('token', token);
@@ -63,15 +67,14 @@ const register = defineComponent({
 
         })
         .catch((error) => {
-          const errorCode = error.code;
-          const errorMessage = error.message;
-          console.log(errorCode , errorMessage);
-          alert(errorMessage)
+          // An error ocurred.
+          (errorModal.value as any).open(error.message);
         });
     };
 
     return {
       user,
+      errorModal,
       submit,
     };
   },
