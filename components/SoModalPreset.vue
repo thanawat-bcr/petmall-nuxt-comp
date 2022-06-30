@@ -37,13 +37,14 @@ const SoModal = defineComponent({
     const src = computed(() => props.type === 'success' ? 'https://assets2.lottiefiles.com/private_files/lf30_21qd1sgk.json' : 'https://assets3.lottiefiles.com/private_files/lf30_sh73zbx1.json')
     const title = computed(() => props.type === 'success' ? 'เสร็จสิ้น' : 'เกิดข้อผิดพลาด');
 
+    const errors = [
+      { en: 'Firebase: Password should be at least 6 characters (auth/weak-password).', th: 'รหัสผ่านต้องมีความยาวมากกว่า 6 ตัวอักษร' },
+      { en: 'Firebase: Error (auth/email-already-in-use).', th: 'Email นี้ถูกใช้ไปแล้ว กรุณาลองใหม่' },
+      { en: 'Firebase: Error (auth/wrong-password).', th: 'รหัสผ่านปัจจุบันไม่ถูกต้อง' },
+    ]
     const open = (_ctx: string) => {
       ctx.emit('open');
-      if (_ctx === 'Firebase: Error (auth/wrong-password).') {
-        detail.value = 'รหัสผ่านปัจจุบันไม่ถูกต้อง';
-      } else {
-        detail.value = _ctx;
-      }
+      detail.value = (errors.find(err => err.en === _ctx) as any)?.th ||  _ctx;
       active.value = true;
     };
     const close = () => {
