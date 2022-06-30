@@ -3,6 +3,7 @@ LayoutPrimary.password(
   title="เปลี่ยนรหัสผ่าน" color profile
 )
   SoModalPreset(ref="successModal" type="success" @close="closeModalHandler")
+  SoModalForgetPasswordRequest(ref="forgetPasswordModal")
   SoModalPreset(ref="errorModal" type="error")
   .flex.flex-col.gap-y-8
 
@@ -30,7 +31,7 @@ LayoutPrimary.password(
                 rules="required"
                 class="col-span-4 md:col-span-3 lg:col-span-4"
               )
-              .button-text.text-sm.text-orange-800.text-right ลืมรหัสผ่าน?
+              .button-text.text-sm.text-orange-800.text-right(@click="forgetPasswordModal.open()") ลืมรหัสผ่าน?
             .grid-container(class="grid-cols-4 md:grid-cols-6 lg:grid-cols-9")
               .text-md.text-gray-500.font-semibold(class="col-span-4 md:col-span-2") รหัสผ่านใหม่:
               SoInput(
@@ -66,8 +67,10 @@ const password = defineComponent({
       if (!TOKEN.value) router.push('/login');
     });
 
+    // MODALS
     const successModal = ref('');
     const errorModal = ref('');
+    const forgetPasswordModal = ref('');
     const closeModalHandler = () => window.location.reload();
 
     const password = reactive({
@@ -112,6 +115,7 @@ const password = defineComponent({
 
       successModal,
       errorModal,
+      forgetPasswordModal,
       closeModalHandler,
     };
   },

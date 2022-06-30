@@ -29,16 +29,16 @@
                   rules="required|email"
                   leading="envelope-simple"
                   placeholder="username@mail.com"
-                  :disabled="!!TOKEN"
                 )
 
               .flex.gap-x-4.mx-auto.w-full(:class="{'w-full md:w-1/2 lg:w-2/5': !cancel}")
                 SoButton(block @click="confirm" type="submit") ยืนยัน
+                SoButton(block @click="getUser") getUser
 
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, Ref, ref } from '@nuxtjs/composition-api';
+import { computed, defineComponent, onMounted, Ref, ref } from '@nuxtjs/composition-api';
 import { getAuth } from "firebase/auth";
 const Request = defineComponent({
   props: {
@@ -54,22 +54,20 @@ const Request = defineComponent({
     };
 
     const TOKEN: Ref<String> = ref('');
-    onMounted(() => {
-      TOKEN.value = localStorage.getItem('token') || '';
+
+    const getUser = () => {
+      console.log('get user!')
       const auth = getAuth();
       const user = auth.currentUser;
-
-      console.log(auth, auth.currentUser, user);
-
       if (user !== null) {
-        user.providerData.forEach((profile) => {
-          console.log("Sign-in provider: " + profile.providerId);
-          console.log("  Provider-specific UID: " + profile.uid);
-          console.log("  Name: " + profile.displayName);
-          console.log("  Email: " + profile.email);
-          console.log("  Photo URL: " + profile.photoURL);
-        });
+        console.log(user)
+        return user;
       }
+      return null;
+    }
+
+    onMounted(() => {
+      TOKEN.value = localStorage.getItem('token') || '';
     });
 
     const active = ref(false);
@@ -98,6 +96,7 @@ const Request = defineComponent({
       open,
       close,
       confirm,
+      getUser,
     };
   },
 });

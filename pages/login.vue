@@ -1,6 +1,7 @@
 <template lang="pug">
 LayoutPrimary(title="เข้าสู่ระบบ")
   SoModalPreset(ref="errorModal" type="error")
+  SoModalForgetPasswordRequest(ref="forgetPasswordModal")
   .login.min-h-screen.relative(class="md:pt-8 lg:pt-12")
     .login-bg(class="hidden md:block" style="background-image: url('/registration/bg.png');")
     .container
@@ -26,7 +27,7 @@ LayoutPrimary(title="เข้าสู่ระบบ")
                   placeholder="******"
                 )
                 SoButton(block size="lg" type="submit") เข้าสู่ระบบ
-                .text-sm.text-gray-500.text-right.cursor-pointer.mt-2(class="hover:underline") ลืมรหัสผ่าน?
+                .text-sm.text-gray-500.text-right.cursor-pointer.mt-2(class="hover:underline" @click="forgetPasswordModal.open()") ลืมรหัสผ่าน?
             .flex.items-center.my-4
               .line.flex-1.h-px.bg-gray-200
               .text-sm.text-gray-400.px-4 หรือ
@@ -53,7 +54,10 @@ const login = defineComponent({
       email: '',
       password: '',
     });
+
+    // MODALS
     const errorModal = ref('');
+    const forgetPasswordModal = ref('');
 
     // SIGNIN
     const submit = () => {
@@ -75,6 +79,7 @@ const login = defineComponent({
     return {
       user,
       errorModal,
+      forgetPasswordModal,
       submit,
     };
   },
