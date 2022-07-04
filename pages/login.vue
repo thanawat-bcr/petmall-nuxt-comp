@@ -27,6 +27,7 @@ LayoutPrimary(title="เข้าสู่ระบบ")
                   placeholder="******"
                 )
                 SoButton(block size="lg" type="submit") เข้าสู่ระบบ
+                SoButton(block size="lg" @click="printing") TEST
                 .text-sm.text-gray-500.text-right.cursor-pointer.mt-2(class="hover:underline" @click="forgetPasswordModal.open()") ลืมรหัสผ่าน?
             .flex.items-center.my-4
               .line.flex-1.h-px.bg-gray-200
@@ -40,7 +41,7 @@ LayoutPrimary(title="เข้าสู่ระบบ")
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, ref, useRouter } from '@nuxtjs/composition-api';
+import { defineComponent, onMounted, reactive, ref, useRouter, useStore } from '@nuxtjs/composition-api';
 import {
   getAuth,
   signInWithEmailAndPassword,
@@ -49,6 +50,11 @@ import {
 const login = defineComponent({
   setup() {
     const router = useRouter();
+    const store = useStore();
+
+    const printing = () => {
+      store.dispatch('printOut', 'hello')
+    }
 
     const user = reactive({
       email: '',
@@ -81,6 +87,8 @@ const login = defineComponent({
       errorModal,
       forgetPasswordModal,
       submit,
+
+      printing,
     };
   },
 });
