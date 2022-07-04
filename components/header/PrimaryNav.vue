@@ -17,12 +17,12 @@ header.fixed.top-0.left-0.right-0.z-40
           i.ph-globe.text-lg
           .text-xs ไทย
 
-        NuxtLink(to="/register" v-if="!TOKEN"): SoButton(size="xs" @click="$emit('click')") ลงชื่อเข้าใช้
+        NuxtLink(to="/login" v-if="!AUTH"): SoButton(size="xs" @click="$emit('click')") เข้าสู่ระบบ
         .flex.items-center.gap-x-4(v-else)
           span.flex.items-center.gap-x-2.cursor-pointer(@click="$router.push('/profile')")
             i.ph-user-circle.text-2xl
-            .text-xs {{ 'Username' }}
-          SoButton(size="sm" @click="signout") ลงชื่อออก
+            .text-xs {{ AUTH ? USER.email : 'Anonymous' }}
+          SoButton(size="xs" @click="signout") ลงชื่อออก
 
       //- Main Nav
       .so-grid.items-center
@@ -43,8 +43,6 @@ header.fixed.top-0.left-0.right-0.z-40
             placeholder="อาหารสัตว์เลี้ยง, อุปกรณ์สำหรับสัตว์เลี้ยง หรือ อื่นๆ"
             size="md"
           )
-          .flex(:class="navbarColor.subtext" class="gap-x-4 lg:gap-x-6")
-            .text-xs.cursor-pointer(v-for="pet in pets" :key="pet") {{ pet }}
 
         NuxtLink.flex.flex-col.items-center.col-span-1.cursor-pointer(to="/cart" :class="navbarColor.text" v-if="!title")
           span.relative
@@ -86,7 +84,7 @@ header.fixed.top-0.left-0.right-0.z-40
       .bg-white.w-full.flex.items-center.justify-end
         i.ph-x.text-xl.text-gray-500.p-2(@click="showProfileMenu = false")
       HeaderProfileSidenav.flex-1
-      .flex.flex-col.gap-y-2(v-if="!TOKEN")
+      .flex.flex-col.gap-y-2(v-if="!AUTH")
         SoButton(block @click="$router.push('/login')" ) เข้าสู่ระบบ
         SoButton(block @click="$router.push('/register')" mode="outline") ลงชื่อเข้าใช้
       .flex.flex-col.gap-y-2(v-else)
@@ -94,8 +92,7 @@ header.fixed.top-0.left-0.right-0.z-40
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, ref, computed, onMounted, Ref, useRouter } from '@nuxtjs/composition-api';
-import { getAuth, signOut } from '@firebase/auth';
+import { defineComponent, ref, computed, useRouter, useStore } from '@nuxtjs/composition-api';
 
 const PrimaryNav = defineComponent({
   props: {
@@ -109,8 +106,6 @@ const PrimaryNav = defineComponent({
     back: { type: Boolean, default: true },
   },
   setup(props: any) {
-    const pets = reactive(['สุนัข','แมว','ปลาและสัตว์น้ำ','นก','เป็ด','ห่าน','กระต่าย','เม่น','ม้า','เต่า','หนู','กระรอก','หมู',]);
-
     const cartCount = ref(2);
 
     const search = ref('');
@@ -135,26 +130,20 @@ const PrimaryNav = defineComponent({
 
     const showProfileMenu = ref(false);
 
-    const TOKEN: Ref<String> = ref('');
-    onMounted(() => {
-      TOKEN.value = localStorage.getItem('token') || '';
-    });
-
     const router = useRouter();
+    const store = useStore();
+
+    const USER = computed(() => store.getters.user)
+    const TOKEN = computed(() => store.getters.token)
+    const AUTH = computed(() => store.getters.isAuthenticated)
+
     const signout = () => {
-      const auth = getAuth();
-      signOut(auth).then(() => {
-        router.push('/');
-        window.location.reload();
-        localStorage.removeItem('token');
-      }).catch((error) => {
-        // An error happened.
-        alert(error);
-      });
+      store.dispatch('logout')
+      router.push('/');
+      window.location.reload();
     }
 
     return {
-      pets,
       cartCount,
       search,
 
@@ -162,7 +151,9 @@ const PrimaryNav = defineComponent({
 
       showProfileMenu,
 
+      USER,
       TOKEN,
+      AUTH,
       signout
     };
   },
