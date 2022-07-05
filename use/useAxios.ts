@@ -25,22 +25,3 @@ instance.interceptors.response.use((response) => {
 });
 
 export const axios = instance;
-
-export async function logout() {
-  try {
-    const response = await instance.post(
-      BASE_URL + '/logout'
-    );
-    if (response.status === 200) {
-      console.log('[logout] successful')
-      if (process.browser) localStorage.removeItem('token');
-
-      instance.interceptors.request.use((config) => {
-        config.headers.common['Authorization'] = null;
-        return config;
-      });
-    }
-  } catch (error: any) {
-    console.error('[logout] Error');
-  }
-}

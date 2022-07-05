@@ -141,9 +141,7 @@ const PrimaryNav = defineComponent({
     const AUTH = computed(() => store.getters.isAuthenticated)
 
     const signout = () => {
-      store.dispatch('logout')
-      router.push('/');
-      window.location.reload();
+      store.dispatch('logout');
     }
 
     return {

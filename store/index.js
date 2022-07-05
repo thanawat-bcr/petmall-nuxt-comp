@@ -1,16 +1,14 @@
-import { userApi } from '@/api/user';
-
 export const state = () => ({
   user: null,
-  token: null,
+  // token: null,
 })
 
 export const getters = {
 
-  token(state) {
-    if (state.token) return state.token
-    else return null
-  },
+  // token(state) {
+  //   if (state.token) return state.token
+  //   else return null
+  // },
 
   user(state) {
     if (state.user) return state.user
@@ -28,10 +26,10 @@ export const actions = {
     console.log('Nuxt init');
   },
 
-  saveTOKEN({ commit }, token) {
-    console.log('[STORE ACTIONS] - saveTOKEN')
-    commit('saveTOKEN', token)
-  },
+  // saveTOKEN({ commit }, token) {
+  //   console.log('[STORE ACTIONS] - saveTOKEN')
+  //   commit('saveTOKEN', token)
+  // },
 
   saveUSER({ commit }, user) {
     console.log('[STORE ACTIONS] - saveUSER')
@@ -41,18 +39,18 @@ export const actions = {
   logout({ commit }) {
     console.log('[STORE ACTIONS] - logout')
     localStorage.removeItem('token');
-    commit('saveTOKEN', null);
+    // commit('saveTOKEN', null);
     commit('saveUSER', null);
-    // window.location.reload();
+    window.location.reload();
   }
 }
 
 
 export const mutations = {
-  saveTOKEN (state, token) {
-    console.log('[STORE MUTATIONS] - saveTOKEN:', token)
-    state.token = token
-  },
+  // saveTOKEN (state, token) {
+  //   console.log('[STORE MUTATIONS] - saveTOKEN:', token)
+  //   state.token = token
+  // },
   saveUSER (state, user) {
     console.log('[STORE MUTATIONS] - saveUSER:', user)
     state.user = user
