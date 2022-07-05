@@ -7,6 +7,9 @@ header.fixed.top-0.left-0.right-0.z-40
 
       //- Top Nav
       .flex.justify-end(:class="navbarColor.text" class="gap-x-4 lg:gap-x-6")
+        span.flex.items-center.gap-x-2.cursor-pointer(@click="$router.push('/dev/api')")
+          i.ph-bell.text-lg
+          .text-xs API DEV PAGE
         span.flex.items-center.gap-x-2.cursor-pointer
           i.ph-bell.text-lg
           .text-xs การแจ้งเตือน
