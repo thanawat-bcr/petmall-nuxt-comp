@@ -27,7 +27,9 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@nuxtjs/composition-api';
+import { defineComponent, onMounted, useStore } from '@nuxtjs/composition-api';
+import { axios } from '@/use/useAxios';
+
 const primary = defineComponent({
   props: {
     title: { type: String, default: '' },
@@ -39,6 +41,19 @@ const primary = defineComponent({
     profile: { type: Boolean, default: false },
     back: { type: Boolean, default: true },
   },
+  setup() {
+    const store = useStore();
+    onMounted(async () => {
+      if (process.browser) {
+        try {
+          const { data } = await axios.get('/user/me');
+          store.dispatch('saveUSER', data)
+        }catch(err) {
+          console.log(err);
+        }
+      }
+    })
+  }
 });
 
 export default primary;

@@ -24,7 +24,7 @@ header.fixed.top-0.left-0.right-0.z-40
         .flex.items-center.gap-x-4(v-else)
           span.flex.items-center.gap-x-2.cursor-pointer(@click="$router.push('/profile')")
             i.ph-user-circle.text-2xl
-            .text-xs {{ AUTH ? USER.email : 'Anonymous' }}
+            .text-xs {{ 'Anonymous' }}
           SoButton(size="xs" @click="signout") ลงชื่อออก
 
       //- Main Nav

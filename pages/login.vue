@@ -40,7 +40,7 @@ LayoutPrimary(title="เข้าสู่ระบบ")
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onMounted, reactive, ref, useRouter, useStore } from '@nuxtjs/composition-api';
+import { defineComponent, reactive, ref, useRouter, useStore } from '@nuxtjs/composition-api';
 import {
   getAuth,
   signInWithEmailAndPassword,

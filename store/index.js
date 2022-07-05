@@ -18,7 +18,7 @@ export const getters = {
   },
 
   isAuthenticated(state) {
-    return !!state.token
+    return !!state.user
   }
 }
 
@@ -26,8 +26,6 @@ export const actions = {
 
   async nuxtServerInit ({ commit, dispatch}) {
     console.log('Nuxt init');
-    const token = localStorage.getItem('token');
-    if (token) commit('saveTOKEN', token)
   },
 
   saveTOKEN({ commit }, token) {
