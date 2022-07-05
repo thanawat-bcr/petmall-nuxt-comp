@@ -1,7 +1,4 @@
-import {
-  getAuth,
-  signInWithEmailAndPassword,
-} from "firebase/auth";
+import { userApi } from '@/api/user';
 
 export const state = () => ({
   user: null,
@@ -27,8 +24,10 @@ export const getters = {
 
 export const actions = {
 
-  async nuxtServerInit () {
-    console.log('Nuxt init')
+  async nuxtServerInit ({ commit, dispatch}) {
+    console.log('Nuxt init');
+    const token = localStorage.getItem('token');
+    if (token) commit('saveTOKEN', token)
   },
 
   saveTOKEN({ commit }, token) {
