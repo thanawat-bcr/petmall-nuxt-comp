@@ -29,6 +29,7 @@
 <script lang="ts">
 import { defineComponent, onMounted, useStore } from '@nuxtjs/composition-api';
 import { axios } from '@/use/useAxios';
+import { getUserProfile } from '@/api/index'
 
 const primary = defineComponent({
   props: {
@@ -46,7 +47,8 @@ const primary = defineComponent({
     onMounted(async () => {
       if (process.browser) {
         try {
-          const { data } = await axios.get('/user/me');
+          // const { data } = await axios.get('/user/me');
+          const data = await getUserProfile();
           store.dispatch('saveUSER', data)
         }catch(err) {
           console.log(err);
