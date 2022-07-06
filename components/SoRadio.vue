@@ -1,5 +1,5 @@
 <template lang="pug">
-ValidationProvider.relative.w-full(:rules="rules" v-slot="{ errors }")
+ValidationProvider.relative.w-auto(:rules="rules" v-slot="{ errors }")
   label.so-radio.inline-flex.items-center.gap-x-2.cursor-pointer(
     v-for="(op, index) in options"
     :key="op.value"
@@ -17,7 +17,7 @@ ValidationProvider.relative.w-full(:rules="rules" v-slot="{ errors }")
       .w-3.h-3.bg-green-800.rounded-full(
         :style="`${errors.length > 0 ? 'background-color: #EF4444;' : ''}`"
       )
-    .text-sm.text-gray-500(:style="`${errors.length > 0 ? 'color: #EF4444;' : ''}`") {{ op.name || op.value }}
+    .text-sm.text-gray-500(:style="`${errors.length > 0 ? 'color: #EF4444;' : ''}`" v-if="op.name !== 'no'") {{ op.name || op.value }}
   .w-full.flex.items-center.absolute(v-if="errors.length > 0" style="bottom: -25px; left: 0;")
     i.mr-1.text-alert-600(:class="'ph-warning'")
     span.text-xs.text-alert-600 {{ errors[0] }}

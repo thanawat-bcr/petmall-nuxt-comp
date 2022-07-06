@@ -1,5 +1,6 @@
 <template lang="pug">
-ValidationProvider.w-full.flex.items-center(:rules="rules" v-slot="{ errors }" :class="{'mb-6': rules && rules.length > 0}")
+//- ValidationProvider.w-full.flex.items-center(:rules="rules" v-slot="{ errors }" :class="{'mb-6': rules && rules.length > 0}")
+ValidationProvider.w-full.flex.items-center(:rules="rules" v-slot="{ errors }")
   label.so-input.w-full.relative(
     :class="`${inputSize.container} ${inputColor}`"
     :style="`${errors.length > 0 ? 'border-color: #EF4444;' : ''}`"

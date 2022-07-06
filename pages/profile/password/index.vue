@@ -1,7 +1,5 @@
 <template lang="pug">
-LayoutPrimary.password(
-  title="เปลี่ยนรหัสผ่าน" color profile
-)
+LayoutPrimary.password(title="เปลี่ยนรหัสผ่าน" color profile)
   SoModalPreset(ref="successModal" type="success" @close="closeModalHandler")
   SoModalForgetPasswordRequest(ref="forgetPasswordModal")
   SoModalPreset(ref="errorModal" type="error")
