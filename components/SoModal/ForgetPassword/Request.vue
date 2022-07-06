@@ -53,23 +53,6 @@ const Request = defineComponent({
       console.log(email.value)
     };
 
-    const TOKEN: Ref<String> = ref('');
-
-    const getUser = () => {
-      console.log('get user!')
-      const auth = getAuth();
-      const user = auth.currentUser;
-      if (user !== null) {
-        console.log(user)
-        return user;
-      }
-      return null;
-    }
-
-    onMounted(() => {
-      TOKEN.value = localStorage.getItem('token') || '';
-    });
-
     const active = ref(false);
 
     const open = (_ctx: string) => {
@@ -89,14 +72,11 @@ const Request = defineComponent({
       email,
       submit,
 
-      TOKEN,
-
       active,
 
       open,
       close,
       confirm,
-      getUser,
     };
   },
 });
