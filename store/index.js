@@ -12,7 +12,7 @@ export const state = () => ({
     email: '',
     gender: '',
     imgUrl: '',
-    birthdate: '',
+    birthdate: '1970-01-01',
   },
   auth: false,
   email: '',

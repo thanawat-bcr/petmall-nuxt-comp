@@ -1,7 +1,5 @@
 <template lang="pug">
-LayoutPrimary.index(
-  title="ข้อมูลส่วนตัว" color profile
-)
+LayoutPrimary.index(color)
   .flex.flex-col.gap-y-8
 
     .so-grid
@@ -27,13 +25,13 @@ LayoutPrimary.index(
               .text-gray-500(class="text-sm lg:text-md text-left md:text-right col-span-full md:col-span-1 lg:col-span-2") ชื่อผู้ใช้:
               .col-span-5.flex
                 SoInput(
-                  placeholder="Username"
-                  v-model="user.username"
+                  placeholder="Display Name"
+                  v-model="user.displayName"
                   size="lg"
                 )
             .items-center(class="grid-container md:grid-cols-6 lg:grid-cols-9")
               .text-gray-500(class="text-sm lg:text-md text-left md:text-right col-span-full md:col-span-1 lg:col-span-2") Email:
-              .col-span-5.flex: .text-md.text-gray-800.en {{ user.email }}
+              .col-span-5.flex: .text-md.text-gray-800.en {{ USER.email }}
             .items-center(class="grid-container md:grid-cols-6 lg:grid-cols-9")
               .text-gray-500(class="text-sm lg:text-md text-left md:text-right col-span-full md:col-span-1 lg:col-span-2") เพศ:
               .col-span-5
@@ -48,19 +46,19 @@ LayoutPrimary.index(
               .col-span-5.flex.gap-x-4
                 SoInput(
                   type="select"
-                  v-model="user.birth.date"
+                  v-model="user.birthdate.date"
                   :options="birthOptions.date"
                   placeholder="วัน"
                 )
                 SoInput(
                   type="select"
-                  v-model="user.birth.month"
+                  v-model="user.birthdate.month"
                   :options="birthOptions.month"
                   placeholder="เดือน"
                 )
                 SoInput(
                   type="select"
-                  v-model="user.birth.year"
+                  v-model="user.birthdate.year"
                   :options="birthOptions.year"
                   placeholder="ปี"
                 )
@@ -69,21 +67,37 @@ LayoutPrimary.index(
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, useRouter } from '@nuxtjs/composition-api';
+import { computed, defineComponent, reactive, useRouter, useStore, watch } from '@nuxtjs/composition-api';
 
 const index = defineComponent({
   setup() {
     const router = useRouter();
+    const store = useStore();
+
+    const USER = computed(() => store.getters.user)
+    watch(USER, (oldValue, newValue) => {
+      if (USER.value) {
+        user.displayName = USER.value.displayName;
+        user.gender = USER.value.gender;
+        user.imgUrl = USER.value.imgUrl;
+        user.birthdate = {
+          date: USER.value.birthdate.split('-')[0],
+          month: USER.value.birthdate.split('-')[0],
+          year: USER.value.birthdate.split('-')[0],
+        };
+      }
+    })
 
     // NOTE: DisplayName less than 10 character
     const user = reactive({
-      profileImage: null,
-      username: '',
-      email: 'thanawat.bcr@gmail.com',
+      displayName: '',
       gender: '',
-      birth: {
+      imgUrl: '',
+      birthdate: {
         date: '',
-      }
+        month: '',
+        year: '',
+      },
     });
 
     const genderOptions = reactive([
@@ -101,6 +115,7 @@ const index = defineComponent({
 
     return {
       user,
+      USER,
 
       genderOptions,
       birthOptions,
