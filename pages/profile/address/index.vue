@@ -38,11 +38,6 @@ import { defineComponent, onMounted, reactive, ref, Ref, useRouter } from '@nuxt
 const addresses = defineComponent({
   setup() {
     const router = useRouter();
-    const TOKEN: Ref<String> = ref('');
-    onMounted(() => {
-      TOKEN.value = localStorage.getItem('token') || '';
-      if (!TOKEN.value) router.push('/login');
-    });
     const addresses = reactive([
       {
         id: 0,

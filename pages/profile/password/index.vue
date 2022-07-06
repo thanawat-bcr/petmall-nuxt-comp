@@ -61,11 +61,6 @@ import { getAuth, updatePassword, reauthenticateWithCredential, EmailAuthProvide
 const password = defineComponent({
   setup() {
     const router = useRouter();
-    const TOKEN: Ref<String> = ref('');
-    onMounted(() => {
-      TOKEN.value = localStorage.getItem('token') || '';
-      if (!TOKEN.value) router.push('/login');
-    });
 
     // MODALS
     const successModal = ref('');

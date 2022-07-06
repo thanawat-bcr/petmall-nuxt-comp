@@ -74,11 +74,6 @@ import { defineComponent, onMounted, reactive, Ref, ref, useRouter } from '@nuxt
 const index = defineComponent({
   setup() {
     const router = useRouter();
-    const TOKEN: Ref<String> = ref('');
-    onMounted(() => {
-      TOKEN.value = localStorage.getItem('token') || '';
-      if (!TOKEN.value) router.push('/login');
-    });
 
     const user = reactive({
       profileImage: null,

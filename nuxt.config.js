@@ -35,6 +35,7 @@ export default {
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
     '~/plugins/vee-validate',
+    '~/plugins/api',
     { src: '~/plugins/firebase.js', ssr: false },
   ],
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -52,7 +53,11 @@ export default {
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
+    '@nuxtjs/axios',
   ],
+  axios: {
+    baseURL: 'https://petmall_api.sopet.co/',
+  },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {

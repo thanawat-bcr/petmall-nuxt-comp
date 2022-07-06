@@ -1,10 +1,9 @@
 <template lang="pug">
-aside.profile-sidenav.bg-gray-100.w-full.h-auto.flex.flex-col.gap-y-6
+aside.profile-sidenav.bg-gray-100.w-full.h-full.flex.flex-col.gap-y-6.p-4
   .flex.gap-2(class="items-center md:flex-col md:items-start lg:flex-row lg:items-center")
     .w-14.h-14.rounded-full.bg-gray-200.flex.items-center.justify-center: i.ph-user.text-2xl.text-gray-400
     .flex.flex-col.gap-y-1
-      .font-bold.text-gray-500.en(v-if="TOKEN") {{ 'Username' }}
-      .font-bold.text-gray-500.en(v-else) {{ 'Anonymous' }}
+      .font-bold.text-gray-500 {{ 'Username' }}
       .flex.items-end.gap-x-1.cursor-pointer
         i.ph-pencil-simple.text-xl.text-gray-500
         .text-gray-500(class="text-sm md:text-xs lg:text-sm" @click="$router.push('/profile')") แก้ไขบัญชีของคุณ
@@ -42,16 +41,7 @@ aside.profile-sidenav.bg-gray-100.w-full.h-auto.flex.flex-col.gap-y-6
 import { defineComponent, onMounted, Ref, ref } from '@nuxtjs/composition-api';
 
 const ProfileSidenav = defineComponent({
-  setup() {
-    const TOKEN: Ref<String> = ref('');
-    onMounted(() => {
-      TOKEN.value = localStorage.getItem('token') || '';
-    });
-
-    return {
-      TOKEN,
-    }
-  },
+  // setup() {},
 });
 
 export default ProfileSidenav;

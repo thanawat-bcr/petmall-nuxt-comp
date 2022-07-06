@@ -9,7 +9,7 @@
     :profile="profile"
     :back="back"
   )
-  section(class="h-32 lg:h-44")
+  section(class="h-24 lg:h-32")
   AdvertisementCarousel(v-if="carousel")
   //- component(v-if="bannerName", :is="bannerName")
   //- main.container.py-8(v-if="profile")
@@ -18,16 +18,15 @@
       .col-span-9: Nuxt
   //- main(:class="{'container py-8': title !== 'เข้าสู่ระบบ' && title !== 'ลงชื่อเข้าใช้'}")
     //- Nuxt
-  main(
-    class="py-4 md:py-8"
-    :class="{'container': title !== 'เข้าสู่ระบบ' && title !== 'ลงชื่อเข้าใช้'}"
-  )
+  main(:class="{'container py-4 md:py-8': title !== 'เข้าสู่ระบบ' && title !== 'ลงชื่อเข้าใช้'}")
     slot
   //- main.container.py-8
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@nuxtjs/composition-api';
+import { defineComponent, onMounted, useStore } from '@nuxtjs/composition-api';
+import { getAuth, getUserProfile } from '@/api/index'
+
 const primary = defineComponent({
   props: {
     title: { type: String, default: '' },
@@ -39,6 +38,21 @@ const primary = defineComponent({
     profile: { type: Boolean, default: false },
     back: { type: Boolean, default: true },
   },
+  setup() {
+    const store = useStore();
+    onMounted(async () => {
+      if (process.browser) {
+        try {
+          const auth = await getAuth();
+          store.dispatch('saveAUTH', auth);
+          // const data = await getUserProfile();
+          // if (data) store.dispatch('saveUSER', data);
+        }catch(err) {
+          console.log(err);
+        }
+      }
+    })
+  }
 });
 
 export default primary;

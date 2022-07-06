@@ -1,62 +1,52 @@
 <template lang="pug">
 header.fixed.top-0.left-0.right-0.z-40
 
-  nav.primary-nav.items-center.shadow-01(:class="navbarColor.bg" class="hidden md:flex h-32 lg:h-44")
+  nav.primary-nav.items-center.shadow-01(:class="navbarColor.bg" class="hidden md:flex h-24 lg:h-32")
+    .container
 
-    .container.flex.flex-col(class="gap-y-2 lg:gap-y-4")
-
-      //- Top Nav
-      .flex.justify-end(:class="navbarColor.text" class="gap-x-4 lg:gap-x-6")
-        span.flex.items-center.gap-x-2.cursor-pointer
-          i.ph-bell.text-lg
-          .text-xs การแจ้งเตือน
-        span.flex.items-center.gap-x-2.cursor-pointer
-          i.ph-phone.text-lg
-          .text-xs ติดต่อเรา
-        span.flex.items-center.gap-x-2.cursor-pointer
-          i.ph-globe.text-lg
-          .text-xs ไทย
-
-        NuxtLink(to="/register" v-if="!TOKEN"): SoButton(size="xs" @click="$emit('click')") ลงชื่อเข้าใช้
-        .flex.items-center.gap-x-4(v-else)
-          span.flex.items-center.gap-x-2.cursor-pointer(@click="$router.push('/profile')")
-            i.ph-user-circle.text-2xl
-            .text-xs {{ 'Username' }}
-          SoButton(size="sm" @click="signout") ลงชื่อออก
-
-      //- Main Nav
-      .so-grid.items-center
+      //- Main Nav - SEARCH
+      .so-grid.items-center(v-if="!title")
         NuxtLink(to="/" class="col-span-1 lg:col-span-2"): img.cursor-pointer(:src="navbarColor.logo")
-
-        .flex.flex-col.gap-y-2(class="col-span-6 lg:col-span-9" v-if="!title")
+        //- SEARCH BAR
+        .flex.flex-col.gap-y-2(class="col-span-5 lg:col-span-8")
           SoInput(
-            class="hidden md:flex lg:hidden"
-            v-model="search"
-            leading="magnifying-glass"
-            placeholder="อาหารสัตว์เลี้ยง, อุปกรณ์สำหรับสัตว์เลี้ยง หรือ อื่นๆ"
-            size="sm"
-          )
-          SoInput(
-            class="hidden lg:flex"
             v-model="search"
             leading="magnifying-glass"
             placeholder="อาหารสัตว์เลี้ยง, อุปกรณ์สำหรับสัตว์เลี้ยง หรือ อื่นๆ"
             size="md"
           )
-          .flex(:class="navbarColor.subtext" class="gap-x-4 lg:gap-x-6")
-            .text-xs.cursor-pointer(v-for="pet in pets" :key="pet") {{ pet }}
+        //- SEARCH BAR
 
-        NuxtLink.flex.flex-col.items-center.col-span-1.cursor-pointer(to="/cart" :class="navbarColor.text" v-if="!title")
-          span.relative
-            .text-xs.font-bold.absolute.text-white.bg-orange-900.px-2.rounded-lg.left-4(v-if="cartCount > 0") {{ cartCount }}
+        //- AUTH
+        .col-span-2.flex.gap-x-6.items-center(v-if="AUTH" :class="navbarColor.text")
+          span.relative.cursor-pointer.w-10.flex.items-center(@click="$router.push('/cart')")
+            .text-xs.font-bold.absolute.text-white.bg-orange-900.px-2.rounded-lg.left-4(v-if="cartCount > 0" class="-top-1") {{ cartCount }}
             i.ph-shopping-cart-simple.text-2xl
-          .text-xs รถเข็น
+          span.relative
+            .fixed.inset-0.z-40(v-if="showProfileMenu" @click="showProfileMenu = false")
+            .flex.items-center.cursor-pointer(class="gap-x-1 lg:gap-x-2" @click="showProfileMenu = !showProfileMenu")
+              i.ph-user-circle.text-2xl
+              .text-xs {{ 'Anonymous' }}
+              i.ph-caret-down.text-lg
+            .absolute.bg-gray-100.rounded-lg.p-2.flex.flex-col.z-50(class="w-full top-8" v-if="showProfileMenu")
+              .text-xs.text-gray-500.cursor-pointer.p-2.rounded(class="hover:bg-gray-200" @click="$router.push('/profile')") บัญชีของฉัน
+              .text-xs.text-gray-500.cursor-pointer.p-2.rounded(class="hover:bg-gray-200" @click="$router.push('/profile/purchase')") การสั่งซื้อของฉัน
+              .text-xs.text-alert-600.cursor-pointer.p-2.rounded(class="hover:bg-gray-200" @click="signout") ออกจากระบบ
+        //- AUTH
 
+        //- NO AUTH
+        .col-span-2.flex.gap-x-4.items-center(v-else)
+          SoButton(block @click="$router.push('/signin')") เข้าสู่ระบบ
+        //- NO AUTH
+
+      //- Main Nav - TITLE
+      .so-grid.items-center(v-else)
+        NuxtLink(to="/" class="col-span-1 lg:col-span-2"): img.cursor-pointer(:src="navbarColor.logo")
         .flex.items-center.gap-x-4(v-if="title" class="col-span-7")
           .h-10.bg-gray-50(class="w-0.5" :class="`${color ? 'bg-gray-50' : 'bg-green-900'}`")
           h4.text-gray-50(class="text-h5 lg:text-h4" :class="`${color ? 'text-gray-50' : 'text-green-900'}`") {{ title }}
 
-  nav.mobile-nav.items-evenly.shadow-01.bg-white(class="h-32 flex md:hidden")
+  //- nav.mobile-nav.items-evenly.shadow-01.bg-white(class="h-32 flex md:hidden")
     .container.flex.flex-col.items-center.justify-center
       NuxtLink(to="/"): img.cursor-pointer.h-16(src="/logo/logo-color.svg")
       .flex.items-center.gap-x-2.self-stretch
@@ -81,21 +71,20 @@ header.fixed.top-0.left-0.right-0.z-40
         i(v-if="profile" @click="showProfileMenu = true").ph-user-circle.text-xl.text-gray-400
 
   //- MOBILE MENU - PROFILE
-  nav.fixed.inset-0.bg-white.z-50(v-if="showProfileMenu")
+  //- nav.fixed.inset-0.bg-white.z-50(v-if="showProfileMenu")
     .container.h-full.py-4.gap-y-4.flex.flex-col
       .bg-white.w-full.flex.items-center.justify-end
         i.ph-x.text-xl.text-gray-500.p-2(@click="showProfileMenu = false")
       HeaderProfileSidenav.flex-1
-      .flex.flex-col.gap-y-2(v-if="!TOKEN")
-        SoButton(block @click="$router.push('/login')" ) เข้าสู่ระบบ
-        SoButton(block @click="$router.push('/register')" mode="outline") ลงชื่อเข้าใช้
+      .flex.flex-col.gap-y-2(v-if="!AUTH")
+        SoButton(block @click="$router.push('/signin')" ) เข้าสู่ระบบ
+        SoButton(block @click="$router.push('/signup')" mode="outline") ลงชื่อเข้าใช้
       .flex.flex-col.gap-y-2(v-else)
         SoButton(block mode="outline" @click="signout") ลงชื่อออก
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, ref, computed, onMounted, Ref, useRouter } from '@nuxtjs/composition-api';
-import { getAuth, signOut } from '@firebase/auth';
+import { defineComponent, ref, computed, useRouter, useStore } from '@nuxtjs/composition-api';
 
 const PrimaryNav = defineComponent({
   props: {
@@ -109,8 +98,6 @@ const PrimaryNav = defineComponent({
     back: { type: Boolean, default: true },
   },
   setup(props: any) {
-    const pets = reactive(['สุนัข','แมว','ปลาและสัตว์น้ำ','นก','เป็ด','ห่าน','กระต่าย','เม่น','ม้า','เต่า','หนู','กระรอก','หมู',]);
-
     const cartCount = ref(2);
 
     const search = ref('');
@@ -135,26 +122,16 @@ const PrimaryNav = defineComponent({
 
     const showProfileMenu = ref(false);
 
-    const TOKEN: Ref<String> = ref('');
-    onMounted(() => {
-      TOKEN.value = localStorage.getItem('token') || '';
-    });
-
     const router = useRouter();
+    const store = useStore();
+
+    const AUTH = computed(() => store.getters.auth);
+
     const signout = () => {
-      const auth = getAuth();
-      signOut(auth).then(() => {
-        router.push('/');
-        window.location.reload();
-        localStorage.removeItem('token');
-      }).catch((error) => {
-        // An error happened.
-        alert(error);
-      });
+      store.dispatch('logout');
     }
 
     return {
-      pets,
       cartCount,
       search,
 
@@ -162,8 +139,8 @@ const PrimaryNav = defineComponent({
 
       showProfileMenu,
 
-      TOKEN,
-      signout
+      AUTH,
+      signout,
     };
   },
 });
