@@ -77,8 +77,8 @@ header.fixed.top-0.left-0.right-0.z-40
         i.ph-x.text-xl.text-gray-500.p-2(@click="showProfileMenu = false")
       HeaderProfileSidenav.flex-1
       .flex.flex-col.gap-y-2(v-if="!AUTH")
-        SoButton(block @click="$router.push('/login')" ) เข้าสู่ระบบ
-        SoButton(block @click="$router.push('/register')" mode="outline") ลงชื่อเข้าใช้
+        SoButton(block @click="$router.push('/signin')" ) เข้าสู่ระบบ
+        SoButton(block @click="$router.push('/signup')" mode="outline") ลงชื่อเข้าใช้
       .flex.flex-col.gap-y-2(v-else)
         SoButton(block mode="outline" @click="signout") ลงชื่อออก
 </template>

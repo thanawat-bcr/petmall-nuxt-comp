@@ -36,7 +36,7 @@ LayoutPrimary(title="เข้าสู่ระบบ")
               SoButton(mode="outline" block size="lg" leading="google") Google
             .flex.mt-4.items-center.justify-center
               .text-sm.text-gray-400 เพิ่งเคยเข้ามาใน Petmall ใช่หรือไม่  
-              NuxtLink(to="/register"): .text-sm.text-orange-900.ml-2.cursor-pointer(class="hover:underline") ลงชื่อเข้าใช้ 
+              NuxtLink(to="/signup"): .text-sm.text-orange-900.ml-2.cursor-pointer(class="hover:underline") ลงชื่อเข้าใช้ 
 </template>
 
 <script lang="ts">

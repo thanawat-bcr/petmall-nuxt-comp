@@ -34,7 +34,7 @@ LayoutPrimary(title="ลงชื่อเข้าใช้")
               SoButton(mode="outline" block size="lg" leading="google") Google
             .flex.mt-4.items-center.justify-center
               .text-sm.text-gray-400 หากคุณมีบัญชีผู้ใช้แล้ว คุณสามารถ 
-              NuxtLink(to="/login"): .text-sm.text-orange-900.ml-2.cursor-pointer(class="hover:underline") เข้าสู่ระบบ 
+              NuxtLink(to="/signin"): .text-sm.text-orange-900.ml-2.cursor-pointer(class="hover:underline") เข้าสู่ระบบ 
 </template>
 
 <script lang="ts">
