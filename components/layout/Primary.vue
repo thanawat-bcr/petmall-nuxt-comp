@@ -9,7 +9,7 @@
     :profile="profile"
     :back="back"
   )
-  section(class="h-32 lg:h-44")
+  section(class="h-24 lg:h-32")
   AdvertisementCarousel(v-if="carousel")
   //- component(v-if="bannerName", :is="bannerName")
   //- main.container.py-8(v-if="profile")
@@ -18,18 +18,14 @@
       .col-span-9: Nuxt
   //- main(:class="{'container py-8': title !== 'เข้าสู่ระบบ' && title !== 'ลงชื่อเข้าใช้'}")
     //- Nuxt
-  main(
-    class="py-4 md:py-8"
-    :class="{'container': title !== 'เข้าสู่ระบบ' && title !== 'ลงชื่อเข้าใช้'}"
-  )
+  main(:class="{'container py-4 md:py-8': title !== 'เข้าสู่ระบบ' && title !== 'ลงชื่อเข้าใช้'}")
     slot
   //- main.container.py-8
 </template>
 
 <script lang="ts">
 import { defineComponent, onMounted, useStore } from '@nuxtjs/composition-api';
-import { axios } from '@/use/useAxios';
-import { getUserProfile } from '@/api/index'
+import { getAuth, getUserProfile } from '@/api/index'
 
 const primary = defineComponent({
   props: {
@@ -47,9 +43,10 @@ const primary = defineComponent({
     onMounted(async () => {
       if (process.browser) {
         try {
-          // const { data } = await axios.get('/user/me');
           const data = await getUserProfile();
-          store.dispatch('saveUSER', data)
+          if (data) store.dispatch('saveUSER', data);
+          const auth = await getAuth();
+          store.dispatch('saveAUTH', auth);
         }catch(err) {
           console.log(err);
         }
