@@ -18,15 +18,15 @@ header.fixed.top-0.left-0.right-0.z-40
         //- SEARCH BAR
 
         //- AUTH
-        .col-span-2.flex.gap-x-6.items-center(v-if="AUTH" :class="navbarColor.text")
+        .col-span-2.flex.gap-x-2.items-center(v-if="AUTH" :class="navbarColor.text")
           span.relative.cursor-pointer.w-10.flex.items-center(@click="$router.push('/cart')")
             .text-xs.font-bold.absolute.text-white.bg-orange-900.px-2.rounded-lg.left-4(v-if="cartCount > 0" class="-top-1") {{ cartCount }}
             i.ph-shopping-cart-simple.text-2xl
-          span.relative
+          span.relative.flex-1
             .fixed.inset-0.z-40(v-if="showProfileMenu" @click="showProfileMenu = false")
-            .flex.items-center.cursor-pointer(class="gap-x-1 lg:gap-x-2" @click="showProfileMenu = !showProfileMenu")
+            .flex.items-center.cursor-pointer(class="gap-x-1" @click="showProfileMenu = !showProfileMenu")
               i.ph-user-circle.text-2xl
-              .text-xs {{ 'Anonymous' }}
+              .text-xs {{ USER.displayName || 'Anonymous' }}
               i.ph-caret-down.text-lg
             .absolute.bg-gray-100.rounded-lg.p-2.flex.flex-col.z-50(class="w-full top-8" v-if="showProfileMenu")
               .text-xs.text-gray-500.cursor-pointer.p-2.rounded(class="hover:bg-gray-200" @click="$router.push('/profile')") บัญชีของฉัน
@@ -126,6 +126,7 @@ const PrimaryNav = defineComponent({
     const store = useStore();
 
     const AUTH = computed(() => store.getters.auth);
+    const USER = computed(() => store.getters.user);
 
     const signout = () => {
       store.dispatch('logout');
@@ -139,6 +140,7 @@ const PrimaryNav = defineComponent({
 
       showProfileMenu,
 
+      USER,
       AUTH,
       signout,
     };

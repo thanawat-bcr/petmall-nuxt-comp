@@ -25,7 +25,7 @@
 
 <script lang="ts">
 import { defineComponent, onMounted, useStore } from '@nuxtjs/composition-api';
-import { getAuth, getUserProfile } from '@/api/index'
+import { getAuth, getIsCreated, getProfile, updateProfile } from '@/api/index'
 
 const primary = defineComponent({
   props: {
@@ -43,10 +43,25 @@ const primary = defineComponent({
     onMounted(async () => {
       if (process.browser) {
         try {
+          // CHECK AUTH
           const auth = await getAuth();
-          store.dispatch('saveAUTH', auth);
-          // const data = await getUserProfile();
-          // if (data) store.dispatch('saveUSER', data);
+          store.dispatch('saveAUTH', !!auth);
+          if (!!auth) {
+            // CHECK PROFILE CREATED
+            const isCreated = await getIsCreated();
+            if (!isCreated) {
+              const user = {
+                displayName: '',
+                gender: '',
+                imgUrl: '',
+                birthdate: '1970-01-01',
+              };
+              await updateProfile(user);
+              console.log('New User Created');
+            }
+            const profile = await getProfile();
+            store.dispatch('saveUSER', profile);
+          }
         }catch(err) {
           console.log(err);
         }

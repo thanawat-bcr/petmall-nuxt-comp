@@ -4,5 +4,7 @@ import user from '@/api/user'
 
 export const {
   getAuth,
-  getUserProfile,
+  getIsCreated,
+  getProfile,
+  updateProfile,
 } = user(axios);
