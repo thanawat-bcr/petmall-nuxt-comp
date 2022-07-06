@@ -5,7 +5,7 @@ export default function user(axios: any) {
       const res = await axios.get('/auth');
       if (res?.status === 200) return true;
     } catch (e) {
-      console.error('[api/user] getUserProfile', e);
+      console.error('[api/user] getAuth', e);
       throw e;
     }
     return null;

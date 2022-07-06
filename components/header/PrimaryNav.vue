@@ -18,7 +18,7 @@ header.fixed.top-0.left-0.right-0.z-40
         //- SEARCH BAR
 
         //- AUTH
-        .col-span-2.flex.gap-x-6.items-center(v-if="true" :class="navbarColor.text")
+        .col-span-2.flex.gap-x-6.items-center(v-if="AUTH" :class="navbarColor.text")
           span.relative.cursor-pointer.w-10.flex.items-center(@click="$router.push('/cart')")
             .text-xs.font-bold.absolute.text-white.bg-orange-900.px-2.rounded-lg.left-4(v-if="cartCount > 0" class="-top-1") {{ cartCount }}
             i.ph-shopping-cart-simple.text-2xl
@@ -125,9 +125,7 @@ const PrimaryNav = defineComponent({
     const router = useRouter();
     const store = useStore();
 
-    const USER = computed(() => store.getters.user)
-    const TOKEN = computed(() => store.getters.token)
-    const AUTH = computed(() => store.getters.isAuthenticated)
+    const AUTH = computed(() => store.getters.auth);
 
     const signout = () => {
       store.dispatch('logout');
@@ -141,10 +139,8 @@ const PrimaryNav = defineComponent({
 
       showProfileMenu,
 
-      USER,
-      TOKEN,
       AUTH,
-      signout
+      signout,
     };
   },
 });

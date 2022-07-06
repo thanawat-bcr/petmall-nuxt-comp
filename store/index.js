@@ -26,7 +26,9 @@ export const actions = {
     if (auth){
       commit('saveAUTH', auth)
     } else {
-      dispatch(logout)
+      localStorage.removeItem('token');
+      commit('saveAUTH', false)
+      commit('saveUSER', null);
     }
   },
 
@@ -40,7 +42,7 @@ export const actions = {
     localStorage.removeItem('token');
     commit('saveAUTH', false)
     commit('saveUSER', null);
-    window.location.reload();
+    // window.location.reload();
   }
 }
 

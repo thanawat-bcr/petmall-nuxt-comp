@@ -52,6 +52,8 @@ const register = defineComponent({
       email: '',
       password: '',
     });
+
+    // MODALS
     const errorModal = ref('');
 
     // SIGNUP

@@ -54,8 +54,8 @@ import {
 
 const login = defineComponent({
   setup() {
-    const router = useRouter();
 
+    const router = useRouter();
     const user = reactive({
       email: '',
       password: '',
@@ -74,7 +74,6 @@ const login = defineComponent({
           const user = userCredential.user;
           const token = await user.getIdToken();
           localStorage.setItem('token', token);
-          window.location.reload();
           router.push('/');
         })
         .catch((error) => {

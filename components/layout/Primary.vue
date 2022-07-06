@@ -43,10 +43,10 @@ const primary = defineComponent({
     onMounted(async () => {
       if (process.browser) {
         try {
-          const data = await getUserProfile();
-          if (data) store.dispatch('saveUSER', data);
           const auth = await getAuth();
           store.dispatch('saveAUTH', auth);
+          // const data = await getUserProfile();
+          // if (data) store.dispatch('saveUSER', data);
         }catch(err) {
           console.log(err);
         }
