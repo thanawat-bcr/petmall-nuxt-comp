@@ -1,18 +1,21 @@
+// import { getProfile } from '@/api/index'
+
 const DEFAULT_USER = {
   displayName: '',
   email: '',
   gender: '',
   imgUrl: '',
-  birthdate: '1970-01-01',
+  birthdate: '1000-01-01',
 }
 
-export const state = () => ({
+export const state = 
+() => ({
   user: {
     displayName: '',
     email: '',
     gender: '',
     imgUrl: '',
-    birthdate: '1970-01-01',
+    birthdate: '1000-01-01',
   },
   auth: false,
   email: '',

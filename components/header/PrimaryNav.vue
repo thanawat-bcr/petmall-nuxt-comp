@@ -26,7 +26,7 @@ header.fixed.top-0.left-0.right-0.z-40
             .fixed.inset-0.z-40(v-if="showProfileMenu" @click="showProfileMenu = false")
             .flex.items-center.cursor-pointer(class="gap-x-1" @click="showProfileMenu = !showProfileMenu")
               i.ph-user-circle.text-2xl
-              .text-xs {{ USER.displayName || 'Anonymous' }}
+              .text-xs.flex-1.truncate(style="max-width: 4.5rem;") {{ USER.displayName || 'Anonymous' }}
               i.ph-caret-down.text-lg
             .absolute.bg-gray-100.rounded-lg.p-2.flex.flex-col.z-50(class="w-full top-8" v-if="showProfileMenu")
               .text-xs.text-gray-500.cursor-pointer.p-2.rounded(class="hover:bg-gray-200" @click="$router.push('/profile')") บัญชีของฉัน

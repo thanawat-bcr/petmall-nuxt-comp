@@ -54,7 +54,7 @@ const primary = defineComponent({
                 displayName: '',
                 gender: '',
                 imgUrl: '',
-                birthdate: '1970-01-01',
+                birthdate: '1000-01-01',
               };
               await updateProfile(user);
               console.log('New User Created');

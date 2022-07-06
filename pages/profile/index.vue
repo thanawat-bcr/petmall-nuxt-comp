@@ -1,5 +1,6 @@
 <template lang="pug">
 LayoutPrimary.index(color)
+  SoModalPreset(ref="successModal" type="success" @close="closeModalHandler")
   .flex.flex-col.gap-y-8
 
     .so-grid
@@ -12,7 +13,7 @@ LayoutPrimary.index(color)
           h4.text-gray-500(class="text-h5 lg:text-h4") ข้อมูลของฉัน
           .text-gray-500(class="text-sm lg:text-md") จัดการข้อมูลส่วนตัวเพื่อความปลอดภัยของบัญชีของคุณ
         .line.w-full.h-px.bg-gray-200
-        SoForm
+        SoForm(@submit="submit")
           .flex.flex-col(class="gap-y-4 md:gap-y-8")
             .items-center(class="grid-container md:grid-cols-6 lg:grid-cols-9")
               .text-gray-500(class="text-sm lg:text-md text-left md:text-right col-span-full md:col-span-1 lg:col-span-2") รูปโปรไฟล์:
@@ -27,39 +28,50 @@ LayoutPrimary.index(color)
                 SoInput(
                   placeholder="Display Name"
                   v-model="user.displayName"
+                  rules="max:10"
                   size="lg"
                 )
             .items-center(class="grid-container md:grid-cols-6 lg:grid-cols-9")
               .text-gray-500(class="text-sm lg:text-md text-left md:text-right col-span-full md:col-span-1 lg:col-span-2") Email:
-              .col-span-5.flex: .text-md.text-gray-800.en {{ USER.email }}
+              .col-span-5.flex.pl-4: .text-md.text-gray-800.en {{ USER.email }}
             .items-center(class="grid-container md:grid-cols-6 lg:grid-cols-9")
               .text-gray-500(class="text-sm lg:text-md text-left md:text-right col-span-full md:col-span-1 lg:col-span-2") เพศ:
-              .col-span-5
+              .col-span-5.pl-4.flex.items-center
                 SoRadio.flex.gap-x-6(
                   :options="genderOptions"
                   v-model="user.gender"
                 )
+                SoInput.ml-2(
+                  placeholder="อื่นๆ"
+                  v-model="user.genderText"
+                  :disabled="user.gender !== 'other'"
+                )
             .items-center(class="grid-container md:grid-cols-6 lg:grid-cols-9")
-              .text-gray-500(class="text-sm lg:text-md text-left md:text-right col-span-full md:col-span-1 lg:col-span-2")
+              .text-gray-500(
+                class="text-sm lg:text-md text-left md:text-right col-span-full md:col-span-1 lg:col-span-2"
+              )
                 span(class="block md:hidden lg:block") วัน/เดือน/ปี เกิด:
                 span(class="hidden md:block lg:hidden") ว/ด/ป เกิด:
-              .col-span-5.flex.gap-x-4
+              .col-span-5.flex.gap-x-4.items-start
                 SoInput(
                   type="select"
                   v-model="user.birthdate.date"
                   :options="birthOptions.date"
+                  :rules="`${user.birthdate.date || user.birthdate.month || user.birthdate.year ? 'required' : ''}`"
                   placeholder="วัน"
                 )
                 SoInput(
                   type="select"
                   v-model="user.birthdate.month"
                   :options="birthOptions.month"
+                  :rules="`${user.birthdate.date || user.birthdate.month || user.birthdate.year ? 'required' : ''}`"
                   placeholder="เดือน"
                 )
                 SoInput(
                   type="select"
                   v-model="user.birthdate.year"
                   :options="birthOptions.year"
+                  :rules="`${user.birthdate.date || user.birthdate.month || user.birthdate.year ? 'required' : ''}`"
                   placeholder="ปี"
                 )
             .items-center(class="grid-container md:grid-cols-6 lg:grid-cols-9")
@@ -67,24 +79,39 @@ LayoutPrimary.index(color)
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, reactive, useRouter, useStore, watch } from '@nuxtjs/composition-api';
+import { computed, defineComponent, reactive, ref, useRouter, useStore, watch } from '@nuxtjs/composition-api';
+import { updateProfile } from '@/api/index';
 
 const index = defineComponent({
   setup() {
     const router = useRouter();
     const store = useStore();
 
+    // MODALS
+    const successModal = ref('');
+    const closeModalHandler = () => window.location.reload();
+
     const USER = computed(() => store.getters.user)
     watch(USER, (oldValue, newValue) => {
       if (USER.value) {
         user.displayName = USER.value.displayName;
-        user.gender = USER.value.gender;
+        if (USER.value.gender === 'male' || USER.value.gender === 'female') {
+          user.gender = USER.value.gender;
+          user.genderText = "";
+        } else if(USER.value.gender === '') {
+          user.gender = '';
+          user.genderText = '';
+        } else {
+          user.gender = 'other';
+          user.genderText = USER.value.gender;
+        }
         user.imgUrl = USER.value.imgUrl;
-        user.birthdate = {
-          date: USER.value.birthdate.split('-')[0],
-          month: USER.value.birthdate.split('-')[0],
-          year: USER.value.birthdate.split('-')[0],
-        };
+        if (USER.value.birthdate !== '1000-01-01')
+          user.birthdate = {
+            date: `${Number(USER.value.birthdate.split('-')[2])}`,
+            month: `${Number(USER.value.birthdate.split('-')[1])}`,
+            year: `${Number(USER.value.birthdate.split('-')[0])}`,
+          };
       }
     })
 
@@ -92,6 +119,7 @@ const index = defineComponent({
     const user = reactive({
       displayName: '',
       gender: '',
+      genderText: '',
       imgUrl: '',
       birthdate: {
         date: '',
@@ -101,17 +129,34 @@ const index = defineComponent({
     });
 
     const genderOptions = reactive([
-      { value: 'M', name: 'ชาย' },
-      { value: 'F', name: 'หญิง' },
-      { value: 'O', name: 'อื่นๆ' },
+      { value: 'male', name: 'ชาย' },
+      { value: 'female', name: 'หญิง' },
+      { value: 'other', name: 'no' },
     ]);
 
 
     const birthOptions = reactive({
       date: Array(31).fill(1).map((_, i) => { return { value: ++i } }),
-      month: ['มกราคม', 'กุมภาพันธ์', 'มีนาคม', 'เมษายน', 'พฤษภาคม', 'มิถุนายน', 'กรกฎาคม', 'สิงหาคม', 'กันยายน', 'ตุลาคม', 'พฤศจิกายน', 'ธันวาคม'].map((month, i) => { return { value: i, name: month } }),
+      month: ['มกราคม', 'กุมภาพันธ์', 'มีนาคม', 'เมษายน', 'พฤษภาคม', 'มิถุนายน', 'กรกฎาคม', 'สิงหาคม', 'กันยายน', 'ตุลาคม', 'พฤศจิกายน', 'ธันวาคม'].map((month, i) => { return { value: ++i, name: month } }),
       year: Array(2022-1960).fill(1960).map((year, i) => { return { value: (year  + i++)} }), 
     });
+
+    const submit = async () => {
+      const formatNumber = (num: Number) => (num < 10 ? (num === 0 ? '01' : `0${num}`) : num);
+      const userInput = {
+        displayName: user.displayName,
+        birthdate: `${user.birthdate.year || '1000'}-${formatNumber(Number(user.birthdate.month))}-${formatNumber(Number(user.birthdate.date))}`,
+        gender: `${user.gender === 'other' ? user.genderText : user.gender}`,
+        imgUrl: user.imgUrl
+      }
+      // console.log(userInput)
+      try {
+        await updateProfile(userInput);
+        (successModal.value as any).open('ข้อมูลได้ถูกเปลี่ยนเรียบร้อยแล้ว');
+      } catch(e) {
+        console.error(e);
+      }
+    }
 
     return {
       user,
@@ -119,6 +164,11 @@ const index = defineComponent({
 
       genderOptions,
       birthOptions,
+
+      successModal,
+      closeModalHandler,
+
+      submit,
     };
 
   },

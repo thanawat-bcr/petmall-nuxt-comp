@@ -1,15 +1,20 @@
 import Vue from 'vue';
 import { ValidationProvider, ValidationObserver, extend } from 'vee-validate';
-import { required, email } from "vee-validate/dist/rules";
+import { required, email, max } from "vee-validate/dist/rules";
 
 extend("required", {
   ...required,
-  message: "This field is required"
+  message: 'จำเป็นต้องกรอก'
 });
 
 extend("email", {
   ...email,
-  message: "This field must be email"
+  message: 'ต้องเป็นอีเมล'
+});
+
+extend("max", {
+  ...max,
+  message: 'ต้องมีความยาวไม่เกิน {length} ตัวอักษร'
 });
 
 Vue.component('ValidationProvider', ValidationProvider);
