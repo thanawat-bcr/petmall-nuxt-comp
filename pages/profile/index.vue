@@ -69,12 +69,13 @@ LayoutPrimary.index(
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, reactive, Ref, ref, useRouter } from '@nuxtjs/composition-api';
+import { defineComponent, reactive, useRouter } from '@nuxtjs/composition-api';
 
 const index = defineComponent({
   setup() {
     const router = useRouter();
 
+    // NOTE: DisplayName less than 10 character
     const user = reactive({
       profileImage: null,
       username: '',
