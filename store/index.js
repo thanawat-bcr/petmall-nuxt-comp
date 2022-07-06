@@ -1,35 +1,34 @@
 export const state = () => ({
   user: null,
-  // token: null,
+  auth: false,
 })
 
 export const getters = {
 
-  // token(state) {
-  //   if (state.token) return state.token
-  //   else return null
-  // },
+  auth(state) {
+    return state.auth
+  },
 
   user(state) {
     if (state.user) return state.user
     else return null
   },
-
-  isAuthenticated(state) {
-    return !!state.user
-  }
 }
 
 export const actions = {
 
-  async nuxtServerInit ({ commit, dispatch}) {
-    console.log('Nuxt init');
-  },
-
-  // saveTOKEN({ commit }, token) {
-  //   console.log('[STORE ACTIONS] - saveTOKEN')
-  //   commit('saveTOKEN', token)
+  // async nuxtServerInit ({ commit, dispatch}) {
+  //   console.log('Nuxt init');
   // },
+
+  saveAUTH({ commit, dispatch }, auth) {
+    console.log('[STORE ACTIONS] - saveAUTH')
+    if (auth){
+      commit('saveAUTH', auth)
+    } else {
+      dispatch(logout)
+    }
+  },
 
   saveUSER({ commit }, user) {
     console.log('[STORE ACTIONS] - saveUSER')
@@ -39,7 +38,7 @@ export const actions = {
   logout({ commit }) {
     console.log('[STORE ACTIONS] - logout')
     localStorage.removeItem('token');
-    // commit('saveTOKEN', null);
+    commit('saveAUTH', false)
     commit('saveUSER', null);
     window.location.reload();
   }
@@ -47,10 +46,10 @@ export const actions = {
 
 
 export const mutations = {
-  // saveTOKEN (state, token) {
-  //   console.log('[STORE MUTATIONS] - saveTOKEN:', token)
-  //   state.token = token
-  // },
+  saveAUTH (state, auth) {
+    console.log('[STORE MUTATIONS] - saveAUTH:', auth)
+    state.auth = auth
+  },
   saveUSER (state, user) {
     console.log('[STORE MUTATIONS] - saveUSER:', user)
     state.user = user
