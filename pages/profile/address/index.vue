@@ -37,29 +37,6 @@ import { getAddresses } from '@/api/index';
 const addresses = defineComponent({
   setup() {
     const router = useRouter();
-    // const addresses = reactive([
-    //   {
-    //     id: 0,
-    //     name: 'นางสาว สัตว์น้อย น่ารัก',
-    //     phone: '(+66) 81 000 0000',
-    //     address: 'อาคาร สัตว์เลี้ยง ซอย สัตว์น้อย 11 ถนน สัตว์เลื่อยคลาน แขวง สัตว์ปีก เขต ปทุมวัน กรุงเทพฯ 10330',
-    //     default: false,
-    //   },
-    //   {
-    //     id: 1,
-    //     name: 'นางสาว สัตว์น้อย น่ารัก',
-    //     phone: '(+66) 81 000 0000',
-    //     address: 'อาคาร สัตว์เลี้ยง ซอย สัตว์น้อย 11 ถนน สัตว์เลื่อยคลาน แขวง สัตว์ปีก เขต ปทุมวัน กรุงเทพฯ 10330',
-    //     default: true,
-    //   },
-    //   {
-    //     id: 2,
-    //     name: 'นางสาว สัตว์น้อย น่ารัก',
-    //     phone: '(+66) 81 000 0000',
-    //     address: 'อาคาร สัตว์เลี้ยง ซอย สัตว์น้อย 11 ถนน สัตว์เลื่อยคลาน แขวง สัตว์ปีก เขต ปทุมวัน กรุงเทพฯ 10330',
-    //     default: false,
-    //   },
-    // ]);
     const addresses = ref([]);
     onMounted(async () => {
       const data = await getAddresses();
