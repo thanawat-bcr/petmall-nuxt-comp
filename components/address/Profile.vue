@@ -13,6 +13,7 @@
         ) แก้ไข
         .text-md.text-gray-500.underline.cursor-pointer(
           @click.stop="deleteAddress"
+          v-if="!address.default"
         ) ลบ
       span(class="hidden md:block").flex-shrink-0
         SoButton(
@@ -35,6 +36,7 @@
     ) แก้ไข
     .text-md.text-gray-500.underline.cursor-pointer(
       @click.stop="deleteAddress"
+      v-if="!address.default"
     ) ลบ
 </template>
 
@@ -49,13 +51,11 @@ const AddressCard = defineComponent({
     const { id } = props.address;
 
     const updateDefault = () => { console.log("updateDefault", id); }
-    const selectAddress = () => { console.log("selectAddress", id); }
     const editAddress = () => { console.log("editAddress", id); }
     const deleteAddress = () => { console.log("deleteAddress", id); }
 
     return {
       updateDefault,
-      selectAddress,
       editAddress,
       deleteAddress,
     }
