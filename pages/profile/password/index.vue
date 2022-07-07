@@ -1,8 +1,8 @@
 <template lang="pug">
-LayoutPrimary.password(title="เปลี่ยนรหัสผ่าน" color profile)
+LayoutPrimary.password(color)
   SoModalPreset(ref="successModal" type="success" @close="closeModalHandler")
-  SoModalForgetPasswordRequest(ref="forgetPasswordModal")
   SoModalPreset(ref="errorModal" type="error")
+  SoModalForgetPasswordConfirm(ref="forgetPasswordConfirmModal")
   .flex.flex-col.gap-y-8
 
     .so-grid
@@ -29,7 +29,7 @@ LayoutPrimary.password(title="เปลี่ยนรหัสผ่าน" col
                 rules="required"
                 class="col-span-4 md:col-span-3 lg:col-span-4"
               )
-              .button-text.text-sm.text-orange-800.text-right(@click="forgetPasswordModal.open()") ลืมรหัสผ่าน?
+              .button-text.text-sm.text-orange-800.text-right(@click="forgetPasswordHandler") ลืมรหัสผ่าน?
             .grid-container(class="grid-cols-4 md:grid-cols-6 lg:grid-cols-9")
               .text-md.text-gray-500.font-semibold(class="col-span-4 md:col-span-2") รหัสผ่านใหม่:
               SoInput(
@@ -53,8 +53,8 @@ LayoutPrimary.password(title="เปลี่ยนรหัสผ่าน" col
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, reactive, Ref, ref, useRouter } from '@nuxtjs/composition-api';
-import { getAuth, updatePassword, reauthenticateWithCredential, EmailAuthProvider } from "firebase/auth";
+import { computed, defineComponent, reactive, ref, useRouter, useStore } from '@nuxtjs/composition-api';
+import { getAuth, updatePassword, reauthenticateWithCredential, EmailAuthProvider, sendPasswordResetEmail } from "firebase/auth";
 
 const password = defineComponent({
   setup() {
@@ -63,7 +63,6 @@ const password = defineComponent({
     // MODALS
     const successModal = ref('');
     const errorModal = ref('');
-    const forgetPasswordModal = ref('');
     const closeModalHandler = () => window.location.reload();
 
     const password = reactive({
@@ -71,6 +70,7 @@ const password = defineComponent({
       new: '',
       confirm: '',
     });
+
     // CHANGE PASSWORD
     const submit = () => {
       const auth = getAuth();
@@ -98,9 +98,25 @@ const password = defineComponent({
         }).catch((error) => {
           (errorModal.value as any).open(error.message)
         });
-      }
-
+      };
     };
+
+    // FORGET PASSWORD
+    const store = useStore();
+    const USER = computed(() => store.getters.user);
+    const forgetPasswordConfirmModal = ref('');
+    const forgetPasswordHandler = () => {
+      const auth = getAuth();
+      sendPasswordResetEmail(auth, USER.value.email)
+        .then(() => {
+          // Password reset email sent!
+            (forgetPasswordConfirmModal.value as any).open()
+        })
+        .catch((error) => {
+          // An error occurred
+          (errorModal.value as any).open(error.message);
+        });
+    }
 
     return {
       password,
@@ -108,7 +124,8 @@ const password = defineComponent({
 
       successModal,
       errorModal,
-      forgetPasswordModal,
+      forgetPasswordConfirmModal,
+      forgetPasswordHandler,
       closeModalHandler,
     };
   },

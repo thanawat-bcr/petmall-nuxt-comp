@@ -8,7 +8,7 @@
     )
       .container
         .so-grid
-          .flex.flex-col.gap-y-6.z-50.relative.bg-white.rounded-lg.py-8.px-6(
+          .flex.flex-col.gap-y-6.z-50.relative.bg-white.rounded-lg.py-6.px-6(
             v-if="active"
             class="col-span-4 md:col-span-6 md:col-start-2 lg:col-start-4"
           )
@@ -19,24 +19,19 @@
                 i.ph-x.text-xl.text-gray-400.p-2.cursor-pointer(@click="close")
 
             //- CONTENT
-            SoForm(@submit="submit")
-              .flex.flex-col.gap-y-8
-                .flex.flex-col.gap-y-4
-                  .overline-lg.text-gray-500 อีเมล
-                  SoInput(
-                    v-model="email"
-                    type="email"
-                    rules="required|email"
-                    leading="envelope-simple"
-                    placeholder="username@mail.com"
-                  )
-                .flex.gap-x-4.mx-auto.w-full(class="w-full md:w-1/2 lg:w-2/5")
-                  SoButton(block @click="confirm" type="submit") ยืนยัน
+            .flex.flex-col.items-center.gap-y-4
+              img.w-40(src="/image/email.png")
+              .flex.flex-col
+                .text-sm.text-center.text-gray-500 รหัสยืนยันตัวตนจะถูกส่งไปที่ Email
+                .text-sm.text-center.text-orange-900 {{ USER.email }}
+                .text-sm.text-center.text-gray-500 กรุณายืนยัน
+              .flex.gap-x-4.mx-auto.w-full(class="w-full md:w-1/2 lg:w-2/5")
+                SoButton(block @click="confirm") ตกลง
 </template>
 
 <script lang="ts">
 import { sendPasswordResetEmail, getAuth } from '@firebase/auth';
-import { defineComponent, ref, useStore } from '@nuxtjs/composition-api';
+import { computed, defineComponent, ref, useStore } from '@nuxtjs/composition-api';
 
 const Request = defineComponent({
   props: {
@@ -46,22 +41,7 @@ const Request = defineComponent({
   },
   setup(props, ctx) {
     const store = useStore();
-
-    const email = ref('');
-
-    const submit = () => {
-      const auth = getAuth();
-      sendPasswordResetEmail(auth, email.value)
-        .then(() => {
-          // Password reset email sent!
-          // ..
-        })
-        .catch((error) => {
-          const errorCode = error.code;
-          const errorMessage = error.message;
-          // ..
-        });
-    };
+    const USER = computed(() => store.getters.user);
 
     const active = ref(false);
 
@@ -75,12 +55,11 @@ const Request = defineComponent({
     };
     const confirm = () => {
       ctx.emit('confirm');
-      // active.value = false;
+      active.value = false;
     };
 
     return {
-      email,
-      submit,
+      USER,
 
       active,
 
