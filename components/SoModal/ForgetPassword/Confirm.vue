@@ -23,14 +23,13 @@
               img.w-40(src="/image/email.png")
               .flex.flex-col
                 .text-sm.text-center.text-gray-500 รหัสยืนยันตัวตนจะถูกส่งไปที่ Email
-                .text-sm.text-center.text-orange-900 {{ USER.email }}
+                .text-sm.text-center.text-orange-900 {{ email || USER.email }}
                 .text-sm.text-center.text-gray-500 กรุณายืนยัน
               .flex.gap-x-4.mx-auto.w-full(class="w-full md:w-1/2 lg:w-2/5")
                 SoButton(block @click="confirm") ตกลง
 </template>
 
 <script lang="ts">
-import { sendPasswordResetEmail, getAuth } from '@firebase/auth';
 import { computed, defineComponent, ref, useStore } from '@nuxtjs/composition-api';
 
 const Request = defineComponent({
@@ -44,9 +43,11 @@ const Request = defineComponent({
     const USER = computed(() => store.getters.user);
 
     const active = ref(false);
+    const email = ref('');
 
     const open = (_ctx: string) => {
       ctx.emit('open');
+      if (_ctx) email.value = _ctx;
       active.value = true;
     };
     const close = () => {
@@ -60,6 +61,7 @@ const Request = defineComponent({
 
     return {
       USER,
+      email,
 
       active,
 

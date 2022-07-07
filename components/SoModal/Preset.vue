@@ -41,6 +41,7 @@ const SoModal = defineComponent({
       { en: 'Firebase: Password should be at least 6 characters (auth/weak-password).', th: 'รหัสผ่านต้องมีความยาวมากกว่า 6 ตัวอักษร' },
       { en: 'Firebase: Error (auth/email-already-in-use).', th: 'Email นี้ถูกใช้ไปแล้ว กรุณาลองใหม่' },
       { en: 'Firebase: Error (auth/wrong-password).', th: 'รหัสผ่านปัจจุบันไม่ถูกต้อง' },
+      { en: 'Firebase: Error (auth/user-not-found).', th: 'ไม่พบผู้ใช้งานนี้' },
     ]
     const open = (_ctx: string) => {
       ctx.emit('open');

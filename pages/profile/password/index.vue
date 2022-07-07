@@ -19,9 +19,9 @@ LayoutPrimary.password(color)
         .line.w-full.h-px.bg-gray-200
 
         SoForm(@submit="submit")
-          .flex.flex-col.gap-y-4
-            .grid-container(class="grid-cols-4 md:grid-cols-6 lg:grid-cols-9")
-              .text-md.text-gray-500.font-semibold(class="col-span-4 md:col-span-2") รหัสผ่านปัจจุบัน:
+          .flex.flex-col.gap-y-8(class="md:gap-y-10 lg:w-3/4")
+            .flex.flex-col.gap-y-2.relative(class="md:flex-row md:items-center")
+              .text-md.text-gray-500.font-semibold(class="md:w-48") รหัสผ่านปัจจุบัน:
               SoInput(
                 v-model="password.old"
                 placeholder="รหัสผ่านปัจจุบัน"
@@ -29,9 +29,9 @@ LayoutPrimary.password(color)
                 rules="required"
                 class="col-span-4 md:col-span-3 lg:col-span-4"
               )
-              .button-text.text-sm.text-orange-800.text-right(@click="forgetPasswordHandler") ลืมรหัสผ่าน?
-            .grid-container(class="grid-cols-4 md:grid-cols-6 lg:grid-cols-9")
-              .text-md.text-gray-500.font-semibold(class="col-span-4 md:col-span-2") รหัสผ่านใหม่:
+              .absolute.button-text.text-sm.text-orange-800.text-right(@click="forgetPasswordHandler" class="-bottom-7 right-0") ลืมรหัสผ่าน?
+            .flex.flex-col.gap-y-2(class="md:flex-row md:items-center")
+              .text-md.text-gray-500.font-semibold(class="md:w-48") รหัสผ่านใหม่:
               SoInput(
                 v-model="password.new"
                 placeholder="รหัสผ่านใหม่"
@@ -39,8 +39,8 @@ LayoutPrimary.password(color)
                 rules="required"
                 class="col-span-4 md:col-span-3 lg:col-span-4"
               )
-            .grid-container(class="grid-cols-4 md:grid-cols-6 lg:grid-cols-9")
-              .text-md.text-gray-500.font-semibold(class="col-span-4 md:col-span-2") ยืนยันรหัสผ่าน:
+            .flex.flex-col.gap-y-2(class="md:flex-row md:items-center")
+              .text-md.text-gray-500.font-semibold(class="md:w-48") ยืนยันรหัสผ่าน:
               SoInput(
                 v-model="password.confirm"
                 placeholder="ยืนยันรหัสผ่าน"
@@ -54,11 +54,13 @@ LayoutPrimary.password(color)
 
 <script lang="ts">
 import { computed, defineComponent, reactive, ref, useRouter, useStore } from '@nuxtjs/composition-api';
-import { getAuth, updatePassword, reauthenticateWithCredential, EmailAuthProvider, sendPasswordResetEmail } from "firebase/auth";
+import { getAuth, updatePassword, reauthenticateWithCredential, EmailAuthProvider, sendPasswordResetEmail, onAuthStateChanged } from "firebase/auth";
 
 const password = defineComponent({
   setup() {
     const router = useRouter();
+    const store = useStore();
+    const USER = computed(() => store.getters.user);
 
     // MODALS
     const successModal = ref('');
@@ -74,36 +76,37 @@ const password = defineComponent({
     // CHANGE PASSWORD
     const submit = () => {
       const auth = getAuth();
-      const user: any = auth.currentUser;
 
       if (password.new != password.confirm) {
         (errorModal.value as any).open('รหัสผ่านไม่ตรงกัน');
         return;
-      }
+      };
 
-      if (user) {
-        const credential = EmailAuthProvider.credential(
+      onAuthStateChanged(auth, (user: any) => {
+        if (user) {
+          const credential = EmailAuthProvider.credential(
             user.email,
             password.old
-        )
+          );
           reauthenticateWithCredential(user, credential).then(() => {
             // User re-authenticated.
             updatePassword(user, password.new).then(() => {
               // Update successful.
-              (successModal.value as any).open('คุณได้เปลี่ยนรหัสผ่านเรียบร้อยแล้ว')
+              (successModal.value as any).open('คุณได้เปลี่ยนรหัสผ่านเรียบร้อยแล้ว');
             }).catch((error) => {
               // An error ocurred
               (errorModal.value as any).open(error.message);
             });
-        }).catch((error) => {
-          (errorModal.value as any).open(error.message)
-        });
-      };
+          }).catch((error) => {
+            (errorModal.value as any).open(error.message);
+          });
+        } else {
+            (errorModal.value as any).open('คุณยังไม่ได้เข้าสู่ระบบ');
+        }
+      })
     };
 
     // FORGET PASSWORD
-    const store = useStore();
-    const USER = computed(() => store.getters.user);
     const forgetPasswordConfirmModal = ref('');
     const forgetPasswordHandler = () => {
       const auth = getAuth();

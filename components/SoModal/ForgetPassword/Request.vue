@@ -36,7 +36,7 @@
 
 <script lang="ts">
 import { sendPasswordResetEmail, getAuth } from '@firebase/auth';
-import { defineComponent, ref, useStore } from '@nuxtjs/composition-api';
+import { defineComponent, ref } from '@nuxtjs/composition-api';
 
 const Request = defineComponent({
   props: {
@@ -45,21 +45,19 @@ const Request = defineComponent({
     cancel: { type: Boolean, default: false },
   },
   setup(props, ctx) {
-    const store = useStore();
-
     const email = ref('');
 
     const submit = () => {
+      active.value = false;
       const auth = getAuth();
       sendPasswordResetEmail(auth, email.value)
         .then(() => {
-          // Password reset email sent!
-          // ..
+          ctx.emit('success', email.value);
+          email.value = '';
         })
         .catch((error) => {
-          const errorCode = error.code;
-          const errorMessage = error.message;
-          // ..
+          ctx.emit('error', error.message);
+          email.value = '';
         });
     };
 

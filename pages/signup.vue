@@ -10,21 +10,23 @@ LayoutPrimary(title="ลงชื่อเข้าใช้")
             h4.text-h4.text-gray-500 ลงชื่อเข้าใช้
             .text-sm.text-gray-500 สร้างบัญชี Petmall ของคุณเลยตอนนี้
             SoForm.mt-6(@submit="submit")
-              .flex.flex-col.gap-y-2
-                .overline-lg.text-gray-500 อีเมล
-                SoInput(
-                  v-model="user.email"
-                  type="email"
-                  rules="required|email"
-                  placeholder="username@mail.com"
-                )
-                .overline-lg.text-gray-500 รหัสผ่าน
-                SoInput(
-                  v-model="user.password"
-                  type="password"
-                  rules="required"
-                  placeholder="******"
-                )
+              .flex.flex-col.gap-y-8
+                .flex.flex-col.gap-y-2
+                  .overline-lg.text-gray-500 อีเมล
+                  SoInput(
+                    v-model="user.email"
+                    type="email"
+                    rules="required|email"
+                    placeholder="username@mail.com"
+                  )
+                .flex.flex-col.gap-y-2
+                  .overline-lg.text-gray-500 รหัสผ่าน
+                  SoInput(
+                    v-model="user.password"
+                    type="password"
+                    rules="required"
+                    placeholder="******"
+                  )
                 SoButton(block size="lg" type="submit") ถัดไป
             .flex.items-center.my-4
               .line.flex-1.h-px.bg-gray-200

@@ -1,7 +1,12 @@
 <template lang="pug">
 LayoutPrimary(title="เข้าสู่ระบบ")
   SoModalPreset(ref="errorModal" type="error")
-  SoModalForgetPasswordRequest(ref="forgetPasswordModal")
+  SoModalForgetPasswordConfirm(ref="forgetPasswordConfirmModal")
+  SoModalForgetPasswordRequest(
+    ref="forgetPasswordRequestModal"
+    @success="forgetPasswordSuccessHandler"
+    @error="forgetPasswordErrorHandler"
+  )
   .login.min-h-screen.relative(class="md:pt-8 lg:pt-12")
     .login-bg(class="hidden md:block" style="background-image: url('/registration/bg.png');")
     .container
@@ -11,23 +16,25 @@ LayoutPrimary(title="เข้าสู่ระบบ")
             h4.text-h4.text-gray-500 เข้าสู่ระบบ
             .text-sm.text-gray-500 เข้าสู่ระบบของคุณเลยตอนนี้
             SoForm.mt-6(@submit="submit")
-              .flex.flex-col.gap-y-2
-                .overline-lg.text-gray-500 อีเมล
-                SoInput(
-                  v-model="user.email"
-                  type="email"
-                  rules="required|email"
-                  placeholder="username@mail.com"
-                )
-                .overline-lg.text-gray-500 รหัสผ่าน
-                SoInput(
-                  v-model="user.password"
-                  type="password"
-                  rules="required"
-                  placeholder="******"
-                )
+              .flex.flex-col.gap-y-8
+                .flex.flex-col.gap-y-2
+                  .overline-lg.text-gray-500 อีเมล
+                  SoInput(
+                    v-model="user.email"
+                    type="email"
+                    rules="required|email"
+                    placeholder="username@mail.com"
+                  )
+                .flex.flex-col.gap-y-2
+                  .overline-lg.text-gray-500 รหัสผ่าน
+                  SoInput(
+                    v-model="user.password"
+                    type="password"
+                    rules="required"
+                    placeholder="******"
+                  )
                 SoButton(block size="lg" type="submit") เข้าสู่ระบบ
-                .text-sm.text-gray-500.text-right.cursor-pointer.mt-2(class="hover:underline" @click="forgetPasswordModal.open()") ลืมรหัสผ่าน?
+                .text-sm.text-gray-500.text-right.cursor-pointer.mt-2(class="hover:underline" @click="forgetPasswordRequestModal.open()") ลืมรหัสผ่าน?
             .flex.items-center.my-4
               .line.flex-1.h-px.bg-gray-200
               .text-sm.text-gray-400.px-4 หรือ
@@ -63,7 +70,6 @@ const login = defineComponent({
 
     // MODALS
     const errorModal = ref('');
-    const forgetPasswordModal = ref('');
 
     // SIGNIN
     const submit = () => {
@@ -82,11 +88,25 @@ const login = defineComponent({
         });
     };
 
+    // FORGET PASSWORD
+    const forgetPasswordRequestModal = ref('');
+    const forgetPasswordConfirmModal = ref('');
+    const forgetPasswordSuccessHandler = (text: String) => {
+      (forgetPasswordConfirmModal.value as any).open(text)
+    }
+    const forgetPasswordErrorHandler = (text: String) => {
+      (errorModal.value as any).open(text);
+    }
+
     return {
       user,
       errorModal,
-      forgetPasswordModal,
       submit,
+
+      forgetPasswordRequestModal,
+      forgetPasswordConfirmModal,
+      forgetPasswordSuccessHandler,
+      forgetPasswordErrorHandler,
     };
   },
 });
