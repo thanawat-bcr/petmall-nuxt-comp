@@ -86,7 +86,7 @@ const AddressCard = defineComponent({
 
     const updateDefault = () => (updateModal.value as any).open();
     const addressDelete = () => (deleteModal.value as any).open();
-    const addressUpdate = () => {};
+    const addressUpdate = () => router.push(`/profile/address/edit/${id}`);
 
     return {
       deleteModal,
