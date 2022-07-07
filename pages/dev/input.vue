@@ -1,5 +1,8 @@
 <template lang="pug">
-.container
+LayoutPrimary.addresses(color)
+
+  SoToggle(v-model="toggle")
+  h1 {{ toggle }}
   SoForm.input(@submit="submit")
     .form--group
       .form--row
@@ -29,10 +32,9 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive } from '@nuxtjs/composition-api';
+import { defineComponent, reactive, ref } from '@nuxtjs/composition-api';
 
 const input = defineComponent({
-  layout: 'primary',
   setup() {
     const user = reactive({
       email: '',
@@ -48,6 +50,8 @@ const input = defineComponent({
       { value: 'O', name: 'อื่นๆ' },
     ]);
 
+    const toggle = ref(false);
+
     const submit = () => {
       console.log(user);
     };
@@ -56,6 +60,8 @@ const input = defineComponent({
       user,
       options,
       submit,
+
+      toggle,
     };
   },
 });
