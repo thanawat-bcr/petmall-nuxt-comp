@@ -68,7 +68,7 @@ export default function address(axios: any) {
 
   async function deleteAddress(id: any) {
     try {
-      const res = await axios.post(`/address/update`, {
+      const res = await axios.post(`/address/delete`, {
         id,
       });
       if (res?.status === 200) return res.data;

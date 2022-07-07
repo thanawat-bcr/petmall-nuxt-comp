@@ -1,5 +1,8 @@
 <template lang="pug">
 .flex.flex-col.px-6.py-4.rounded-lg.gap-y-2.bg-gray-100.border
+  SoModalConfirm(ref="deleteModal" title="คุณต้องการที่จะลบที่อยู่นี้" @confirm="deleteModalHandler")
+  SoModalConfirm(ref="updateModal" title="คุณต้องการที่จะตั้งที่อยู่นี้เป็นค่าเริ่มต้น" @confirm="updateModalHandler")
+  SoModalPreset(ref="successModal" type="success" @close="closeModalHandler")
   .flex.justify-between
     .flex.flex-col.gap-y-2.w-full(class="md:w-80 lg:w-3/4")
       .flex.items-center.gap-x-3(class="flex-grow justify-between md:justify-start")
@@ -9,10 +12,10 @@
     .flex.flex-col.items-end.gap-y-2
       .items-center.gap-x-3(class="hidden md:flex")
         .text-md.text-gray-500.underline.cursor-pointer(
-          @click.stop="editAddress"
+          @click.stop="addressUpdate"
         ) แก้ไข
         .text-md.text-gray-500.underline.cursor-pointer(
-          @click.stop="deleteAddress"
+          @click.stop="addressDelete"
           v-if="!address.default"
         ) ลบ
       span(class="hidden md:block").flex-shrink-0
@@ -32,16 +35,17 @@
       @click="updateDefault"
     ) ตั้งเป็นค่าเริ่มต้น
     .text-md.text-gray-500.underline.cursor-pointer(
-      @click.stop="editAddress"
+      @click.stop="addressUpdate"
     ) แก้ไข
     .text-md.text-gray-500.underline.cursor-pointer(
-      @click.stop="deleteAddress"
+      @click.stop="addressDelete"
       v-if="!address.default"
     ) ลบ
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@nuxtjs/composition-api';
+import { defineComponent, ref, useRouter } from '@nuxtjs/composition-api';
+import { deleteAddress, updateAddress } from '@/api/index';
 
 const AddressCard = defineComponent({
   props: {
@@ -50,14 +54,51 @@ const AddressCard = defineComponent({
   setup(props: any) {
     const { id } = props.address;
 
-    const updateDefault = () => { console.log("updateDefault", id); }
-    const editAddress = () => { console.log("editAddress", id); }
-    const deleteAddress = () => { console.log("deleteAddress", id); }
+    const router = useRouter();
+
+    // MODALS
+    const successModal = ref('');
+    const closeModalHandler = () => window.location.reload();
+    const updateModal = ref('');
+    const updateModalHandler = async () => {
+      try {
+        const defaultAddress = {
+          ...props.address,
+          default: true,
+        };
+        await updateAddress(defaultAddress);
+      (updateModal.value as any).close();
+        (successModal.value as any).open('ตั้งที่อยู่นี้เป็นค่าเริ่มต้นเรียบร้อยแล้ว');
+      } catch(e) {
+        console.error(e);
+      }
+    };
+    const deleteModal = ref('');
+    const deleteModalHandler = async () => {
+      try {
+        await deleteAddress(id);
+        (deleteModal.value as any).close();
+        (successModal.value as any).open('ลบที่อยู่เรียบร้อยแล้ว');
+      } catch(e) {
+        console.error(e);
+      }
+    };
+
+    const updateDefault = () => (updateModal.value as any).open();
+    const addressDelete = () => (deleteModal.value as any).open();
+    const addressUpdate = () => {};
 
     return {
+      deleteModal,
+      deleteModalHandler,
+      updateModal,
+      updateModalHandler,
+      successModal,
+      closeModalHandler,
+
       updateDefault,
-      editAddress,
-      deleteAddress,
+      addressUpdate,
+      addressDelete,
     }
   },
 });

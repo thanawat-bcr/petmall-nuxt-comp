@@ -17,7 +17,7 @@ LayoutPrimary.addresses(color)
         .line.w-full.h-px.bg-gray-200
 
         //- BODY
-        section.flex.flex-col.gap-y-8(v-if="addresses.length > 0")
+        section.flex.flex-col.gap-y-4(v-if="addresses.length > 0")
           AddressProfile(
             v-for="address in addresses"
             :key="address.id"
