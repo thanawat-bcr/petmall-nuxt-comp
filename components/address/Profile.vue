@@ -1,28 +1,41 @@
 <template lang="pug">
-.flex.flex-col.px-6.py-4.rounded-lg.gap-y-2.bg-gray-100(@click="selectAddress")
+.flex.flex-col.px-6.py-4.rounded-lg.gap-y-2.bg-gray-100.border
   .flex.justify-between
-    .flex.flex-col.gap-y-2
-      .flex.items-center.gap-x-3
-        .text-md.text-gray-500.font-bold {{ address.name }}
-        SoTag(v-if="address.default" :rounded="true") ค่าเริ่มต้น
+    .flex.flex-col.gap-y-2.w-full(class="md:w-80 lg:w-3/4")
+      .flex.items-center.gap-x-3(class="flex-grow justify-between md:justify-start")
+        .text-md.text-gray-500.font-bold.truncate {{ address.name }}
+        SoTag.flex-shrink-0(v-if="address.default" :rounded="true") ค่าเริ่มต้น
       .text-md.text-gray-500 {{ address.phone }}
     .flex.flex-col.items-end.gap-y-2
-      .flex.items-center.gap-x-3
+      .items-center.gap-x-3(class="hidden md:flex")
         .text-md.text-gray-500.underline.cursor-pointer(
-          class="hidden md:block"
           @click.stop="editAddress"
         ) แก้ไข
         .text-md.text-gray-500.underline.cursor-pointer(
           @click.stop="deleteAddress"
         ) ลบ
-      span(class="hidden md:block")
+      span(class="hidden md:block").flex-shrink-0
         SoButton(
           size="sm"
           mode="outline"
           :disabled="address.default"
           @click="updateDefault"
         ) ตั้งเป็นค่าเริ่มต้น
-  .text-sm.text-gray-500.truncate(class="w-full md:w-3/4") {{ address.address }}
+  .text-md.text-gray-500(class="w-full lg:w-3/4") {{ address.address1 }} {{ address.address2 }} {{ address.district }} จังหวัด{{ address.province }} {{ address.postalCode }}
+  .text-sm.text-gray-400(class="w-full lg:w-3/4") รายละเอียดอื่นๆ:  {{ address.note}} 
+  .items-center.gap-x-4.mt-3(class="flex md:hidden")
+    SoButton.mr-auto(
+      size="sm"
+      mode="outline"
+      :disabled="address.default"
+      @click="updateDefault"
+    ) ตั้งเป็นค่าเริ่มต้น
+    .text-md.text-gray-500.underline.cursor-pointer(
+      @click.stop="editAddress"
+    ) แก้ไข
+    .text-md.text-gray-500.underline.cursor-pointer(
+      @click.stop="deleteAddress"
+    ) ลบ
 </template>
 
 <script lang="ts">

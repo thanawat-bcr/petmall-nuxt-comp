@@ -1,7 +1,5 @@
 <template lang="pug">
-LayoutPrimary.addresses(
-  title="ที่อยู่" color profile
-)
+LayoutPrimary.addresses(color)
   .flex.flex-col.gap-y-8
 
     .so-grid
@@ -19,7 +17,7 @@ LayoutPrimary.addresses(
         .line.w-full.h-px.bg-gray-200
 
         //- BODY
-        section.flex.flex-col.gap-y-8(v-if="true")
+        section.flex.flex-col.gap-y-8(v-if="addresses.length > 0")
           AddressProfile(
             v-for="address in addresses"
             :key="address.id"
@@ -34,33 +32,40 @@ LayoutPrimary.addresses(
 
 <script lang="ts">
 import { defineComponent, onMounted, reactive, ref, Ref, useRouter } from '@nuxtjs/composition-api';
+import { getAddresses } from '@/api/index';
 
 const addresses = defineComponent({
   setup() {
     const router = useRouter();
-    const addresses = reactive([
-      {
-        id: 0,
-        name: 'นางสาว สัตว์น้อย น่ารัก',
-        phone: '(+66) 81 000 0000',
-        address: 'อาคาร สัตว์เลี้ยง ซอย สัตว์น้อย 11 ถนน สัตว์เลื่อยคลาน แขวง สัตว์ปีก เขต ปทุมวัน กรุงเทพฯ 10330',
-        default: false,
-      },
-      {
-        id: 1,
-        name: 'นางสาว สัตว์น้อย น่ารัก',
-        phone: '(+66) 81 000 0000',
-        address: 'อาคาร สัตว์เลี้ยง ซอย สัตว์น้อย 11 ถนน สัตว์เลื่อยคลาน แขวง สัตว์ปีก เขต ปทุมวัน กรุงเทพฯ 10330',
-        default: true,
-      },
-      {
-        id: 2,
-        name: 'นางสาว สัตว์น้อย น่ารัก',
-        phone: '(+66) 81 000 0000',
-        address: 'อาคาร สัตว์เลี้ยง ซอย สัตว์น้อย 11 ถนน สัตว์เลื่อยคลาน แขวง สัตว์ปีก เขต ปทุมวัน กรุงเทพฯ 10330',
-        default: false,
-      },
-    ]);
+    // const addresses = reactive([
+    //   {
+    //     id: 0,
+    //     name: 'นางสาว สัตว์น้อย น่ารัก',
+    //     phone: '(+66) 81 000 0000',
+    //     address: 'อาคาร สัตว์เลี้ยง ซอย สัตว์น้อย 11 ถนน สัตว์เลื่อยคลาน แขวง สัตว์ปีก เขต ปทุมวัน กรุงเทพฯ 10330',
+    //     default: false,
+    //   },
+    //   {
+    //     id: 1,
+    //     name: 'นางสาว สัตว์น้อย น่ารัก',
+    //     phone: '(+66) 81 000 0000',
+    //     address: 'อาคาร สัตว์เลี้ยง ซอย สัตว์น้อย 11 ถนน สัตว์เลื่อยคลาน แขวง สัตว์ปีก เขต ปทุมวัน กรุงเทพฯ 10330',
+    //     default: true,
+    //   },
+    //   {
+    //     id: 2,
+    //     name: 'นางสาว สัตว์น้อย น่ารัก',
+    //     phone: '(+66) 81 000 0000',
+    //     address: 'อาคาร สัตว์เลี้ยง ซอย สัตว์น้อย 11 ถนน สัตว์เลื่อยคลาน แขวง สัตว์ปีก เขต ปทุมวัน กรุงเทพฯ 10330',
+    //     default: false,
+    //   },
+    // ]);
+    const addresses = ref([]);
+    onMounted(async () => {
+      const data = await getAddresses();
+      // Sort put default on first index
+      addresses.value = data.sort((a: any, b: any) => (a.default === b.default) ? 0 : a.default ? -1 : 1);
+    })
 
     return {
       addresses,
