@@ -117,19 +117,7 @@ const _id = defineComponent({
       districts.value = _districts.map((item: any) => ({ value: item.name_th}));
     }, { deep: true });
 
-    watch(() => districts,async (cur, old) => {
-      console.log(cur, old)
-      // const _districts = await getDistricts(cur.province);
-      // districts.value = _districts.map((item: any) => ({ value: item.name_th}));
-    }, { deep: true });
-
     onMounted(async () => {
-      const _provinces = await getProvinces();
-      provinces.value = _provinces.map((item: any) => ({ value: item.name_th}));
-      if (address.province) {
-        const _districts = await getDistricts(address.province);
-        districts.value = _districts.map((item: any) => ({ value: item.name_th}));
-      }
       const _address = await getAddress(id.value);
       address.name = _address.name;
       address.address1 = _address.address1;
@@ -140,6 +128,11 @@ const _id = defineComponent({
       address.postalCode = _address.postalCode;
       address.note = _address.note;
       address.default = _address.default;
+
+      const _provinces = await getProvinces();
+      provinces.value = _provinces.map((item: any) => ({ value: item.name_th}));
+      const _districts = await getDistricts(address.province);
+      districts.value = _districts.map((item: any) => ({ value: item.name_th}));
     })
 
     // MODALS
