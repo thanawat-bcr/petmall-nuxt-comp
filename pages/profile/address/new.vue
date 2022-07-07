@@ -75,7 +75,7 @@ LayoutPrimary.addresses(color)
             .flex.flex-col.gap-y-2
               .text-md.text-gray-500.font-semibold รายละเอียดที่อยู่
               SoInput(
-                v-model="address.detail"
+                v-model="address.note"
                 placeholder="รายละเอียดที่อยู่"
               )
             .flex.justify-between.gap-y-2
@@ -87,16 +87,16 @@ LayoutPrimary.addresses(color)
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onMounted, reactive, ref, useRouter, watch } from '@nuxtjs/composition-api';
+import { defineComponent, onMounted, reactive, ref, useRouter, watch } from '@nuxtjs/composition-api';
 import { getProvinces, getDistricts, createAddress } from '@/api/index';
 
 const addressNew = defineComponent({
   setup() {
     const address = reactive({
-      name: 'Thanawat Benja',
-      address1: '494 ซอยเพชรเกษม 42 แยก 1',
-      address2: 'ถนน เพชรเกษม แขวงบางจาก',
-      phone: '0876191414',
+      name: '',
+      address1: '',
+      address2: '',
+      phone: '',
       province: '',
       district: '',
       postalCode: '',
@@ -128,7 +128,7 @@ const addressNew = defineComponent({
     const closeModalHandler = () => router.push('/profile/address');
 
     const submit = async () => {
-      console.log(address);
+      // console.log(address);
       // router.push('/profile/address');
       try {
         await createAddress(address);
