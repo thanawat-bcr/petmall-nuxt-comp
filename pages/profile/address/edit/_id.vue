@@ -78,7 +78,7 @@ LayoutPrimary.addresses(color)
                 v-model="address.note"
                 placeholder="รายละเอียดที่อยู่"
               )
-            //- .flex.justify-between.gap-y-2
+            .flex.justify-between.gap-y-2
               .text-md.text-gray-500.font-semibold เลือกเป็นที่อยู่ตั้งต้น
               SoToggle(v-model="address.default")
           .flex.gap-x-4.mt-6(class="w-full md:w-2/3 lg:w-1/2").ml-auto
