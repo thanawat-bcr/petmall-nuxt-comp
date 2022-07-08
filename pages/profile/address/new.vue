@@ -107,8 +107,8 @@ const addressNew = defineComponent({
     const provinces = ref([]);
     const districts = ref([]);
 
-    watch(() => address,async (cur, old) => {
-      const _districts = await getDistricts(cur.province);
+    watch(() => address.province,async (cur, old) => {
+      const _districts = await getDistricts(cur);
       districts.value = _districts.map((item: any) => ({ value: item.name_th}));
     }, { deep: true });
 
