@@ -33,7 +33,7 @@ LayoutPrimary.index(color)
                 )
             .items-center(class="grid-container md:grid-cols-6 lg:grid-cols-9")
               .text-gray-500(class="text-sm lg:text-md text-left md:text-right col-span-full md:col-span-1 lg:col-span-2") Email:
-              .col-span-5.flex.pl-4: .text-md.text-gray-800.en {{ USER.email }}
+              .col-span-5.flex.pl-4: .text-md.text-gray-800.en {{ email }}
             .items-center(class="grid-container md:grid-cols-6 lg:grid-cols-9")
               .text-gray-500(class="text-sm lg:text-md text-left md:text-right col-span-full md:col-span-1 lg:col-span-2") เพศ:
               .col-span-5.pl-4.flex.items-center
@@ -79,8 +79,8 @@ LayoutPrimary.index(color)
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, reactive, ref, useRouter, useStore, watch } from '@nuxtjs/composition-api';
-import { updateProfile } from '@/api/index';
+import { computed, defineComponent, onMounted, reactive, ref, useRouter, useStore, watch } from '@nuxtjs/composition-api';
+import { getProfile, updateProfile } from '@/api/index';
 
 const index = defineComponent({
   setup() {
@@ -91,28 +91,27 @@ const index = defineComponent({
     const successModal = ref('');
     const closeModalHandler = () => window.location.reload();
 
-    const USER = computed(() => store.getters.user)
-    watch(USER, (oldValue, newValue) => {
-      if (USER.value) {
-        user.displayName = USER.value.displayName;
-        if (USER.value.gender === 'male' || USER.value.gender === 'female') {
-          user.gender = USER.value.gender;
-          user.genderText = "";
-        } else if(USER.value.gender === '') {
-          user.gender = '';
-          user.genderText = '';
-        } else {
-          user.gender = 'other';
-          user.genderText = USER.value.gender;
-        }
-        user.imgUrl = USER.value.imgUrl;
-        if (USER.value.birthdate !== '1000-01-01')
-          user.birthdate = {
-            date: `${Number(USER.value.birthdate.split('-')[2])}`,
-            month: `${Number(USER.value.birthdate.split('-')[1])}`,
-            year: `${Number(USER.value.birthdate.split('-')[0])}`,
-          };
+    onMounted(async () => {
+      const _user = await getProfile();
+      user.displayName = _user.displayName;
+      if (_user.gender === 'male' || _user.gender === 'female') {
+        user.gender = _user.gender;
+        user.genderText = "";
+      } else if(_user.gender === '') {
+        user.gender = '';
+        user.genderText = '';
+      } else {
+        user.gender = 'other';
+        user.genderText = _user.gender;
       }
+      user.imgUrl = _user.imgUrl;
+      if (_user.birthdate !== '1000-01-01')
+        user.birthdate = {
+          date: `${Number(_user.birthdate.split('-')[2])}`,
+          month: `${Number(_user.birthdate.split('-')[1])}`,
+          year: `${Number(_user.birthdate.split('-')[0])}`,
+        };
+      email.value = _user.email;
     })
 
     // NOTE: DisplayName less than 10 character
@@ -127,6 +126,7 @@ const index = defineComponent({
         year: '',
       },
     });
+    const email = ref('');
 
     const genderOptions = reactive([
       { value: 'male', name: 'ชาย' },
@@ -160,7 +160,7 @@ const index = defineComponent({
 
     return {
       user,
-      USER,
+      email,
 
       genderOptions,
       birthOptions,
