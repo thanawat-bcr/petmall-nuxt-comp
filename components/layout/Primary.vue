@@ -21,6 +21,8 @@
 <script lang="ts">
 import { defineComponent, onMounted, useStore } from '@nuxtjs/composition-api';
 import { getAuth, getIsCreated, getProfile, updateProfile } from '@/api/index'
+import { onAuthStateChanged } from '@firebase/auth';
+import { getAuth as firebaseAuth } from '@firebase/auth';
 
 const primary = defineComponent({
   props: {
@@ -32,12 +34,12 @@ const primary = defineComponent({
     const store = useStore();
     onMounted(async () => {
       if (process.browser) {
-        try {
-          // CHECK AUTH
-          const auth = await getAuth();
-          store.dispatch('saveAUTH', !!auth);
-          if (!!auth) {
-            // CHECK PROFILE CREATED
+        const auth = await firebaseAuth();
+        onAuthStateChanged(auth, async (user: any) => {
+        if (user) {
+          const token = user.accessToken;
+          localStorage.setItem('token', token);
+          if (!store.getters.auth) {
             const isCreated = await getIsCreated();
             if (!isCreated) {
               const user = {
@@ -50,11 +52,37 @@ const primary = defineComponent({
               console.log('New User Created');
             }
             const profile = await getProfile();
+            store.dispatch('saveAUTH', true);
             store.dispatch('saveUSER', profile);
           }
-        }catch(err) {
-          console.log(err);
+        } else {
+          console.log('user not found')
+          localStorage.removeItem('token');
         }
+      })
+        // try {
+        //   // CHECK AUTH
+        //   const auth = await getAuth();
+        //   store.dispatch('saveAUTH', !!auth);
+        //   if (!!auth) {
+        //     // CHECK PROFILE CREATED
+        //     const isCreated = await getIsCreated();
+        //     if (!isCreated) {
+        //       const user = {
+        //         displayName: '',
+        //         gender: '',
+        //         imgUrl: '',
+        //         birthdate: '1000-01-01',
+        //       };
+        //       await updateProfile(user);
+        //       console.log('New User Created');
+        //     }
+        //     const profile = await getProfile();
+        //     store.dispatch('saveUSER', profile);
+        //   }
+        // }catch(err) {
+        //   console.log(err);
+        // }
       }
     })
   }

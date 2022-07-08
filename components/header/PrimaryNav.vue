@@ -81,6 +81,7 @@ header.fixed.top-0.left-0.right-0.z-40
 </template>
 
 <script lang="ts">
+import { getAuth, signOut } from '@firebase/auth';
 import { defineComponent, ref, computed, useRouter, useStore } from '@nuxtjs/composition-api';
 
 const PrimaryNav = defineComponent({
@@ -121,8 +122,16 @@ const PrimaryNav = defineComponent({
     const USER = computed(() => store.getters.user);
 
     const signout = () => {
-      store.dispatch('logout');
-      window.location.reload();
+      const auth = getAuth();
+      signOut(auth).then(() => {
+        // Sign-out successful.
+        store.dispatch('logout');
+        router.push('/');
+        window.location.reload();
+      }).catch((error) => {
+        // An error happened.
+        console.log(error);
+      });
     }
 
     return {
