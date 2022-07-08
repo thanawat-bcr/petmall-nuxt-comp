@@ -123,10 +123,10 @@ const PrimaryNav = defineComponent({
 
     const signout = () => {
       const auth = getAuth();
+      router.push('/');
       signOut(auth).then(() => {
         // Sign-out successful.
         store.dispatch('logout');
-        router.push('/');
         window.location.reload();
       }).catch((error) => {
         // An error happened.
