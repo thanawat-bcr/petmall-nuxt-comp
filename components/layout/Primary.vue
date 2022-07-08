@@ -36,31 +36,31 @@ const primary = defineComponent({
       if (process.browser) {
         const auth = await firebaseAuth();
         onAuthStateChanged(auth, async (user: any) => {
-        if (user) {
-          const token = user.accessToken;
-          localStorage.setItem('token', token);
-          if (!store.getters.auth) {
-            const isCreated = await getIsCreated();
-            if (!isCreated) {
-              const name = user.email.split('@')[0];
-              const _user = {
-                displayName: name,
-                gender: '',
-                imgUrl: '',
-                birthdate: '1000-01-01',
-              };
-              await updateProfile(_user);
-              console.log('New User Created');
+          if (user) {
+            const token = user.accessToken;
+            localStorage.setItem('token', token);
+            if (!store.getters.auth) {
+              const isCreated = await getIsCreated();
+              if (!isCreated) {
+                const name = user.email.split('@')[0];
+                const _user = {
+                  displayName: name,
+                  gender: '',
+                  imgUrl: '',
+                  birthdate: '1000-01-01',
+                };
+                await updateProfile(_user);
+                console.log('New User Created');
+              }
+              const _profile = await getProfile();
+              store.dispatch('saveAUTH', true);
+              store.dispatch('saveUSER', _profile);
             }
-            const _profile = await getProfile();
-            store.dispatch('saveAUTH', true);
-            store.dispatch('saveUSER', _profile);
+          } else {
+            console.log('user not found')
+            localStorage.removeItem('token');
           }
-        } else {
-          console.log('user not found')
-          localStorage.removeItem('token');
-        }
-      })
+        })
       }
     })
   }
