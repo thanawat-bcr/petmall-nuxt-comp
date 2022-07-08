@@ -42,47 +42,25 @@ const primary = defineComponent({
           if (!store.getters.auth) {
             const isCreated = await getIsCreated();
             if (!isCreated) {
-              const user = {
-                displayName: '',
+              const name = user.email.split('@')[0];
+              const _user = {
+                displayName: name,
                 gender: '',
                 imgUrl: '',
                 birthdate: '1000-01-01',
               };
-              await updateProfile(user);
+              await updateProfile(_user);
               console.log('New User Created');
             }
-            const profile = await getProfile();
+            const _profile = await getProfile();
             store.dispatch('saveAUTH', true);
-            store.dispatch('saveUSER', profile);
+            store.dispatch('saveUSER', _profile);
           }
         } else {
           console.log('user not found')
           localStorage.removeItem('token');
         }
       })
-        // try {
-        //   // CHECK AUTH
-        //   const auth = await getAuth();
-        //   store.dispatch('saveAUTH', !!auth);
-        //   if (!!auth) {
-        //     // CHECK PROFILE CREATED
-        //     const isCreated = await getIsCreated();
-        //     if (!isCreated) {
-        //       const user = {
-        //         displayName: '',
-        //         gender: '',
-        //         imgUrl: '',
-        //         birthdate: '1000-01-01',
-        //       };
-        //       await updateProfile(user);
-        //       console.log('New User Created');
-        //     }
-        //     const profile = await getProfile();
-        //     store.dispatch('saveUSER', profile);
-        //   }
-        // }catch(err) {
-        //   console.log(err);
-        // }
       }
     })
   }
