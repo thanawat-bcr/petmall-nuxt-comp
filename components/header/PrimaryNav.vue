@@ -72,7 +72,7 @@ header.fixed.top-0.left-0.right-0.z-40
     .container.h-full.py-4.gap-y-0.flex.flex-col
       .bg-white.w-full.flex.items-center.justify-end
         i.ph-x.text-xl.text-gray-500.p-2(@click="showProfileMenu = false")
-      HeaderProfileSidenav.flex-1
+      MenuProfile.flex-1
       .flex.flex-col.gap-y-2(v-if="!AUTH")
         SoButton(block @click="$router.push('/signin');showProfileMenu = false;" ) เข้าสู่ระบบ
         SoButton(block @click="$router.push('/signup');showProfileMenu = false;" mode="outline") ลงชื่อเข้าใช้

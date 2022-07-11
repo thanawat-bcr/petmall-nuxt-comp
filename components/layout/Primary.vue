@@ -9,7 +9,7 @@
   //- component(v-if="bannerName", :is="bannerName")
   //- main.container.py-8(v-if="profile")
     .so-grid
-      .col-span-3: HeaderProfileSidenav
+      .col-span-3: MenuProfile
       .col-span-9: Nuxt
   //- main(:class="{'container py-8': title !== 'เข้าสู่ระบบ' && title !== 'ลงชื่อเข้าใช้'}")
     //- Nuxt

@@ -1,5 +1,5 @@
 <template lang="pug">
-aside.profile-sidenav.bg-gray-100.w-full.h-full.flex.flex-col.gap-y-6.p-4
+aside.profile.bg-gray-100.w-full.h-full.flex.flex-col.gap-y-6.p-4
   .flex.gap-2(class="items-center md:flex-col md:items-start lg:flex-row lg:items-center")
     .w-14.h-14.rounded-full.bg-gray-200.flex.items-center.justify-center: i.ph-user.text-2xl.text-gray-400
     .flex.flex-col.gap-y-1
@@ -53,7 +53,7 @@ export default ProfileSidenav;
 </script>
 
 <style lang="scss" scoped>
-.profile-sidenav {
+.profile {
   .nuxt-link {
   @apply text-gray-500;
     &.nuxt-link-active { @apply text-green-800; }

@@ -1,5 +1,5 @@
 <template lang="pug">
-.so-modal-preset.relative.inset-0(:class="`${active ? 'pointer-events-auto' : 'pointer-events-none'}`")
+.so-modal-preset.fixed.inset-0.z-40(:class="`${active ? 'pointer-events-auto' : 'pointer-events-none'}`")
   transition(name="fade")
     .common-modal.fixed.inset-0.z-40.flex.justify-center.items-center(
       style="background-color: #00000050;"

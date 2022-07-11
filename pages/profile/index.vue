@@ -6,7 +6,7 @@ LayoutPrimary.index(color)
     .so-grid
 
       section(class="hidden md:block col-span-4 md:col-span-2 lg:col-span-3")
-        HeaderProfileSidenav
+        MenuProfile
 
       section.flex.flex-col.gap-y-8(class="col-span-4 md:col-span-6 lg:col-span-9")
         .flex.flex-col.gap-y-2
