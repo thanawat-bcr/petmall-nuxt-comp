@@ -53,9 +53,9 @@ aside.filter.w-full.h-full.flex.flex-col.gap-y-6
             @mouseover="score = star"
           )
           i.text-gray-500.text-xl.cursor-pointer.ph-x.ml-auto.cursor-pointer(@click="score = 0")
-      .flex.flex-col.gap-y-2
-        SoButton(block type="submit") ค้นหา
-        SoButton(block mode="outline" @click="clearFilter") ลบทั้งหมด
+      .flex.flex-col.gap-y-2.mt-6
+        SoButton(block size="sm" type="submit") ค้นหา
+        SoButton(block size="sm" mode="outline" @click="clearFilter") ลบทั้งหมด
 
 </template>
 
@@ -69,8 +69,9 @@ const filter = defineComponent({
       type: Object as () => Filter,
       default: () => DEFAULT_FILTER,
     },
+    sort: {}
   },
-  setup(props: any) {
+  setup(props: any, ctx: any) {
     const animalOptions = ref([])
     const categoryOptions = ref([])
 
@@ -91,11 +92,15 @@ const filter = defineComponent({
     });
 
     const submit = () => {
-      console.log('submit', {
-        ...filtered.value,
-        price,
-        score: score.value,
-      });
+      ctx.emit('filter', {
+        filter: {
+          ...filtered.value,
+          price,
+          score: score.value,
+        },
+        sort: props.sort,
+      }
+      );
     }
 
     const clearFilter = () => {
