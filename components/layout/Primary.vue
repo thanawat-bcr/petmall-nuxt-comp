@@ -7,12 +7,6 @@
   section(class="h-32 md:h-24 lg:h-32")
   AdvertisementCarousel(v-if="carousel")
   //- component(v-if="bannerName", :is="bannerName")
-  //- main.container.py-8(v-if="profile")
-    .so-grid
-      .col-span-3: MenuProfile
-      .col-span-9: Nuxt
-  //- main(:class="{'container py-8': title !== 'เข้าสู่ระบบ' && title !== 'ลงชื่อเข้าใช้'}")
-    //- Nuxt
   main(:class="{'container py-4 md:py-8': title !== 'เข้าสู่ระบบ' && title !== 'ลงชื่อเข้าใช้'}")
     slot
   //- main.container.py-8
