@@ -20,11 +20,11 @@ ValidationProvider.w-full.flex.items-center(:rules="rules" v-slot="{ errors }")
       @blur="focusHandler(false)"
       @input="$emit('input', $event.target.value)"
     )
-    select.w-full(
+    select.pr-2(
       v-else
       :value="value"
       :disabled="disabled"
-      :class="`${value || 'text-gray-opacity-40'} ${inputSize.text}`"
+      :class="`${value || 'text-gray-opacity-40'} ${inputSize.text} ${block === 'full' ? 'w-full' : 'w-auto'}`"
       @input="$emit('input', $event.target.value)"
       @mouseover="hoverHandler(true)"
       @mouseleave="hoverHandler(false)"
@@ -66,6 +66,10 @@ const SoInput = defineComponent({
     type: {
       type: String,
       default: 'text',
+    },
+    block: {
+      type: String,
+      default: 'full',
     },
     options: {},
     rules: {},
