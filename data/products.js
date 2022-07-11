@@ -1,0 +1,58 @@
+export default {
+  pagination: {
+    currentPage: 1,
+    perPage: 20,
+    totalPage: 3,
+  },
+  filter: {
+    animals: ['DOG', 'CAT'],
+    categories: ['MED', 'FOOD', 'TOY'],
+    price: { from: 300, to: 2400 },
+  },
+  products: [
+    {
+      _id: '0001',
+      name: 'อาหารสุนัข Woofs',
+      brand: null,
+      shop: null,
+      imageUrl: null,
+      price: 450,
+      maxDisPricePercent: 20,
+      featured: false,
+      sold: 42,
+    },
+    {
+      _id: '0002',
+      name: 'อาหารสุนัข Woofs',
+      brand: null,
+      shop: null,
+      imageUrl: null,
+      price: 800,
+      maxDisPricePercent: 0,
+      featured: true,
+      sold: 98,
+    },
+    {
+      _id: '0003',
+      name: 'อาหารสุนัข Woofs',
+      brand: null,
+      shop: null,
+      imageUrl: null,
+      price: 50,
+      maxDisPricePercent: 60,
+      featured: true,
+      sold: 16,
+    },
+    {
+      _id: '0004',
+      name: 'อาหารสุนัข Woofs',
+      brand: null,
+      shop: null,
+      imageUrl: null,
+      price: 200,
+      maxDisPricePercent: 60,
+      featured: false,
+      sold: 0,
+    },
+  ]
+}
