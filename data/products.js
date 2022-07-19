@@ -7,7 +7,7 @@ export default {
   filter: {
     animals: ['DOG', 'CAT'],
     categories: ['MED', 'FOOD', 'TOY'],
-    price: { from: 50, to: 800 },
+    // price: { from: 50, to: 800 },
   },
   products: [
     {

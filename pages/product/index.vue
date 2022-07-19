@@ -6,7 +6,7 @@ LayoutPrimary.index(color)
     .so-grid
 
       section(class="hidden md:block col-span-4 md:col-span-2")
-        MenuFilter(:filter="filter" :sort="sort" @filter="filterHandler")
+        MenuFilter(:filter="filter" :sort="sort")
 
       section.flex.flex-col.gap-y-8(class="col-span-4 md:col-span-6 lg:col-span-10")
 
@@ -18,7 +18,6 @@ LayoutPrimary.index(color)
               size="sm"
               type="select"
               v-model="sort.createdAt"
-              @input="sortHandler"
               block="auto"
               :options="[{ name: 'สินค้าล่าสุด: มากไปน้อย', value: 'DESC' }, { name: 'สินค้าล่าสุด: น้อยไปมาก', value: 'ASC' }]"
               placeholder="สินค้าล่าสุด"
@@ -27,7 +26,6 @@ LayoutPrimary.index(color)
               size="sm"
               type="select"
               v-model="sort.price"
-              @input="sortHandler"
               block="auto"
               :options="[{ name: 'ราคา: มากไปน้อย', value: 'DESC' }, { name: 'ราคา: น้อยไปมาก', value: 'ASC' }]"
               placeholder="ราคา"
@@ -41,7 +39,7 @@ LayoutPrimary.index(color)
 
 <script lang="ts">
 import { defineComponent, onMounted, reactive, Ref, ref } from '@nuxtjs/composition-api';
-// import PRODUCTS from '@/data/products';
+import PRODUCTS from '@/data/products';
 import { Filter, DEFAULT_FILTER } from '@/type/filter'
 import { Pagination, DEFAULT_PAGINATION } from '@/type/pagination'
 
@@ -52,9 +50,9 @@ const index = defineComponent({
     const pagination: Ref<Pagination> = ref(DEFAULT_PAGINATION);
 
     onMounted(() => {
-      // products.value = PRODUCTS.products;
-      // filter.value = PRODUCTS.filter;
-      // pagination.value = PRODUCTS.pagination;
+      products.value = PRODUCTS.products;
+      filter.value = PRODUCTS.filter;
+      pagination.value = PRODUCTS.pagination;
     })
 
     const sort = reactive({
@@ -67,12 +65,6 @@ const index = defineComponent({
       sort.price = '';
     }
 
-    const filterHandler = (option: any) => {
-      console.log(option.filter, option.sort)
-    }
-
-    const sortHandler = () => {}
-
     return {
       products,
       filter,
@@ -80,9 +72,6 @@ const index = defineComponent({
 
       sort,
       clearSort,
-
-      filterHandler,
-      sortHandler,
     }
   },
 });
