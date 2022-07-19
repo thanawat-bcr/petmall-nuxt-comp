@@ -7,7 +7,7 @@ export default {
   filter: {
     animals: ['DOG', 'CAT'],
     categories: ['MED', 'FOOD', 'TOY'],
-    price: { from: 300, to: 2400 },
+    price: { from: 50, to: 800 },
   },
   products: [
     {
@@ -15,7 +15,7 @@ export default {
       name: 'อาหารสุนัข Woofs',
       brand: null,
       shop: null,
-      imageUrl: null,
+      imageUrl: '/product/item/01.png',
       price: 450,
       maxDisPricePercent: 20,
       featured: false,
@@ -23,10 +23,10 @@ export default {
     },
     {
       _id: '0002',
-      name: 'อาหารสุนัข Woofs',
+      name: 'ชุดตรวจสุขภาพ pH',
       brand: null,
       shop: null,
-      imageUrl: null,
+      imageUrl: '/product/item/02.png',
       price: 800,
       maxDisPricePercent: 0,
       featured: true,
@@ -34,10 +34,9 @@ export default {
     },
     {
       _id: '0003',
-      name: 'อาหารสุนัข Woofs',
+      name: 'ชุดตรวจสุขภาพ OXYGEN',
       brand: null,
       shop: null,
-      imageUrl: null,
       price: 50,
       maxDisPricePercent: 60,
       featured: true,
@@ -45,10 +44,10 @@ export default {
     },
     {
       _id: '0004',
-      name: 'อาหารสุนัข Woofs',
+      name: 'ชุดตรวจสุขภาพ CHORINE',
       brand: null,
       shop: null,
-      imageUrl: null,
+      imageUrl: '/product/item/03.png',
       price: 200,
       maxDisPricePercent: 60,
       featured: false,

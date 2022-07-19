@@ -5,7 +5,7 @@ export const DEFAULT_FILTER = {
 };
 
 export interface Filter {
-  animals?: Array<String>,
-  categories?: Array<String>,
-  price: { from: Number, to: Number },
+  animals?: Array<string>,
+  categories?: Array<string>,
+  price: { from: number, to: number },
 } 

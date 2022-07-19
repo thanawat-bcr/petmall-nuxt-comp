@@ -10,6 +10,7 @@ aside.filter.w-full.h-full.flex.flex-col.gap-y-6
             v-for="op in animalOptions"
             :key="op.value"
             v-model="op.selected"
+            @input="filterSelectHandler"
           ) {{ op.value }}
 
       section.flex.flex-col.gap-y-2(v-if="filter.categories")
@@ -19,6 +20,7 @@ aside.filter.w-full.h-full.flex.flex-col.gap-y-6
             v-for="op in categoryOptions"
             :key="op.value"
             v-model="op.selected"
+            @input="filterSelectHandler"
           ) {{ op.value }}
 
       section.flex.flex-col.gap-y-2
@@ -60,7 +62,7 @@ aside.filter.w-full.h-full.flex.flex-col.gap-y-6
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, reactive, ref, watchEffect } from '@nuxtjs/composition-api';
+import { computed, defineComponent, onMounted, reactive, ref, useRoute, useRouter, useStore, watch, watchEffect } from '@nuxtjs/composition-api';
 import { Filter, DEFAULT_FILTER } from '@/type/filter'
 
 const filter = defineComponent({
@@ -82,7 +84,7 @@ const filter = defineComponent({
     const price = reactive({
       from: 0, to: 0
     })
-    const score = ref(3);
+    const score = ref(0);
 
     watchEffect(() => {
       animalOptions.value = props.filter?.animals?.map((op: any) => ({value: op, name: op, selected: false}))
@@ -111,6 +113,23 @@ const filter = defineComponent({
       score.value = 0;
     }
 
+    const router = useRouter();
+    const route = useRoute();
+
+    onMounted(() => {
+      console.log(route.value.query);
+    })
+
+    const filterSelectHandler = () => {
+      const filter = [
+        filtered.value.animals.length > 0 ? '&animals=' + filtered.value.animals : '',
+        filtered.value.categories.length > 0 ? '&categories=' + filtered.value.categories : '',
+      ].join('').replace('&', '?');
+
+      if (filter) history.pushState({}, '', filter);
+      else history.pushState({}, '', '?empty');
+    }
+
     return {
       animalOptions,
       categoryOptions,
@@ -121,6 +140,8 @@ const filter = defineComponent({
 
       submit,
       clearFilter,
+
+      filterSelectHandler,
     };
   },
 });

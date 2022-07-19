@@ -5,7 +5,7 @@ export const DEFAULT_PAGINATION = {
 };
 
 export interface Pagination {
-  currentPage: Number,
-  perPage: Number,
-  totalPage: Number,
+  currentPage: number,
+  perPage: number,
+  totalPage: number,
 } 

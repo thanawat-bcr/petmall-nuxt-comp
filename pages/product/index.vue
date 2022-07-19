@@ -36,12 +36,12 @@ LayoutPrimary.index(color)
 
         //- ITEMS GRID
         .grid-container(class="grid-cols-4 md:grid-cols-6 lg:grid-cols-10")
-          .bg-warn-400.h-20.w-full(v-for="i in 48")
+          ProductItem.col-span-2(v-for="product in products" :item="product")
 </template>
 
 <script lang="ts">
 import { defineComponent, onMounted, reactive, Ref, ref } from '@nuxtjs/composition-api';
-import PRODUCTS from '@/data/products';
+// import PRODUCTS from '@/data/products';
 import { Filter, DEFAULT_FILTER } from '@/type/filter'
 import { Pagination, DEFAULT_PAGINATION } from '@/type/pagination'
 
@@ -52,9 +52,9 @@ const index = defineComponent({
     const pagination: Ref<Pagination> = ref(DEFAULT_PAGINATION);
 
     onMounted(() => {
-      products.value = PRODUCTS.products;
-      filter.value = PRODUCTS.filter;
-      pagination.value = PRODUCTS.pagination;
+      // products.value = PRODUCTS.products;
+      // filter.value = PRODUCTS.filter;
+      // pagination.value = PRODUCTS.pagination;
     })
 
     const sort = reactive({
