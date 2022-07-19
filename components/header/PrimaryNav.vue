@@ -8,13 +8,20 @@ header.fixed.top-0.left-0.right-0.z-40
       .so-grid.items-center(v-if="!title")
         NuxtLink(to="/" class="col-span-1 lg:col-span-2"): img.cursor-pointer(:src="navbarColor.logo")
         //- SEARCH BAR
-        .flex.flex-col.gap-y-2(class="col-span-5 lg:col-span-8")
+        .relative(class="col-span-5 lg:col-span-8")
           SoInput(
             v-model="search"
             leading="magnifying-glass"
             placeholder="อาหารสัตว์เลี้ยง, อุปกรณ์สำหรับสัตว์เลี้ยง หรือ อื่นๆ"
             size="md"
+            @input="searchHandler"
           )
+          .flex.flex-col.w-full.absolute.mt-1.rounded.p-1.bg-white(v-if="searchSuggestion.length > 0")
+            .w-full.py-2.px-4.bg-white.rounded.cursor-pointer(
+              v-for="item in searchSuggestion"
+              class="hover:bg-gray-200"
+              @click="searchSelect(item)"
+            ) {{ item }}
         //- SEARCH BAR
 
         //- AUTH
@@ -90,9 +97,19 @@ const PrimaryNav = defineComponent({
     color: { type: Boolean, default: false },
   },
   setup(props: any) {
+    const router = useRouter();
+    const store = useStore();
+
     const cartCount = ref(2);
 
-    const search = ref('');
+    const search: any = ref('');
+    const searchSuggestion: any = ref([]);
+    const searchHandler = () => {
+      searchSuggestion.value = search.value.split('').slice(0, 5);
+    }
+    const searchSelect = (item: string) => {
+      router.push('/product?search=' + item)
+    }
 
     const navbarColor = computed(() => {
       const white = {
@@ -115,9 +132,6 @@ const PrimaryNav = defineComponent({
     const showProfileMenu = ref(false);
     const showNavDesktopMenu = ref(false);
 
-    const router = useRouter();
-    const store = useStore();
-
     const AUTH = computed(() => store.getters.auth);
     const USER = computed(() => store.getters.user);
 
@@ -137,6 +151,9 @@ const PrimaryNav = defineComponent({
     return {
       cartCount,
       search,
+      searchSuggestion,
+      searchHandler,
+      searchSelect,
 
       navbarColor,
 
