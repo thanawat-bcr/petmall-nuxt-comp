@@ -3,19 +3,7 @@ LayoutPrimary.index(carousel cart profile :back="false")
   .flex.flex-col.gap-y-8
 
     section
-      ProductHeader สินค้าจาก Partner
-      .so-grid
-        ProductCategory(
-          v-for="(cat, index) in categories"
-          class="col-span-1 md:col-span-2"
-          :class="{'hidden lg:flex': index > 3}"
-          :key="cat.id"
-          :name="cat.name"
-          :img="cat.img"
-        )
-
-    section
-      ProductHeader(showAll) คุณอาจจะสนใจ
+      ProductHeader คุณอาจจะสนใจ
       .so-grid
         ProductItem.col-span-2(
           v-for="(item, index) in items.slice(0,6)"
@@ -27,7 +15,7 @@ LayoutPrimary.index(carousel cart profile :back="false")
     AdvertisementStrength
 
     section
-      ProductHeader(showAll) สินค้ายอดฮิตประจำสัปดาห์
+      ProductHeader สินค้ายอดฮิตประจำสัปดาห์
       .so-grid
         ProductItem.col-span-2(
           v-for="(item, index) in items.slice(0,6)"
@@ -39,7 +27,7 @@ LayoutPrimary.index(carousel cart profile :back="false")
     AdvertisementBanner
 
     section
-      ProductHeader(showAll) สินค้าลดพิเศษ
+      ProductHeader สินค้าลดพิเศษ
       .so-grid
         ProductItem.col-span-2(
           v-for="(item, index) in items.slice(0,6)"

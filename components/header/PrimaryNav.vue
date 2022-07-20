@@ -8,7 +8,7 @@ header.fixed.top-0.left-0.right-0.z-40
       .so-grid.items-center(v-if="!title")
         NuxtLink(to="/" class="col-span-1 lg:col-span-2"): img.cursor-pointer(:src="navbarColor.logo")
         //- SEARCH BAR
-        .relative(class="col-span-5 lg:col-span-8")
+        SoForm.relative(class="col-span-5 lg:col-span-8" @submit="searchSubmit")
           SoInput(
             v-model="search"
             leading="magnifying-glass"
@@ -20,7 +20,7 @@ header.fixed.top-0.left-0.right-0.z-40
             .w-full.py-2.px-4.bg-white.rounded.cursor-pointer(
               v-for="item in searchSuggestion"
               class="hover:bg-gray-200"
-              @click="searchSelect(item)"
+              @click="searchSelect(item);"
             ) {{ item }}
         //- SEARCH BAR
 
@@ -61,13 +61,20 @@ header.fixed.top-0.left-0.right-0.z-40
         //- i.ph-share.text-xl.text-gray-400
         //- i.ph-funnel.text-xl.text-gray-400
         h4.font-normal.text-sm.text-gray-500.flex-1(v-if="title") {{ title }}
-        SoInput(
-          v-else
-          v-model="search"
-          leading="magnifying-glass"
-          placeholder="อาหารสัตว์เลี้ยง, อุปกรณ์..."
-          size="sm"
-        )
+        SoForm.relative.w-full(@submit="searchSubmit" v-else)
+          SoInput(
+            v-model="search"
+            leading="magnifying-glass"
+            placeholder="อาหารสัตว์เลี้ยง, อุปกรณ์..."
+            @input="searchHandler"
+            size="sm"
+          )
+          .flex.flex-col.w-full.absolute.mt-1.rounded.p-1.bg-white(v-if="searchSuggestion.length > 0")
+            .w-full.py-2.px-4.bg-white.rounded.cursor-pointer(
+              v-for="item in searchSuggestion"
+              class="hover:bg-gray-200"
+              @click="searchSelect(item);"
+            ) {{ item }}
         
         span.relative.pt-1(@click="$router.push('/cart')" v-if="AUTH")
           .text-xxs.absolute.text-white.bg-orange-900.px-2.rounded-lg(v-if="cartCount > 0" style="top: -4px; right: -12px;") {{ cartCount }}
@@ -89,7 +96,7 @@ header.fixed.top-0.left-0.right-0.z-40
 
 <script lang="ts">
 import { getAuth, signOut } from '@firebase/auth';
-import { defineComponent, ref, computed, useRouter, useStore } from '@nuxtjs/composition-api';
+import { defineComponent, ref, computed, useRouter, useStore, onMounted, useRoute } from '@nuxtjs/composition-api';
 
 const PrimaryNav = defineComponent({
   props: {
@@ -98,6 +105,7 @@ const PrimaryNav = defineComponent({
   },
   setup(props: any) {
     const router = useRouter();
+    const route = useRoute();
     const store = useStore();
 
     const cartCount = ref(2);
@@ -105,11 +113,23 @@ const PrimaryNav = defineComponent({
     const search: any = ref('');
     const searchSuggestion: any = ref([]);
     const searchHandler = () => {
+      // GET /product/search
       searchSuggestion.value = search.value.split('').slice(0, 5);
     }
     const searchSelect = (item: string) => {
-      router.push('/product?search=' + item)
+      searchSuggestion.value = [];
+      search.value = item;
+      router.push('/product?search=' + item);
     }
+    const searchSubmit = () => {
+      searchSuggestion.value = [];
+      if (!search.value) router.push('/');
+      else router.push('/product?search=' + search.value);
+    }
+    onMounted(() => {
+      const query = route.value.query;
+      if (query.search) search.value = query.search;
+    })
 
     const navbarColor = computed(() => {
       const white = {
@@ -154,6 +174,7 @@ const PrimaryNav = defineComponent({
       searchSuggestion,
       searchHandler,
       searchSelect,
+      searchSubmit,
 
       navbarColor,
 
