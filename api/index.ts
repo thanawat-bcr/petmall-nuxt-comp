@@ -2,6 +2,7 @@ import { axios } from '@/use/useAxios'
 
 import user from '@/api/user'
 import address from '@/api/address'
+import product from '@/api/product'
 
 export const {
   getAuth,
@@ -19,3 +20,7 @@ export const {
   updateAddress,
   deleteAddress,
 } = address(axios);
+
+export const {
+  getMockProducts,
+} = product(axios);

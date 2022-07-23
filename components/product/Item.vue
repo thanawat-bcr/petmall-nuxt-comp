@@ -1,13 +1,7 @@
 <template lang="pug">
-.item.w-full.flex.flex-col.gap-y-2.bg-gray-opacity-12.cursor-pointer
+.item.w-full.flex.flex-col.gap-y-2.bg-gray-opacity-12.cursor-pointer(@click="$router.push('/product/item/' + item._id)")
   .item-image.relative
     .item-tag.absolute.left-0.text-white.bg-orange-900.mt-3.en.text-sm.font-bold.pl-4.pr-5.py-1(v-if="item.featured") Featured
-    //- .item-rank.absolute.left-0.text-white.flex.flex-col.items-center.justify-center.pt-2.pb-4.px-2.ml-3(
-    //-   v-if="item.rank > 0"
-    //-   :class="`${item.rank === 1 ? 'bg-orange-900' : (item.rank === 2 ? 'bg-alert-300' : (item.rank === 3 ? 'bg-warn-200' : 'bg-gray-400')) }`"
-    //- )
-      .en.text-xs.font-bold.text-white Top
-      .en.text-xs.font-bold.text-white {{ item.rank }}
     .item-discount.absolute.right-0.bg-warn-300.flex.flex-col.items-center.justify-center.pt-2.pb-4.px-1.mr-3(v-if="item.maxDisPricePercent")
       .text-xs.text-gray-50 ลด
       .en.text-xs.font-bold.text-warn-900 {{ item.maxDisPricePercent }}%

@@ -6,7 +6,7 @@ LayoutPrimary.index(color)
     .so-grid
 
       section(class="hidden md:block col-span-4 md:col-span-2")
-        MenuFilter(:filter="filter")
+        MenuFilter(:filter="filter" @filterHandler="filterHandler")
 
       section.flex.flex-col.gap-y-8(class="col-span-4 md:col-span-6 lg:col-span-10")
 
@@ -24,8 +24,11 @@ LayoutPrimary.index(color)
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, reactive, Ref, ref, useRoute, watchEffect } from '@nuxtjs/composition-api';
-import PRODUCTS from '@/data/products';
+import { defineComponent, onMounted, Ref, ref, useRoute, watchEffect } from '@nuxtjs/composition-api';
+// import PRODUCTS from '@/data/products';
+import { getMockProducts } from '@/api/index'
+
+import { Product } from '@/type/product'
 import { Filter, DEFAULT_FILTER } from '@/type/filter'
 import { Pagination, DEFAULT_PAGINATION } from '@/type/pagination'
 
@@ -33,7 +36,7 @@ const index = defineComponent({
   setup() {
     const route = useRoute();
 
-    const products: Ref<any> = ref([]);
+    const products: Ref<Array<Product>> = ref([]);
     const filter: Ref<Filter> = ref(DEFAULT_FILTER);
     const pagination: Ref<Pagination> = ref(DEFAULT_PAGINATION);
 
@@ -41,15 +44,29 @@ const index = defineComponent({
 
     const showFilterMenu = ref(false);
 
-    onMounted(() => {
-      products.value = PRODUCTS.products;
-      filter.value = PRODUCTS.filter;
-      pagination.value = PRODUCTS.pagination;
+    onMounted(async () => {
+      // STATIC MOCK PRODUCTS
+      // products.value = PRODUCTS.products;
+      // filter.value = PRODUCTS.filter;
+      // pagination.value = PRODUCTS.pagination;
+
+      // API MOCK PRODUCTS
+      if (process.browser) {
+        const _products = await getMockProducts();
+        // console.log(_products);
+        products.value = _products.products;
+        filter.value = _products.filter;
+        pagination.value = _products.pagination;
+      }
     })
 
     watchEffect(() => {
       keyword.value = route.value.query.search || '';
     })
+
+    const filterHandler = (filter: any) => {
+      console.log(filter);
+    };
 
     return {
       products,
@@ -59,6 +76,8 @@ const index = defineComponent({
       showFilterMenu,
 
       keyword,
+
+      filterHandler,
     }
   },
 });

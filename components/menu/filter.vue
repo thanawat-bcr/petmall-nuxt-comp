@@ -3,7 +3,7 @@ aside.filter.w-full.h-full.flex.flex-col.gap-y-6
 
   SoForm(@submit="submit")
     .flex.flex-col.gap-y-6
-      section.flex.flex-col.gap-y-2(v-if="filter.animals")
+      section.flex.flex-col.gap-y-2(v-if="filter.animals.length > 0")
         h6.text-h6.text-gray-500 ประเภทสัตว์
         .flex.flex-col.gap-y-2
           SoCheckbox(
@@ -13,7 +13,7 @@ aside.filter.w-full.h-full.flex.flex-col.gap-y-6
             @input="submit"
           ) {{ op.value }}
 
-      section.flex.flex-col.gap-y-2(v-if="filter.categories")
+      section.flex.flex-col.gap-y-2(v-if="filter.categories.length > 0")
         h6.text-h6.text-gray-500 หมวดหมู่ที่เกี่ยวข้อง
         .flex.flex-col.gap-y-2
           SoCheckbox(
@@ -155,9 +155,27 @@ const filter = defineComponent({
 
         sort.createdAt ? '&createdAt=' + sort.createdAt : '',
         sort.price ? '&price=' + sort.price : '',
-      ].join('').replace('&', '?');
+      ]
 
-      history.pushState({}, '', filter || route.value.path);
+      const query = filter.join('').replace('&', '?');
+      const body = {
+        sort: {
+          price: sort.price || null,
+          createdAt: sort.createdAt || null,
+        },
+        filter: {
+          brand: null,
+          search: search.value,
+          animals: filtered.value.animals,
+          categories: filtered.value.categories,
+          price: { from: Number(price.from) || null, to: Number(price.to) || null },
+          review: Number(score.value) || 0,
+        }
+      };
+
+      history.pushState({}, '', query || route.value.path);
+
+      ctx.emit('filterHandler', body);
     }
 
     const clearFilter = () => {
@@ -169,6 +187,23 @@ const filter = defineComponent({
       score.value = 0;
       sort.createdAt = '';
       sort.price = '';
+
+      const body = {
+        sort: {
+          price: null,
+          createdAt: null,
+        },
+        filter: {
+          brand: null,
+          search: search.value ,
+          animals: [],
+          categories: [],
+          price: { from: null, to: null },
+          review: 0,
+        }
+      };
+
+      ctx.emit('filterHandler', body);
     }
 
     return {
