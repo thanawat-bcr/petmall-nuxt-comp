@@ -27,7 +27,7 @@ header.fixed.top-0.left-0.right-0.z-40
         //- AUTH
         .col-span-2.flex.gap-x-2.items-center(v-if="AUTH" :class="navbarColor.text")
           span.relative.cursor-pointer.w-10.flex.items-center(@click="$router.push('/cart')")
-            .text-xs.font-bold.absolute.text-white.bg-orange-900.px-2.rounded-lg.left-4(v-if="cartCount > 0" class="-top-1") {{ cartCount }}
+            .text-xs.font-bold.absolute.text-white.bg-orange-900.px-2.rounded-lg.left-4(v-if="USER.cart > 0" class="-top-1") {{ USER.cart }}
             i.ph-shopping-cart-simple.text-2xl
           span.relative.flex-1
             .fixed.inset-0.z-40(v-if="showNavDesktopMenu" @click="showNavDesktopMenu = false")
@@ -77,7 +77,7 @@ header.fixed.top-0.left-0.right-0.z-40
             ) {{ item }}
         
         span.relative.pt-1(@click="$router.push('/cart')" v-if="AUTH")
-          .text-xxs.absolute.text-white.bg-orange-900.px-2.rounded-lg(v-if="cartCount > 0" style="top: -4px; right: -12px;") {{ cartCount }}
+          .text-xxs.absolute.text-white.bg-orange-900.px-2.rounded-lg(v-if="USER.cart > 0" style="top: -4px; right: -12px;") {{ USER.cart }}
           i.ph-shopping-cart-simple.text-xl.text-gray-400
         i(@click="showProfileMenu = true").ph-user-circle.text-xl.text-gray-400
 
@@ -107,8 +107,6 @@ const PrimaryNav = defineComponent({
     const router = useRouter();
     const route = useRoute();
     const store = useStore();
-
-    const cartCount = ref(2);
 
     const search: any = ref('');
     const searchSuggestion: any = ref([]);
@@ -169,7 +167,6 @@ const PrimaryNav = defineComponent({
     }
 
     return {
-      cartCount,
       search,
       searchSuggestion,
       searchHandler,
