@@ -13,7 +13,7 @@ LayoutPrimary.index(color)
         .flex.items-center.justify-between.gap-x-4.w-full
           h4.text-gray-500 ผลการค้นหา: {{ keyword }}
           i.ph-funnel.text-xl.text-gray-500(class="block md:hidden" @click="showFilterMenu = true")
-          nav.fixed.inset-0.bg-white.z-50.py-3.px-4.flex.flex-col(v-if="showFilterMenu")
+          nav.fixed.inset-0.bg-white.z-50.py-3.px-4.flex.flex-col(v-show="showFilterMenu")
             .bg-white.w-full.flex.items-center.justify-end
               i.ph-x.text-xl.text-gray-500.p-2(@click="showFilterMenu = false")
             .flex-1.overflow-y-scroll
