@@ -17,18 +17,25 @@ LayoutPrimary.index(color)
             .bg-white.w-full.flex.items-center.justify-end
               i.ph-x.text-xl.text-gray-500.p-2(@click="showFilterMenu = false")
             .flex-1.overflow-y-scroll
-              MenuFilter(:filter="filter")
+              MenuFilter(:filter="filter" @filterHandler="filterHandler")
+        //- EMPTY STATE
+        section(v-if="products.length === 0")
+          SoState(
+            img="/empty/product-list.png"
+            title="ไม่พบผลการค้นหา!"
+            subtitle="ลองใช้คำอื่นที่แตกต่างหรือคำอื่นที่มีความหมายกว้างกว่านี้"
+          )
         //- ITEMS GRID
-        .grid-container(class="grid-cols-4 md:grid-cols-6 lg:grid-cols-10")
-          ProductItem.col-span-2(v-for="product in products" :item="product")
-          
-        .grid-container(class="grid-cols-4 md:grid-cols-6 lg:grid-cols-10")
-          SoButton.col-span-4(class="md:col-start-2 lg:col-start-4" @click="loadMoreHandler" v-if="pagination.currentPage < pagination.totalPage") แสดงเพิ่มเติม
+        section(v-else)
+          .grid-container(class="grid-cols-4 md:grid-cols-6 lg:grid-cols-10")
+            ProductItem.col-span-2(v-for="product in products" :item="product")
+            
+          .grid-container(class="grid-cols-4 md:grid-cols-6 lg:grid-cols-10")
+            SoButton.col-span-4(class="md:col-start-2 lg:col-start-4" @click="loadMoreHandler" v-if="pagination.currentPage < pagination.totalPage") แสดงเพิ่มเติม
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, Ref, ref, useRoute, watchEffect } from '@nuxtjs/composition-api';
-// import PRODUCTS from '@/data/products';
+import { defineComponent, Ref, ref, useRoute, watchEffect } from '@nuxtjs/composition-api';
 import { getProducts } from '@/api/index'
 
 import { Product } from '@/type/product'
@@ -43,29 +50,20 @@ const index = defineComponent({
     const filter: Ref<Filter> = ref(DEFAULT_FILTER);
     const pagination: Ref<Pagination> = ref(DEFAULT_PAGINATION);
 
+    const body: Ref<any> = ref(null);
+
     const keyword: any = ref('');
 
     const showFilterMenu = ref(false);
 
-    onMounted(async () => {
-      // STATIC MOCK PRODUCTS
-      // products.value = PRODUCTS.products;
-      // filter.value = PRODUCTS.filter;
-      // pagination.value = PRODUCTS.pagination;
-
-      // API MOCK PRODUCTS
-      if (process.browser) {
-        await fetchProducts();
-      }
-    });
-
     const fetchProducts = async () => {
-      const _products = await getProducts({ search: keyword.value }, {
+      const { filter, sort } = body.value;
+      const _products = await getProducts(filter, sort, {
         page: pagination.value.currentPage,
         perPage: pagination.value.perPage,
       });
 
-      console.log(_products);
+      console.log('fetchProducts', _products);
       products.value = _products.products;
       filter.value = _products.filter;
       pagination.value = _products.pagination;
@@ -73,24 +71,27 @@ const index = defineComponent({
 
     const loadMoreHandler = async () => {
       if (pagination.value.currentPage < pagination.value.totalPage) pagination.value.currentPage += 1;
-
-      const _products = await getProducts({ search: keyword.value }, {
+      
+      const { filter, sort } = body.value;
+      const _products = await getProducts(filter, sort, {
         page: pagination.value.currentPage,
         perPage: pagination.value.perPage,
       });
-      console.log(_products);
+
+      console.log('loadMoreProducts', _products);
       products.value.push(..._products.products);
       filter.value = _products.filter;
       pagination.value = _products.pagination;
-
     }
 
     watchEffect(() => {
       keyword.value = route.value.query.search || '';
     })
 
-    const filterHandler = (filter: any) => {
-      console.log(filter);
+    const filterHandler = async (payload: any) => {
+      body.value = payload;
+      pagination.value = DEFAULT_PAGINATION;
+      await fetchProducts();
     };
 
     return {

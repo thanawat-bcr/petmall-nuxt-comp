@@ -1,9 +1,10 @@
 export default function product(axios: any) {
 
-  async function getProducts(filter: any = {}, paginate: any) {
+  async function getProducts(filter: any = {}, sort: any = {}, paginate: any) {
     try {
       const body = {
-        ...filter,
+        filter,
+        sort,
         lang: "en_us",
         pagination: paginate,
       }

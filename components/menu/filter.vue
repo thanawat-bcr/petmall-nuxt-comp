@@ -83,7 +83,7 @@ aside.filter.w-full.h-full.flex.flex-col.gap-y-6
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, reactive, ref, useRoute, useRouter, watchEffect } from '@nuxtjs/composition-api';
+import { computed, defineComponent, onMounted, reactive, ref, useRoute, useRouter, watchEffect } from '@nuxtjs/composition-api';
 import { Filter, DEFAULT_FILTER } from '@/type/filter'
 
 const filter = defineComponent({
@@ -143,6 +143,8 @@ const filter = defineComponent({
       sort.price = sortPrice
     });
 
+    onMounted(() => submit())
+
     const submit = () => {
       const filter = [
         filtered.value.animals.length > 0 ? '&animals=' + filtered.value.animals : '',
@@ -160,15 +162,16 @@ const filter = defineComponent({
       const query = filter.join('').replace('&', '?');
       const body = {
         sort: {
-          price: sort.price || null,
-          createdAt: sort.createdAt || null,
+          price: sort.price || undefined,
+          createdAt: sort.createdAt || undefined,
         },
         filter: {
-          brand: null,
+          brand: undefined,
           search: search.value,
           animals: filtered.value.animals,
           categories: filtered.value.categories,
-          price: { from: Number(price.from) || null, to: Number(price.to) || null },
+          // price: { from: Number(price.from) || undefined, to: Number(price.to) || undefined },
+          price: { from: Number(price.from) || 0, to: Number(price.to) || 99999 },
           review: Number(score.value) || 0,
         }
       };
@@ -190,15 +193,15 @@ const filter = defineComponent({
 
       const body = {
         sort: {
-          price: null,
-          createdAt: null,
+          price: undefined,
+          createdAt: undefined,
         },
         filter: {
-          brand: null,
+          brand: undefined,
           search: search.value ,
           animals: [],
           categories: [],
-          price: { from: null, to: null },
+          price: undefined,
           review: 0,
         }
       };
