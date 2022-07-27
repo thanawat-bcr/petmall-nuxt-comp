@@ -1,8 +1,13 @@
 export default function product(axios: any) {
 
-  async function getMockProducts() {
+  async function getProducts(filter: any = {}, paginate: any) {
     try {
-      const res = await axios.get('/product/products/en_us');
+      const body = {
+        ...filter,
+        lang: "en_us",
+        pagination: paginate,
+      }
+      const res = await axios.post('/product/products', body);
       if (res?.status === 200) return res.data;
     } catch (e) {
       console.error('[api/product] getProducts', e);
@@ -12,6 +17,6 @@ export default function product(axios: any) {
   };
 
   return {
-    getMockProducts,
+    getProducts,
   }
 }

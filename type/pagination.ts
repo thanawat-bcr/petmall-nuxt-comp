@@ -1,6 +1,6 @@
 export const DEFAULT_PAGINATION = {
   currentPage: 1,
-  perPage: 10,
+  perPage: 20,
   totalPage: 1,
 };
 

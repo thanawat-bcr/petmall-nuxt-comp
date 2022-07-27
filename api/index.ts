@@ -22,5 +22,5 @@ export const {
 } = address(axios);
 
 export const {
-  getMockProducts,
+  getProducts,
 } = product(axios);
