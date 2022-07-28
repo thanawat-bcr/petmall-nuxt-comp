@@ -170,8 +170,7 @@ const filter = defineComponent({
           search: search.value,
           animals: filtered.value.animals,
           categories: filtered.value.categories,
-          // price: { from: Number(price.from) || undefined, to: Number(price.to) || undefined },
-          price: { from: Number(price.from) || 0, to: Number(price.to) || 99999 },
+          price: { from: Number(price.from) || undefined, to: Number(price.to) || undefined },
           review: Number(score.value) || 0,
         }
       };
