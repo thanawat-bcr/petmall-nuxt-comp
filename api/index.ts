@@ -23,4 +23,5 @@ export const {
 
 export const {
   getProducts,
+  getProduct,
 } = product(axios);

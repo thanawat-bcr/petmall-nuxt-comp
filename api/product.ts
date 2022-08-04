@@ -17,7 +17,22 @@ export default function product(axios: any) {
     return null;
   };
 
+  async function getProduct(id: string) {
+    try {
+      const body = {
+        lang: "en_us",
+      }
+      const res = await axios.post(`/product/${id}`, body);
+      if (res?.status === 200) return res.data;
+    } catch (e) {
+      console.error('[api/product] getProductByID', e);
+      throw e;
+    }
+    return null;
+  };
+
   return {
     getProducts,
+    getProduct,
   }
 }

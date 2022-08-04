@@ -26,7 +26,7 @@ LayoutPrimary.index(color)
             subtitle="ลองใช้คำอื่นที่แตกต่างหรือคำอื่นที่มีความหมายกว้างกว่านี้"
           )
         //- ITEMS GRID
-        section(v-else)
+        section.flex.flex-col.gap-y-6(v-else)
           .grid-container(class="grid-cols-4 md:grid-cols-6 lg:grid-cols-10")
             ProductItem.col-span-2(v-for="product in products" :item="product")
             
